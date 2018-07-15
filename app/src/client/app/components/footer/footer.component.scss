@@ -1,0 +1,43 @@
+footer {
+    background-color: darkgray;
+}
+
+.info {
+    padding: 15px 30px;
+}
+
+.authors {
+    background-color: #313335;
+    color: white;
+    padding: 15px 30px;
+}
+
+.center {
+    text-align: center;
+}
+
+.donate {
+    margin-top: 10px;
+    width: max-content;
+    &:hover {
+        background-color: brown;
+        color: white;
+    }
+}
+
+.developers {
+    text-align: right;
+}
+
+@media (max-width: 576px) {
+    .developers {
+        text-align: center;
+    }
+    .copyright {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .info .col-sm-4 {
+        padding: 10px 0;
+    }
+}

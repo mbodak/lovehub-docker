@@ -1,0 +1,84 @@
+<main class="main">
+  <header class="header">
+    <div
+      class="icon-container"
+      [ngClass]="{'icon-container-active': editMode}"
+      (click)="toggleEditMode(); false">
+      <i
+        class="fas fa-edit icon"
+        [ngClass]="{'icon-active': editMode}">
+      </i>
+    </div>
+
+    <span class="header-heading">Interests</span>
+  </header>
+
+  <section class="interests-section">
+    <form class="new-interest-form" #addInterestForm="ngForm">
+      <div
+        class="new-interest-section form-group"
+        [ngClass]="{'hidden': !editMode}">
+        <input
+          class="input new-interest form-control"
+          type="text"
+          name="New interest"
+          placeholder="Add new interest"
+          #interest="ngModel"
+          [(ngModel)]="typedInterest"
+          (focus)="onInputFocus()"
+          (blur)="onInputBlur()">
+
+        <button
+          class="button submit-button text"
+          title="Add interest"
+          (click)="addInterest(); false">
+          Add
+        </button>
+
+        <div
+          class="hints"
+          [ngClass]="{'hidden': !inputFieldFocus}">
+          <div
+            class="hints_option"
+            *ngFor="let hint of hintsToShowList"
+            (click)="addInterestFromHint(hint)">
+            <span class="hints_option-description">
+              {{ hint }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="interest-list">
+      <div
+        class="interest"
+        [ngClass]="{
+        'interest-hidden': unsavedDeletedInterests.includes(interest),
+        'interest-active': editMode}"
+        *ngFor="let interest of interests.concat(unsavedAddedInterests)">
+        <span class="interest_description text">
+          {{ interest }}
+        </span>
+
+        <button
+          class="button delete-interest-button"
+          [ngClass]="{'hidden': !editMode}"
+          (click)="deleteInterest(interest)">
+          <i class="fas fa-times delete-icon"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer
+    class="footer"
+    [ngClass]="{'hidden': !editMode}">
+    <button
+      class="button submit-button text"
+      title="Save changes"
+      (click)="saveChanges(); false">
+      Save
+    </button>
+  </footer>
+</main>

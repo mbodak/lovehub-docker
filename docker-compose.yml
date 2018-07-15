@@ -1,0 +1,43 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_USER: love
+      POSTGRES_DB: lovehub_db
+    networks:
+      - webnet
+  mongodb:
+    image: mongo
+    networks:
+      - webnet
+  server:
+    image: app
+    build: ./app
+    depends_on:
+      - db
+    environment:
+      PG_HOST: db
+      PG_DB: lovehub_db
+      PG_USER: lover
+      PG_PASS: 12345678
+      MONGO_HOST: mongodb
+      MONGO_DB: lovehub
+    command:
+      ["npm", "run", "docker:start"]
+    ports:
+      - "2043:80"
+    volumes:
+      - ./server:/usr/src/app
+    networks:
+      - webnet
+networks:
+  webnet:
+
+# sudo docker exec -it chillio_db psql --u leo chilleo_db_dev #db
+
+# sudo docker kill $(sudo docker ps -q)                                       # stop all containers
+# sudo docker rm $(sudo docker ps -a -q)                                      # remove all containers
+# sudo docker rmi $(sudo docker images -q)                                    # remove all docker images
+# sudo docker volume ls -qf dangling=true | xargs -r sudo docker volume rm    # remove all docker volumes

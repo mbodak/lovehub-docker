@@ -1,0 +1,183 @@
+<main class="main"
+      [ngClass]="{'section-hidden': !mainSectionIsVisible}">
+  <div class="logo-container">
+    <img class="logo-img" src="../../../../../assets/img/logo3.png" alt="logo">
+
+    <p class="logo">
+      LoveHub
+    </p>
+  </div>
+
+  <div class="admin-badge">
+    <div class="photo-container">
+      <!--
+      <img src="" alt="User Photo" class="user-photo">      TODO: add binding to usersList => administrator here and remove svg icon
+      -->
+      <i class="fas fa-user"></i>
+    </div>
+
+    <div>
+      <h4>Welcome,</h4>
+
+      <h5 class="white-text">
+        {{ currentUser.firstName + ' ' + currentUser.lastName }}
+      </h5>
+    </div>
+  </div>
+
+  <div class="user-status">
+    <p class="text white-text">
+      {{ currentUser.role }}
+    </p>
+  </div>
+
+  <nav class="admin-navbar">
+    <div class="admin-navbar_section">
+      <div class="admin-navbar_section-header"
+           [ngClass]="{'admin-navbar_section-selected': dropdownLists.homeDropdownList}"
+           (click)="adminNavbarHandler('homeDropdownList')">
+        <div class="admin-navbar_section-description">
+          <div class="icon-wrapper">
+            <div class="icon-container">
+              <i class="fas fa-home icon"></i>
+            </div>
+          </div>
+
+          <div>
+            <p class="text white-text">
+              Home
+            </p>
+          </div>
+        </div>
+
+        <div class="open-list-arrow-container">
+          <span class="open-list-arrow"></span>
+          <span class="open-list-arrow"></span>
+        </div>
+      </div>
+
+      <div class="admin-navbar_dropdown-list"
+           [ngClass]="{'hidden': !dropdownLists.homeDropdownList}">
+        <a class="link" routerLink="/admin">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Dashboard
+            </p>
+          </div>
+        </a>
+
+        <a class="link">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Notifications
+            </p>
+          </div>
+        </a>
+
+        <a class="link">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Send E-mail
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="admin-navbar_section">
+      <div class="admin-navbar_section-header"
+           [ngClass]="{'admin-navbar_section-selected': dropdownLists.usersDropdownList}"
+           (click)="adminNavbarHandler('usersDropdownList')">
+        <div class="admin-navbar_section-description">
+          <div class="icon-wrapper">
+            <div class="icon-container">
+              <i class="fas fa-users icon"></i>
+            </div>
+          </div>
+
+          <div>
+            <p class="text white-text">
+              Users
+            </p>
+          </div>
+        </div>
+
+        <div class="open-list-arrow-container">
+          <span class="open-list-arrow"></span>
+          <span class="open-list-arrow"></span>
+        </div>
+      </div>
+
+      <div class="admin-navbar_dropdown-list"
+           [ngClass]="{'hidden': !dropdownLists.usersDropdownList}">
+        <a class="link" routerLink="/admin/users-management">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Users Management
+            </p>
+          </div>
+        </a>
+
+        <a class="link">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Create New Moderator
+            </p>
+          </div>
+        </a>
+
+        <a class="link">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Last Users Activities
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="admin-navbar_section">
+      <div class="admin-navbar_section-header"
+           [ngClass]="{'admin-navbar_section-selected': dropdownLists.analyticsDropdownList}"
+           (click)="adminNavbarHandler('analyticsDropdownList')">
+        <div class="admin-navbar_section-description">
+          <div class="icon-wrapper">
+            <div class="icon-container">
+              <i class="far fa-chart-bar icon"></i>
+            </div>
+          </div>
+
+          <div>
+            <p class="text white-text">
+              Analytics
+            </p>
+          </div>
+        </div>
+
+        <div class="open-list-arrow-container">
+          <span class="open-list-arrow"></span>
+          <span class="open-list-arrow"></span>
+        </div>
+      </div>
+
+      <div class="admin-navbar_dropdown-list"
+           [ngClass]="{'hidden': !dropdownLists.analyticsDropdownList}">
+        <a class="link">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Charts
+            </p>
+          </div>
+        </a>
+
+        <a class="link">
+          <div class="admin-navbar_option">
+            <p class="admin-navbar_option-description text white-text">
+              Tables
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </nav>
+</main>

@@ -1,0 +1,17 @@
+<div class="mutual-likes">
+  <div class="container d-flex
+              flex-wrap
+              flex-column flex-md-row
+              justify-content-center justify-content-md-between
+              align-items-start">
+    <div class="p-2 mr-auto user-img" *ngFor="let photo of photos">
+      <img class="" [src]="photo.base64" alt="Image">
+      <div class="hidden-block">
+        <i class="material-icons heart" title="unlike">thumb_down</i>
+        <i class="material-icons chat" title="go to chat">mode_comment</i>
+      </div>
+      <div class="user-cred"><strong>firstName lastName, age</strong></div>
+    </div>
+  </div>
+</div>
+

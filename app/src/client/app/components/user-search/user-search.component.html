@@ -1,0 +1,58 @@
+<section class="search-page">
+  <section class="filter__container">
+
+    <div class="filter__component">
+      <app-user-filter
+        [label]="searchFilter.label" [type]="searchFilter.type" [name]="searchFilter.name"
+        [value]="searchFilter.value" [placeholder]="searchFilter.placeholder" (onSearch)="search($event)">
+      </app-user-filter>
+    </div>
+
+    <div class="filter__component">
+      <app-user-filter
+        [label]="ageFilter.label" [type]="ageFilter.type" [name]="ageFilter.name"
+        [placeholder]="ageFilter.placeholder" [value]="ageFilter.value" (onSearch)="search($event)">
+      </app-user-filter>
+      <span class="value">{{ !term ? ageFilter.value :
+          ((term.searchName == 'age') ? term.searchValue : ageFilter.value) }}
+        </span>
+    </div>
+
+    <div class="filter__component">
+      <app-user-filter
+        [label]="sexMFilter.label" [type]="sexMFilter.type" [name]="sexMFilter.name"
+        [placeholder]="sexMFilter.placeholder" [value]="sexMFilter.value" (onSearch)="search($event)">
+      </app-user-filter>
+
+      <app-user-filter
+        [label]="sexFFilter.label" [type]="sexFFilter.type" [name]="sexFFilter.name"
+        [placeholder]="sexFFilter.placeholder" [value]="sexFFilter.value" (onSearch)="search($event)">
+      </app-user-filter>
+    </div>
+
+  </section>
+
+  <article>
+    <section class="user__gallery">
+      <div class="user__container" *ngFor="let user of users">
+        <figure class="user__img"><img src="https://images.pexels.com/photos/207962/pexels-photo-207962.jpeg?h=350&auto=compress&cs=tinysrgb"
+                                       alt="User_Photo">
+        </figure>
+        <div class="user__description">
+          <div class="date">
+            <span>{{ user.age }}</span>
+          </div>
+          <a class="button" routerLink="/user-profile">{{ user.firstName }} {{ user.lastName }}</a>
+        </div>
+      </div>
+    </section>
+    <section class="pager">
+      <app-pager
+        [itemsPerPage]="itemsPerPage"
+        [countItems]="countItems"
+        [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)">
+      </app-pager>
+    </section>
+  </article>
+</section>

@@ -1,0 +1,354 @@
+/* Interests component styles */
+
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/all.css');
+
+@mixin apply-flex($justify-content, $align-items, $align-content) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin remove-default-element-display {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin forbidTextSelection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+$color_1: #193952;
+
+$color_2: #bf71ce;
+
+$color_3: #fff;
+
+$color_4: #343a40;
+
+$color_5: #a9a9a9;
+
+$color_6: #282828;
+
+$color_7: #ccc;
+
+$color_8: #e6e6e6;
+
+$color_9: #adadad;
+
+$color_10: #ef233c;
+
+$color_11: #ccc9c9;
+
+$color_12: #f1f1f1;
+
+$color_13: #555b6e;
+
+$color_14: #2e2e2e;
+
+$box-shadow_1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+$box-shadow_2: 1px 3px 3px 1px rgba(0, 0, 0, 0.2), 1px 2px 6px 1px rgba(0, 0, 0, 0.2), 1px 4px 2px -3px rgba(0, 0, 0, 0.25);
+
+$box-shadow_3: 0 0 5px $color_6;
+
+$box-shadow_4: 0 0 5px 1px $color_10;
+
+$box-shadow_5: 0 0 10px $color_13;
+
+$box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
+
+.main {
+  background-color: $color_12;
+  border-radius: 4px;
+  border: 1px solid $color_11;
+  box-shadow: $box-shadow_1;
+  margin: 30px;
+  max-width: 400px;
+  width: 100%;
+}
+
+@media screen and (max-width: 640px) {
+  width: 100%;
+}
+
+.text {
+  font: 1.0rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.button {
+  @include forbidTextSelection;
+  @include remove-default-element-display;
+}
+
+.header {
+  @include apply-flex(space-between, center, center);
+  margin: 10px 15px;
+}
+
+.icon-container {
+  @include apply-flex(center, center, center);
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  &:hover {
+    cursor: pointer;
+    & .icon {
+      color: $color_4;
+    }
+  }
+  &:active {
+    border-color: $color_6;
+    box-shadow: $box-shadow_3;
+    & .icon {
+      color: $color_6;
+    }
+  }
+}
+
+.icon-container-active {
+  border-color: $color_6;
+}
+
+.icon {
+  color: $color_13;
+  display: block;
+  &:hover {
+    color: $color_4;
+    cursor: pointer;
+  }
+  &:active {
+    color: $color_6;
+  }
+}
+
+.icon-active {
+  color: $color_6;
+}
+
+.header-heading {
+  color: $color_13;
+  font: 1.3rem 'Alegreya', serif;
+}
+
+.interests-section {
+  margin: 10px;
+}
+
+.new-interest-section {
+  @include apply-flex(flex-start, center, center);
+  height: 50px;
+  margin: 5px;
+  max-height: 50px;
+  min-height: 50px;
+  position: relative;
+  transition: min-height ease-in-out 0.2s, max-height ease-in-out 0.2s;
+  border-bottom: 1px solid $color_5;
+  border-top: 1px solid $color_5;
+}
+
+.input {
+  background-color: $color_3;
+  border-radius: 5px;
+  border: 1px solid $color_11;
+  color: $color_14;
+  font-size: 1.1rem;
+  height: 30px;
+  padding: 0 0 0 8px;
+  text-align: left;
+  width: 200px;
+}
+
+.input:invalid {
+  background-color: $color_2;
+  box-shadow: $box-shadow_4;
+}
+
+.input::placeholder {
+  color: $color_13;
+  font: 1.1rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.input:focus {
+  border-color: $color_13;
+  box-shadow: $box-shadow_5;
+}
+
+.submit-button {
+  background-color: $color_3;
+  border-radius: 5px;
+  border: 1px solid $color_7;
+  color: $color_6;
+  font-size: 1.2rem;
+  height: 30px;
+  margin: 10px;
+  min-width: 70px;
+  text-align: center;
+  transition: 0.05s ease-in-out;
+  vertical-align: middle;
+  &:hover {
+    background-color: $color_8;
+    border-color: $color_9;
+    cursor: pointer;
+  }
+  &:active {
+    background-color: $color_8;
+    border-color: $color_9;
+    box-shadow: $box-shadow_6;
+    padding: 0;
+  }
+}
+
+.hints {
+  background-color: $color_8;
+  border-radius: 2px;
+  border: 1px solid $color_11;
+  left: 0;
+  max-width: 100%;
+  min-width: 200px;
+  overflow: hidden;
+  position: absolute;
+  top: calc(100% + 5px);
+  z-index: 100;
+}
+
+.hints_option {
+  @include apply-flex(space-between, center, center);
+  color: $color_13;
+  font: 1.1rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  height: 30px;
+  margin: 3px;
+}
+
+.hints_option:hover {
+  background-color: $color_11;
+  color: $color_6;
+  cursor: pointer;
+}
+
+.hints_option {
+  @include apply-flex(flex-start, center, center);
+  margin: 0 5px;
+}
+
+.hints_option-description {
+  display: block;
+  margin: 0 10px;
+}
+
+.interest-list {
+  @include apply-flex(space-between, center, center);
+}
+
+.interest {
+  @include apply-flex(center, center, center);
+  background-color: $color_3;
+  border-radius: 2px;
+  margin: 5px;
+  min-height: 25px;
+  position: relative;
+  &:hover {
+    box-shadow: $box-shadow_2;
+    cursor: pointer;
+  }
+}
+
+.interest-active {
+  border: 1px solid $color_11;
+  box-shadow: $box-shadow_1;
+}
+
+.interest_description {
+  color: $color_6;
+  margin: 5px 15px 5px 5px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.delete-interest-button {
+  @include apply-flex(center, center, center);
+  background-color: $color_8;
+  border-radius: 50%;
+  border: 1px solid $color_7;
+  color: $color_4;
+  font-size: 0.45rem;
+  height: 10px;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 1px;
+  text-align: center;
+  top: 1px;
+  transition: 0.05s ease-in-out;
+  vertical-align: middle;
+  width: 10px;
+  &:hover {
+    background-color: $color_9;
+    box-shadow: $box-shadow_1;
+    color: $color_6;
+    cursor: pointer;
+  }
+  &:active {
+    background-color: $color_9;
+    border-color: $color_5;
+    box-shadow: $box-shadow_1;
+    color: $color_6;
+    padding: 0;
+  }
+}
+
+.interest:hover .delete-interest-button,
+.interest_description:hover + .delete-interest-button {
+  opacity: 1;
+}
+
+.delete-icon {
+  display: block;
+}
+
+.footer {
+  @include apply-flex(flex-end, center, center);
+  height: 30px;
+  margin: 15px 5px 15px 0;
+  max-height: 30px;
+  min-height: 30px;
+  transition: min-height ease-in-out 0.2s, max-height ease-in-out 0.2s;
+}
+
+.hidden {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  color: transparent;
+  height: 0;
+  margin: 0;
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.interest-hidden {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  color: transparent;
+  height: 0;
+  margin: 0;
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: absolute;
+}

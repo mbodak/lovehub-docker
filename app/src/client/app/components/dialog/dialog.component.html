@@ -1,0 +1,37 @@
+<div
+  class="d-flex flex-column h-100"
+  [ngClass]="!messages || !messages.length?'justify-content-between':'justify-content-end'"
+  >
+  <div *ngIf="!messages || !messages.length" class="d-flex justify-content-center">
+    <span class="default">
+      {{!messages
+        ? 'Choose user to start messaging'
+        : 'Type something to start messaging'}}
+    </span>
+  </div>
+  <div *ngIf="!!messages" class="message-list scrollbar">
+      <div 
+        *ngFor="let mess of messages" 
+        class="d-flex"
+        [ngClass]="mess.userId === userId?'justify-content-end':'justify-content-start'"
+      >
+        <span
+          class="message"
+          [ngClass]="mess.userId === userId?'right':'left'"
+          [innerHTML]="mess.text | multiline"
+        ></span>
+      </div>
+  </div>
+  <div *ngIf="!!messages">
+      <div class="input-group input-container">
+        <textarea
+          class="textarea"
+          rows="3"
+          placeholder="Type your message here..."
+          [(ngModel)]="text"
+          (keydown.enter)="sendMes()"
+        ></textarea>
+        <input type="button" value="Send" class="send" (click)="sendMes()" />
+      </div>
+  </div>
+</div>

@@ -1,0 +1,367 @@
+<main class="main">
+  <app-administrator-navbar class="admin-navbar">
+  </app-administrator-navbar>
+
+  <app-administrator-header
+    class="header"
+    [ngClass]="{'header-full-screen': !mainSectionIsVisible}">
+  </app-administrator-header>
+
+  <section
+    class="main-section"
+    [ngClass]="{
+      'main-section-full-screen': !mainSectionIsVisible,
+      'full-screen': !mainSectionIsVisible}">
+    <div class="main-section-content" [ngClass]="{'full-screen': !mainSectionIsVisible}">
+      <div class="users-management">
+        <div class="users-management_apply-action">
+          <h5 class="heading">Apply action on selected users</h5>
+
+          <div class="users-management_actions">
+            <form class="form actions-form" #actionsForm="ngForm">
+              <div class="select-wrapper form-group">
+                <select
+                  class="select text form-control"
+                  name="actions"
+                  title="Choose an action"
+                  #action="ngModel"
+                  [(ngModel)]="updateUsersOptions.appliedAction">
+                  <option value="ban">
+                    Ban
+                  </option>
+
+                  <option value="delete">
+                    Delete
+                  </option>
+
+                  <option value="restore">
+                    Restore
+                  </option>
+                </select>
+              </div>
+
+              <button
+                class="button text"
+                [ngClass]="{'button-disabled': updateUsersOptions.usersList.length === 0}"
+                title="Apply an operation"
+                [attr.disabled]="(updateUsersOptions.usersList.length === 0) ? '' : null"
+                (click)="updateUsers(); resetSelectedUsersList(); false">
+                Apply
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="users-management_apply-filter">
+          <h5 class="heading">Filter users</h5>
+
+          <div class="users-management_filters">
+            <form class="form filters-form" #filtersForm="ngForm">
+              <label class="label text" for="role">
+                User role
+              </label>
+
+              <div class="select-wrapper form-group">
+                <select
+                  id="role"
+                  class="select text form-control"
+                  name="role"
+                  title="Select users by role"
+                  #role="ngModel"
+                  [(ngModel)]="getUsersOptions.userRole"
+                  (change)="getUsers(); resetSortingOptions(); resetNextPage()">
+                  <option value="any">
+                    All users
+                  </option>
+
+                  <option value="Moderator">
+                    Moderators
+                  </option>
+
+                  <option value="User">
+                    Users
+                  </option>
+                </select>
+              </div>
+
+              <label class="label text" for="status">
+                User status
+              </label>
+
+              <div class="select-wrapper">
+                <select
+                  id="status"
+                  class="select text form-control"
+                  name="status"
+                  title="Select users by status"
+                  #status="ngModel"
+                  [(ngModel)]="getUsersOptions.userStatus"
+                  (change)="getUsers(); resetSortingOptions(); resetNextPage()">
+                  <option value="any">
+                    All users
+                  </option>
+
+                  <option value="Active">
+                    Active
+                  </option>
+
+                  <option value="Baned">
+                    Banned
+                  </option>
+                </select>
+              </div>
+
+              <label class="label text" for="status">
+                Users per page
+              </label>
+
+              <div class="select-wrapper">
+                <select
+                  id="users-per-page"
+                  class="select select-small text form-control"
+                  name="usersPerPage"
+                  title="Select number of users shown per page"
+                  #usersPerPage="ngModel"
+                  [(ngModel)]="getUsersOptions.usersPerPage"
+                  (change)="getUsers(); resetSortingOptions(); resetNextPage()">
+                  <option value="5">
+                    5
+                  </option>
+
+                  <option value="10">
+                    10
+                  </option>
+
+                  <option value="15">
+                    15
+                  </option>
+
+                  <option value="20">
+                    20
+                  </option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="users-table">
+        <table class="table">
+          <thead>
+            <tr class="table-header">
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">User ID</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('id', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('id', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">First Name</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('firstName', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('firstName', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">Last Name</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('lastName', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('lastName', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">Role</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('role', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('role', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">Status</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('status', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('status', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">Last Active</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('lastActive', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('lastActive', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">Memberships</p>
+
+                  <div class="sort-arrows">
+                    <div
+                      class="arrow-up"
+                      (click)="applySort('membership', 'ascending'); getUsers()">
+                    </div>
+
+                    <div
+                      class="arrow-down"
+                      (click)="applySort('membership', 'descending'); getUsers()">
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th class="table_cell table-header_cell">
+                <div class="table-header_cell-content">
+                  <p class="table-header_cell-description">Select</p>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row" *ngFor="let user of usersList.users">
+              <td class="table_cell">
+                {{ user.id }}
+              </td>
+
+              <td class="table_cell">
+                {{ user.firstName }}
+              </td>
+
+              <td class="table_cell">
+                {{ user.lastName }}
+              </td>
+
+              <td class="table_cell">
+                {{ user.role }}
+              </td>
+
+              <td class="table_cell">
+                {{ user.status }}
+              </td>
+
+              <td class="table_cell">
+                {{ user.lastActiveDate }}
+              </td>
+
+              <td class="table_cell">
+                {{ user.membership }}
+              </td>
+
+              <td class="table_cell table-cell-checkbox">
+                <form class="form select-user-form" #selectUserForm="ngForm">
+                  <input
+                    type="checkbox"
+                    class="form-control"
+                    title="Select user to apply action"
+                    name="selectUser"
+                    ngModel
+                    #selectUser = "ngModel"
+                    [attr.disabled]="(user.role === 'Administrator') ? '' : null"
+                    (click)="pushSelectedUsersList(selectUserForm, user)">
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="users-table-pagination">
+          <div
+            class="pagination-element pagination-previous"
+            (click)="goToPage({pageTitle: 'previous'}); getUsers()">
+            <span class="arrow left-arrow"></span>
+            <span class="arrow left-arrow"></span>
+          </div>
+
+          <div
+            class="pagination-element pagination-page-container"
+            *ngFor="let page of pages">
+            <div
+              class="pagination-page"
+              [ngClass]="{'pagination-current': usersList.currentPage === page.pageTitle}"
+              (click)="goToPage(page); getUsers()">
+              <p class="page">
+                {{ page.pageTitle }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="pagination-element pagination-next"
+            (click)="goToPage({pageTitle: 'next'}); getUsers()">
+            <span class="arrow right-arrow"></span>
+            <span class="arrow right-arrow"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-administrator-footer class="footer">
+  </app-administrator-footer>
+</main>

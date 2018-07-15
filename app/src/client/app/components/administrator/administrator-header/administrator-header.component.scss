@@ -1,0 +1,362 @@
+/* Header section styles */
+
+@mixin apply-flex($justify-content, $align-items, $align-content) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin remove-default-element-display {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin forbidTextSelection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+$color_1: #555b6e;
+
+$color_2: #fff;
+
+$color_3: #000;
+
+$color_4: #193952;
+
+$color_5: #bf71ce;
+
+$color_6: #ef233c;
+
+$color_7: #afbbf7;
+
+$color_8: #d9e8f7;
+
+$color_9: #ccc9c9;
+
+$color_10: #2e2e2e;
+
+$color_11: #20d6cd;
+
+$color_12: #f6f6f6;
+
+$color_13: #e6e6e6;
+
+.main {
+  @include apply-flex(space-between, flex-end, center);
+  background-color: $color_7;
+  border-bottom: 1px solid $color_1;
+  height: 105px;
+  width: 100%;
+  z-index: 90;
+}
+
+.link,
+.link:hover,
+.link:active,
+.link:visited {
+  @include remove-default-element-display;
+  color: $color_3;
+}
+
+.text {
+  font: 1rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 0;
+}
+
+.white-text {
+  color: $color_2;
+}
+
+.mail-counter-text {
+  font-size: 0.5rem;
+  margin: 0;
+}
+
+.dropdown-list-text {
+  font-size: 0.8rem;
+}
+
+.icon-wrapper {
+  @include apply-flex(center, center, center);
+  @include forbidTextSelection;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  height: 45px;
+  transition: 0.05s ease-in-out;
+  width: 45px;
+  &:hover {
+    cursor: pointer;
+    & .icon {
+      color: $color_2;
+    }
+  }
+  &:active {
+    border-color: $color_2;
+    box-shadow: 0 0 5px $color_2;
+    & .icon {
+      color: $color_2;
+    }
+  }
+}
+
+.icon-container {
+  @include apply-flex(center, center, center);
+  height: 30px;
+  width: 30px;
+}
+
+.icon {
+  color: $color_1;
+  font-size: 1.8rem;
+  transition: 0.05s ease-in-out;
+}
+
+.burger-icon {
+  margin: 0 0 10px 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .burger-icon {
+    border: none;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+.header-content,
+.header-search,
+.header_search-form,
+.admin-badge {
+  @include apply-flex(flex-end, center, center);
+}
+
+.header-content,
+.header-search {
+  margin: 10px;
+}
+
+/* Administrator badge section */
+
+.mail-icon {
+  margin-right: 5px;
+  position: relative;
+  width: 45px;
+}
+
+.admin-badge {
+  @include forbidTextSelection;
+}
+
+.mail-counter {
+  @include apply-flex(center, center, center);
+  @include forbidTextSelection;
+  background-color: $color_2;
+  border-radius: 50%;
+  color: $color_3;
+  font-size: 0.5rem;
+  height: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.05s ease-in-out;
+  width: 15px;
+  z-index: 100;
+}
+
+.mail-icon:hover .mail-counter,
+.mail-counter:hover {
+  background-color: $color_4;
+  color: $color_2;
+  transition: 0.05s ease-in-out;
+}
+
+.photo-container {
+  @include apply-flex(center, center, center);
+  background-color: $color_4;                                         //TODO: remove
+  border-radius: 50%;
+  color: $color_5;                                                    //TODO: remove
+  font-size: 1.2rem;                                                    //TODO: remove
+  height: 35px;
+  width: 35px;
+}
+
+.open-list-arrow-container {
+  @include apply-flex(center, center, center);
+  margin: 0 10px;
+}
+
+.open-list-arrow {
+  border: solid $color_4;
+  border-width: 0 0.2em 0.2em 0;
+  display: inline-block;
+  margin-left: -0.2em;
+  padding: 0.2em;
+  transform: rotate(45deg);
+  transition: ease-in-out 0.05s;
+}
+
+.admin-badge {
+  position: relative;
+}
+
+.user-name-container {
+  margin-left: 5px;
+}
+
+.user-name {
+  color: $color_2;
+  margin: 0;
+}
+
+.user-name-container:hover,
+.open-list-arrow-container:hover {
+  cursor: pointer;
+}
+
+.user-name-container:hover ~ .open-list-arrow-container .open-list-arrow,
+.open-list-arrow-container:hover .open-list-arrow {
+  border: solid $color_2;
+  border-width: 0 0.2em 0.2em 0;
+  display: inline-block;
+  margin-left: -0.2em;
+  padding: 0.2em;
+  transform: rotate(45deg);
+}
+
+/* Dropdown list section */
+
+.dropdown-list {
+  background-color: $color_13;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  color: $color_1;
+  height: 0;
+  left: 0;
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: absolute;
+  top: calc(100% + 5px);
+  transition: min-height ease-in-out 0.25s, max-height ease-in-out 0.25s;
+  width: 100%;
+  z-index: -100;
+}
+
+.admin-badge:hover .dropdown-list,
+.photo-container:hover ~ .dropdown-list,
+.user-name-container:hover ~ .dropdown-list,
+.open-list-arrow-container:hover ~ .dropdown-list,
+.dropdown-list:hover {
+  border: 1px solid $color_9;
+  height: auto;
+  max-height: 68px;
+  min-height: 68px;
+  z-index: 100;
+  top: calc(100% - 1px);
+}
+
+.dropdown-list_option {
+  @include apply-flex(space-between, center, center);
+  height: 30px;
+  margin: 2px;
+}
+
+.dropdown-list_option:hover {
+  background-color: $color_9;
+  color: $color_3;
+  cursor: pointer;
+}
+
+.dropdown-list_option-description {
+  margin: 0 10px;
+}
+
+/* Search filed section */
+
+.button {
+  @include apply-flex(center, center, center);
+  @include forbidTextSelection;
+  background-color: $color_8;
+  border-radius: 3px 0 0 3px;
+  border: 1px solid $color_9;
+  border-right: 1px solid $color_8;
+  height: 30px;
+  width: 30px;
+}
+
+.button:hover {
+  border-color: $color_11;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.button:active {
+  border-color: $color_11;
+  border-radius: 3px;
+  box-shadow: 0 0 10px $color_11;
+}
+
+.button:hover .magnifying-glass,
+.button:active .magnifying-glass {
+  color: $color_4;
+}
+
+.magnifying-glass {
+  color: $color_1;
+  font: 1.4rem georgia, times, serif;
+  line-height: 0.5em;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.input,
+.input:active,
+.input:focus {
+  @include remove-default-element-display;
+}
+
+.input {
+  background-color: $color_2;
+  border-radius: 0 3px 3px 0;
+  border: 1px solid $color_9;
+  color: $color_10;
+  font-size: 1.1rem;
+  height: 30px;
+  padding: 0 0 0 8px;
+  text-align: left;
+  width: 200px;
+}
+
+.input:invalid {
+  background-color: $color_5;
+  box-shadow: 0 0 5px 1px $color_6;
+}
+
+.input::placeholder {
+  color: $color_1;
+  font: 1.2rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.input:focus {
+  border-color: $color_11;
+  border-radius: 3px;
+  box-shadow: 0 0 10px $color_11;
+}
+
+.full-screen {
+  width: calc(100vw - (100vw - 100%));
+}

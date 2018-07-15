@@ -1,0 +1,18 @@
+<ul class="ch-grid">
+  <li>
+    <div id="profile-photo" class="ch-item">
+      <img class="rounded-circle mx-auto d-block img-fluid"/>
+      <div class="ch-info">
+        <p>
+          <input type="file" (change)="fileChangeEvent($event)"/>
+          <a>Upload photo</a>
+        </p>
+      </div>
+    </div>
+    <!--<div>-->
+      <!--<div *ngFor="let photo of photos">-->
+        <!--<img [src]="photo.base64" alt="photo of user" (click)="deletePhoto(photo._id)">-->
+      <!--</div>-->
+    <!--</div>-->
+  </li>
+</ul>

@@ -1,0 +1,7 @@
+@media only screen and (max-width: 768px) {
+  input {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+}

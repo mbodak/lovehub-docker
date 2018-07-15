@@ -1,0 +1,26 @@
+<div class="full-reg">
+  <div class="carousel">
+
+    <ol class="carousel-indicators">
+      <li [ngClass]="{'active':stage === 0}"></li>
+      <li [ngClass]="{'active':stage === 1}"></li>
+      <li [ngClass]="{'active':stage === 2}"></li>
+      <li [ngClass]="{'active':stage === 3}"></li>
+    </ol>
+
+    <app-step0 *ngIf="stage==0" (sexEvent)="receiveSex($event)"></app-step0>
+    <app-step1 *ngIf="stage==1" (preferenceEvent)="receivePreference($event)"></app-step1>
+    <app-step2 *ngIf="stage==2" (orientationEvent)="receiveOrientation($event)"></app-step2>
+    <app-step3 *ngIf="stage==3" (formEvent)="receiveUserForm($event)"></app-step3>
+
+    <a class="carousel-control-prev" role="button" (click)="isPrev()">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" role="button" (click)="isNext()">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+
+  </div>
+</div>

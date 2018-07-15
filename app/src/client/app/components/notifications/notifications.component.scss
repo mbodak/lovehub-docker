@@ -1,0 +1,211 @@
+/* Notifications pop-up window styles */
+
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/all.css');
+
+@mixin apply-flex($justify-content, $align-items, $align-content) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin remove-default-element-display {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin forbidTextSelection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+$color_1: #193952;
+
+$color_2: #bf71ce;
+
+$color_3: #fff;
+
+$color_4: #343a40;
+
+$color_5: #a9a9a9;
+
+$color_6: #282828;
+
+$color_7: #ccc;
+
+$color_8: #e6e6e6;
+
+$color_9: #adadad;
+
+$color_10: #ef233c;
+
+$color_11: rgba(255, 255, 255, 0.65);
+
+$color_12: rgba(169, 169, 169, 0.65);
+
+$box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+.main {
+  @include forbidTextSelection;
+  background-color: $color_11;
+  border-radius: 2px;
+  bottom: 10px;
+  box-shadow: $box-shadow_1;
+  height: auto;
+  min-height: 28px;
+  overflow: hidden;
+  position: fixed;
+  right: 10px;
+  transition: 0.5s min-height ease-out;
+  width: 230px;
+  z-index: 1000;
+}
+
+@media screen and (max-width: 640px) {
+  .main {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    bottom: auto;
+    left: 0;
+    right: auto;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.text {
+  font: 0.8rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 0;
+}
+
+.header {
+  @include apply-flex(flex-end, center, center);
+  background-color: $color_12;
+}
+
+.button {
+  @include forbidTextSelection;
+  @include remove-default-element-display;
+  background-color: $color_11;
+  border-radius: 50%;
+  border: 1px solid $color_7;
+  color: $color_4;
+  font-size: 1.0rem;
+  height: 20px;
+  margin: 3px;
+  padding: 0;
+  text-align: center;
+  transition: 0.05s ease-in-out;
+  vertical-align: middle;
+  width: 20px;
+  &:hover {
+    background-color: $color_8;
+    box-shadow: $box-shadow_1;
+    color: $color_6;
+    cursor: pointer;
+  }
+  &:active {
+    background-color: $color_8;
+    border-color: $color_5;
+    box-shadow: $box-shadow_1;
+    color: $color_6;
+    padding: 0;
+  }
+}
+
+.notifications-section {
+  position: relative;
+}
+
+.notification {
+  @include apply-flex(space-between, center, center);
+  background-color: $color_7;
+  border-radius: 2px;
+  box-shadow: $box-shadow_1;
+  flex-wrap: nowrap;
+  height: 45px;
+  left: 0;
+  margin: 7px;
+  position: relative;
+  transition: 0.5s height ease-out, 0.5s left ease-out;
+  width: calc(100% - 14px);
+}
+
+.photo-container {
+  @include apply-flex(center, center, center);                    //TODO: remove
+  background-color: $color_3;                                     //TODO: remove
+  border-radius: 50%;
+  border: 1px solid $color_3;
+  color: $color_1;                                                //TODO: remove
+  font-size: 1.2rem;                                              //TODO: remove
+  height: 35px;
+  margin: 0 5px;
+  width: 60px;
+}
+
+@media screen and (max-width: 640px) {
+  .photo-container {
+    height: 35px;
+    width: 35px;
+  }
+}
+
+.image-container {
+  @include apply-flex(center, center, center);
+  margin: 0 5px;
+}
+
+.logo-img {
+  height: 35px;
+  width: 35px;
+}
+
+.section-hidden,
+.notification-hidden {
+  border: none;
+  box-shadow: none;
+  height: 0;
+  margin: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.notification-shifted {
+  left: calc(100% + 1px);
+}
+
+// "Like" Button. For "Put a Like => Get Notification" testing purposes only. TODO: delete
+.like {
+  @include forbidTextSelection;
+  @include apply-flex(center, center, center);
+  background-color: $color_5;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  bottom: 10px;
+  box-shadow: $box-shadow_1;
+  color: $color_3;
+  font-size: 1.5rem;
+  height: 40px;
+  overflow: hidden;
+  position: fixed;
+  right: 260px;
+  transition: 0.1s ease-out;
+  width: 40px;
+  z-index: 1000;
+  &:hover {
+    background-color: $color_3;
+    color: $color_10;
+  }
+  &:active {
+    background-color: $color_10;
+    color: $color_3;
+  }
+}

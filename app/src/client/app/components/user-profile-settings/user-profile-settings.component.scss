@@ -1,0 +1,35 @@
+:host {
+  .profile-setting {
+    width: 100%;
+    background: #e6ddf5;
+    margin: 1em;
+    padding: .5em;
+
+    .button-update {
+      height: 4vh;
+      width: 40%;
+    }
+  }
+
+  .modal-success {
+    height: 6vh;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    border: 2px solid #193952;
+    background: green;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .message {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+}

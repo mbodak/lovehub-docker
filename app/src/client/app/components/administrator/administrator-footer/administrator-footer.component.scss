@@ -1,0 +1,106 @@
+/* Footer section styles */
+
+@mixin apply-flex($justify-content, $align-items, $align-content) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin remove-default-element-display {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin forbidTextSelection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+$color_1: #193952;
+
+$color_2: #3d90cc;
+
+$color_3: #ef233c;
+
+$color_4: #1581d3;
+
+$color_5: #000;
+
+$color_6: rgba(255, 255, 255, 0.05);
+
+$color_7: #fff;
+
+$color_8: #555b6e;
+
+.main {
+  @include apply-flex(space-around, center, center);
+  background-color: $color_1;
+  border-top: 1px solid $color_8;
+  height: 55px;
+  min-width: 220px;
+  transition: 0.1s ease-in-out;
+  width: 100%;
+  z-index: 100;
+}
+
+.link,
+.link:hover,
+.link:active,
+.link:visited {
+  @include remove-default-element-display
+}
+
+.icon-wrapper {
+  @include apply-flex(center, center, center);
+  @include forbidTextSelection;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  height: 45px;
+  transition: 0.1s ease-in-out;
+  width: 45px;
+  &:hover {
+    background-color: $color_6;
+    border-color: $color_4;
+    cursor: pointer;
+    & .icon {
+      color: $color_4;
+    }
+  }
+  &:active {
+    border-color: $color_2;
+    box-shadow: 0 0 15px $color_2;
+    & .icon {
+      color: $color_2;
+    }
+  }
+}
+
+.icon-container {
+  @include apply-flex(center, center, center);
+  height: 30px;
+  width: 30px;
+}
+
+.icon {
+  color: $color_5;
+  font-size: 1.8rem;
+  transition: 0.1s ease-in-out;
+}
+
+.section-hidden {
+  border: none;
+  min-width: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+  z-index: 100;
+}

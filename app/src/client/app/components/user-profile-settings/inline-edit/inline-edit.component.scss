@@ -1,0 +1,17 @@
+.bold {
+  font-weight: 700;
+}
+
+.inline-edit {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  padding: .5em 0;
+  width: auto;
+}
+
+.error {
+  padding: .5em 0;
+  color: #ef233c;
+}

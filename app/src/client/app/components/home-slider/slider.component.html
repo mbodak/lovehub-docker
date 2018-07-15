@@ -1,0 +1,23 @@
+<div class="row slider-block">
+  <div [ngClass]="_breads ? 'col-md-8 pr-2' : 'col-md-12'" class='d-none d-md-flex justify-content-center slider'>
+    <div [id]="iden" class="carousel custom-carousel" data-ride="carousel">
+      <div class="carousel-inner">
+          <ng-content select=".carousel-item"></ng-content>
+      </div>
+      <a class="carousel-control-prev" [href]="'#'+iden" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" [href]="'#'+iden" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+      <ul *ngIf="_breads" class="carousel-indicators">
+        <li [attr.data-target]="'#'+iden" data-slide-to="0" class="active"></li>
+        <li [attr.data-target]="'#'+iden" data-slide-to="1"></li>
+        <li [attr.data-target]="'#'+iden" data-slide-to="2"></li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="_breads" class="col-md-4 col-sm-12 feedbacks">
+    <ng-content select=".breads"></ng-content>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+.Matching__container{
+  font-family: 'Alegreya', serif;
+}
+
+.Profile__container {
+  width: 90%;
+  height: 50%;
+  overflow: scroll;
+  display: block;
+  margin: 0 auto;
+
+}
+
+.Matching__searching h3{
+  margin: 20px;
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.Matching__buttons div{
+float: left;
+margin-bottom: 20px;
+}
+
+.Matching__buttons label{
+  font-size: 20px;
+}
+
+.Map__container {
+  display: block;
+  margin: 0 auto;
+  margin-top: 70px;
+
+}
+.row{
+  overflow: hidden;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+agm-map {
+  height: 800px;
+}
+
+
+$radioBtn-size: 25px;
+$active-color: #e44;
+$inactive-color: #ccc;
+
+
+
+input[type="radio"]{
+  appearance: none;
+  width: $radioBtn-size;
+  height: $radioBtn-size;
+  margin: -5px $radioBtn-size / 2;
+  outline: $radioBtn-size / 2 solid $inactive-color;
+  outline-offset: $radioBtn-size / -2;
+  cursor: pointer;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  transform: rotate(45deg) scale(1);
+  will-change: transform;
+
+  &:checked {
+    animation: active 1s ease forwards;
+  }
+}
+
+
+@keyframes active {
+  25% {
+    transform: rotate(45deg) scale(1.5);
+  }
+  75% {
+    transform: rotate(45deg) scale(1.25);
+  }
+  50%,100% {
+    transform: rotate(45deg) scale(1);
+    box-shadow:	0 $radioBtn-size / -2 0 0 $active-color,	$radioBtn-size / -2 0 0 0 $active-color;
+    outline-color: $active-color;
+  }
+}

@@ -1,0 +1,38 @@
+.quick-reg {
+  padding: 30px 30px 10px 30px;
+  text-align: center;
+  opacity: 2;
+}
+
+.quick-reg button {
+  cursor: pointer;
+  width: 100%;
+  height: 45px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.quick-reg .form-group {
+  width: 100%;
+  margin: 20px auto;
+}
+.quick-reg h4 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.quick-reg .form-control {
+  height: 45px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
+}
+
+.has-danger {
+  color: #d9534f;
+}
+
+.has-success {
+  color: green;
+}

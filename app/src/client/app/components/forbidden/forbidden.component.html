@@ -1,0 +1,18 @@
+
+
+<div [ngClass]="{'closed': !state}">
+  <div class="modal-overlay" (click)="show(false)"></div>
+
+  <div class="forbidden-modal">
+    <span class="right-align" (click)="show(false)">
+      <i class="material-icons md-24">clear</i>
+    </span>
+    <div class="forbidden">
+      <div class="message">
+        <h1>Sorry, {{ errorMessage }}.</h1>
+        <div>&#x26a0;</div>
+        <span>{{ userMessage }}</span>
+      </div>
+    </div>
+  </div>
+</div>

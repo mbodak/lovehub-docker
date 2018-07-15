@@ -1,0 +1,417 @@
+/* Page layout styles */
+
+@mixin apply-flex($justify-content, $align-items, $align-content) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin remove-default-element-display {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin forbidTextSelection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+$color_1: #fff;
+
+$color_2: #ccc9c9;
+
+$color_3: #333;
+
+$color_4: #555b6e;
+
+$color_5: #282828;
+
+$color_6: #000;
+
+$color_7: #20d6cd;
+
+$color_8: #d9e8f7;
+
+$color_9: #f6f6f6;
+
+$color_10: #ccc;
+
+$color_11: #e6e6e6;
+
+$color_12: #adadad;
+
+$color_13: #ddd;
+
+$color_14: #0275d8;
+
+$color_15: #193952;
+
+$color_16: #f1f1f1;
+
+$box-shadow_1: 3px 3px 7px 1px rgba(0, 0, 0, 0.2);
+
+$box-shadow_2: inset 5px 5px 9px rgba(0, 0, 0, 0.6);
+
+$box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
+
+/* Main section layout and styles */
+
+.main-section {
+  background-color: $color_16;
+  min-height: calc(100vh - 105px);
+  min-width: 920px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
+  z-index: 90;
+}
+
+.main-section-content {
+  position: absolute;
+}
+
+@media screen and (max-width: 640px) {
+  .main-section {
+    height: auto;
+    max-width: 100%;
+    min-height: 100vh;
+    overflow: scroll;
+    position: relative;
+  }
+
+  .main-section-content {
+    height: auto;
+  }
+}
+
+.full-screen {
+  min-width: 0;
+  width: calc(100vw - (100vw - 100%));
+}
+
+.text {
+  font: 1rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 0;
+}
+
+.heading {
+  font: bold 1.5rem 'Alegreya', serif;
+}
+
+/* Users management section styles */
+
+/* Users management options */
+
+.users-management {
+  @include apply-flex(flex-start, flex-end, space-between);
+  margin: 40px 20px 20px 20px;
+  width: calc(100% - 40px);
+}
+
+.users-management_apply-action,
+.users-management_apply-filter {
+  margin-bottom:10px;
+}
+
+.users-management_apply-action {
+  margin-right: 50px;
+}
+
+.users-management_actions,
+.users-management_filters {
+  @include apply-flex(flex-start, center, center);
+  margin-top: 10px;
+}
+
+.filters .select-wrapper:first-of-type {
+  margin-right: 20px;
+}
+
+/* Custom select form */
+
+.select-wrapper {
+  background-color: $color_11;
+  border-radius: 5px;
+  display: inline-block;
+  position: relative;
+}
+
+.select-wrapper::after {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid $color_3;
+  content: "";
+  height: 0;
+  position: absolute;
+  right: 10px;
+  top: 45%;
+  width: 0;
+}
+
+.select-wrapper:hover::after {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid $color_6;
+  content: "";
+  height: 0;
+  position: absolute;
+  right: 10px;
+  top: 45%;
+  width: 0;
+}
+
+.select {
+  @include remove-default-element-display;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid $color_2;
+  color: $color_3;
+  cursor: pointer;
+  min-width: 150px;
+  padding: 5px 20px 5px 5px;
+  position: relative;
+  z-index: 100;
+}
+
+.select:hover {
+  @include remove-default-element-display;
+  border: 1px solid $color_7;
+  color: $color_6;
+}
+
+.select:focus {
+  @include remove-default-element-display;
+  border: 1px solid $color_7;
+  box-shadow: 0 0 10px $color_7;
+  color: $color_6;
+}
+
+.select-small {
+  min-width: 50px;
+}
+
+/* Custom button */
+
+.button {
+  @include remove-default-element-display;
+  @include forbidTextSelection;
+  background-color: $color_1;
+  border-radius: 5px;
+  border: 1px solid $color_10;
+  color: $color_5;
+  font-size: 1.2rem;
+  height: 34px;
+  margin: 0 10px;
+  min-width: 70px;
+  text-align: center;
+  transition: 0.05s ease-in-out;
+  vertical-align: middle;
+}
+
+.button:hover {
+  background-color: $color_11;
+  border-color: $color_12;
+  cursor: pointer;
+}
+
+.button:active {
+  background-color: $color_11;
+  border-color: $color_12;
+  box-shadow: $box-shadow_3;
+  padding: 0;
+}
+
+.button-disabled,
+.button-disabled:hover,
+.button-disabled:active {
+  background-color: $color_11;
+  border-color: $color_12;
+  box-shadow: none;
+  color: $color_12;
+  cursor: default;
+}
+
+/* Users table */
+
+.users-table {
+  @include apply-flex(center, flex-start, center);
+  margin: 20px;
+  width: calc(100% - 40px);
+}
+
+.table {
+  border-collapse: collapse;
+  overflow: scroll;
+}
+
+.table-header {
+  background-color: $color_2;
+  border-bottom: 1px solid $color_4;
+  border-top: 1px solid $color_4;
+  color: $color_6;
+  font-size: 1.1rem;
+  min-height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-row {
+  border-bottom: 1px solid $color_4;
+  border-top: 1px solid $color_4;
+  color: $color_5;
+  min-height: 30px;
+  padding-left: 10px;
+}
+
+.table_cell {
+  padding: 0.75rem;
+}
+
+.table-row:nth-of-type(2n) {
+  background-color: $color_11;
+}
+
+.table-row:hover {
+  background-color: $color_8;
+}
+
+.table-cell-checkbox {
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-header_cell {
+  border-bottom: 1px solid $color_4;
+  border-top: none;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-header_cell:hover {
+  cursor: pointer;
+}
+
+.table-header_cell-content {
+  @include apply-flex(center, center, center);
+}
+
+.table-header_cell-description {
+  margin: 0;
+}
+
+.sort-arrows {
+  margin-left: 8px;
+}
+
+.arrow-up,
+.arrow-down {
+  height: 0;
+  width: 0;
+}
+
+.arrow-up {
+  border-bottom: 10px solid $color_12;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  margin-bottom: 8px;
+}
+
+.arrow-down {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid $color_12;
+}
+
+.arrow-up:hover {
+  border-bottom: 10px solid $color_6;
+}
+
+.arrow-down:hover {
+  border-top: 10px solid $color_6;
+}
+
+/* Users table pagination */
+
+.users-table-pagination {
+  @include apply-flex(center, center, center);
+  @include forbidTextSelection;
+  margin: 20px;
+}
+
+.pagination-element {
+  @include apply-flex(center, center, center);
+  border: 1px solid $color_13;
+  color: $color_14;
+  height: 40px;
+  margin: 0 0 0 -1px;
+  transition: ease-in-out 0.05s;
+  width: 40px;
+}
+
+.pagination-element:hover {
+  background-color: $color_13;
+  color: $color_15;
+  cursor: pointer;
+}
+
+.pagination-element:hover .arrow {
+  border-color: $color_15;
+}
+
+.pagination-previous {
+  border-radius: 5px 0 0 5px;
+}
+
+.pagination-next {
+  border-radius: 0 5px 5px 0;
+}
+
+.pagination-current {
+  color: $color_1;
+  background-color: $color_14;
+
+}
+
+.pagination-current:hover {
+  color: $color_1;
+  background-color: $color_14;
+  cursor: default;
+}
+
+.pagination-page {
+  @include apply-flex(center, center, center);
+  height: 100%;
+  width: 100%;
+}
+
+.page {
+  margin: 0;
+}
+
+.arrow {
+  border: solid $color_14;
+  border-width: 0 0.2rem 0.2rem 0;
+  display: inline-block;
+  padding: 0.25rem;
+}
+
+.left-arrow {
+  margin-right: -0.2rem;
+  transform: rotate(135deg);
+}
+
+.right-arrow {
+  margin-left: -0.2rem;
+  transform: rotate(-45deg);
+}

@@ -1,0 +1,19 @@
+<div class="left-part">
+  <div>
+    <app-upload-avatar></app-upload-avatar>
+    <div class="online">online</div>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+    </div>
+  </div>
+  <hr>
+  <div class="menu-bar">
+    <div class="menu-bar-box">
+      <div *ngFor="let item of profileMenu">
+        <i class="material-icons item-icon">{{item.icon}}</i>
+        <a class="item-link" routerLink={{item.link}}>{{item.name}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+

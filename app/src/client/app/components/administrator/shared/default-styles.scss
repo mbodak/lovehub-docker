@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya:400,400i,700,700i&subset=cyrillic,cyrillic-ext,latin-ext');
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/all.css');
+
+%no-indents {
+  margin: 0;
+  padding: 0;
+}
+
+%no-border {
+  border: none;
+}
+
+html,
+body {
+  @extend %no-border;
+  @extend %no-indents;
+}
+
+body {
+  font: 1rem/1.25 "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+p,
+th,
+td,
+li,
+dd,
+dt,
+ul,
+ol,
+blockquote,
+q,
+acronym,
+abbr,
+a,
+input,
+select,
+textarea,
+label,
+button {
+  @extend %no-indents;
+  font: normal normal normal 1em/1.25 "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %no-indents;
+  font-family: 'Alegreya', serif;
+  font-weight: normal;
+  margin: 0;
+}
+
+img {
+  @extend %no-border;
+}
+
+table {
+  @extend %no-border;
+  @extend %no-indents;
+}
+
+form {
+  @extend %no-indents;
+  display: inline;
+}
+
+label {
+  cursor: pointer;
+}

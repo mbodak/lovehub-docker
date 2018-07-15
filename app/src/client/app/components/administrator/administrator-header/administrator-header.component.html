@@ -1,0 +1,73 @@
+<main class="main"
+      [ngClass]="{'full-screen': !mainSectionIsVisible}">
+  <div class="icon-wrapper burger-icon" (click)="hideNavBar()">
+    <div class="icon-container">
+      <i class="fas fa-bars icon"></i>
+    </div>
+  </div>
+
+  <div>
+    <div class="header-content">
+      <div class="icon-wrapper mail-icon">
+        <div class="icon-container">
+          <i class="fas fa-envelope icon"></i>
+        </div>
+
+        <div class="mail-counter text white-text mail-counter-text">
+          <p class="mail-counter-text">
+            12                                                   <!--TODO: add binding here-->
+          </p>
+        </div>
+      </div>
+
+      <div class="admin-badge">
+        <div class="photo-container">
+          <!--
+          <img src="" alt="User Photo" class="user-photo">       TODO: add binding here and remove icon
+          -->
+
+          <i class="fas fa-user"></i>
+        </div>
+
+        <div class="user-name-container">
+          <h6 class="user-name">
+            {{ currentUser.firstName + ' ' + currentUser.lastName }}
+          </h6>
+        </div>
+
+        <div class="open-list-arrow-container">
+          <span class="open-list-arrow"></span>
+        </div>
+
+        <div class="dropdown-list">
+          <a class="link" routerLink="">
+            <div class="dropdown-list_option">
+              <p class="dropdown-list_option-description text dropdown-list-text">
+                Profile
+              </p>
+            </div>
+          </a>
+
+          <a class="link" routerLink="/home">
+            <div class="dropdown-list_option">
+              <p class="dropdown-list_option-description text dropdown-list-text">
+                Log Out
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-search">
+      <form class="header_search-form">
+        <div class="button">
+          <span class="magnifying-glass">🔍</span>
+        </div>
+
+        <input class="input" type="text" placeholder="Search ...">
+      </form>
+    </div>
+  </div>
+
+</main>

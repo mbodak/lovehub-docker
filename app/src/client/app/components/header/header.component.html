@@ -1,0 +1,34 @@
+<nav
+  #header
+  class="navbar navbar-expand-md bg-dark navbar-dark header"
+  [ngStyle]="router.url === '/admin' && {'height': '0', 'overflow': 'hidden', 'padding': '0'}">
+  <a class="navbar-brand logo" routerLink="home">
+      <img class='logo-img' src={{logo}} alt="logo" />
+      <span>LoveHub</span>
+  </a>
+
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav menu ml-auto">
+      <li *ngFor="let item of menu" class="nav-item">
+        <a class="nav-link menu-item" routerLink={{item.link}}>{{item.name}}</a>
+      </li>
+      <li *ngIf="!isLoggedIn; then login else logout" class="nav-item">
+      </li>
+      <ng-template #login>
+        <li class="nav-item">
+          <a class="nav-link menu-item" routerLink="login">Login</a>
+        </li>
+      </ng-template>
+      <ng-template #logout>
+        <li class="nav-item">
+          <a class="nav-link menu-item" (click)="logoutUser();">Logout</a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+  <div *ngIf="isLoggedIn" class="nav-item menu-item">{{ loggedInUser.name }}</div>
+</nav>

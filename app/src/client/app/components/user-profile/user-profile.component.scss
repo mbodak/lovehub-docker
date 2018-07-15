@@ -1,0 +1,34 @@
+.user-profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  // max-width: $tablet-sm;
+  max-width: 768px;
+}
+
+.user-profile {
+  &__heading {
+    text-align: center;
+  }
+
+  &__pic {
+    border-radius: 50%;
+  }
+
+  &__btn {
+    &--change {
+      margin-left: auto;
+      width: fit-content;
+    }
+  }
+
+  &__controls {
+    margin-left: auto;
+  }
+
+  &__interests,
+  &__addit-info {
+    &--field {
+      width: 100%;
+    }
+  }
+}

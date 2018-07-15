@@ -1,0 +1,18 @@
+<div
+  class="container scrollbar p-2 d-flex flex-row"
+  [ngClass]="chat.chatId === activeChat ? 'active': 'non-active'"
+  (click)="checkChat(chat.chatId)"
+>
+  <div class="avatar-container d-inline-flex mr-3">
+    <img
+      [src]="chat.user.avatar"
+      [alt]="chat.user.firstName"
+      class="avatar"
+    />
+  </div>
+  <div class="info-container d-inline-flex">
+    <div class="d-flex flex-column justify-content-around">
+        <p class="name">{{chat.user.firstName+" "+ chat.user.lastName}}</p>
+    </div>
+  </div>
+</div>

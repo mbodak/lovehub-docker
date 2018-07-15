@@ -1,0 +1,40 @@
+<main
+  class="main"
+  [ngClass]="{'section-hidden': notificationsList.isHidden === true}">
+  <header class="header">
+    <button
+      class="button"
+      (click)="closeNotificationsList()">
+      <i class="fas fa-times"></i>
+    </button>
+  </header>
+
+  <section class="notifications-section">
+    <div
+      class="notification"
+      *ngFor="let message of messages"
+      [ngClass]="{
+      'notification-hidden': message.isHidden === true,
+      'notification-shifted': message.isShifted === true
+      }">
+      <div class="photo-container">
+        <i class="fas fa-user"></i>       <!-- TODO: replace with link to user profile photo -->
+      </div>
+
+      <p class="text">
+        Your profile was "Liked" by {{ message.user }}!
+      </p>
+
+      <div class="image-container">
+        <img class="logo-img" src="../../../../../assets/img/logo3.png" alt="logo">
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- "Like" Button. For "Put a Like => Get Notification" testing purposes only. TODO: delete -->
+<div
+  class="like"
+  (click)="sendLike(1234)">
+  <i class="far fa-heart"></i>
+</div>

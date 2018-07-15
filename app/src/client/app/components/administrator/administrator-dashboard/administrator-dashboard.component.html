@@ -1,0 +1,201 @@
+<main class="main">
+  <!-- Chart.js -->
+  <script src="node_modules/chart.js/src/chart.js"></script>
+
+  <app-administrator-navbar class="admin-navbar">
+  </app-administrator-navbar>
+
+  <app-administrator-header
+    class="header"
+    [ngClass]="{'header-full-screen': !mainSectionIsVisible}">
+  </app-administrator-header>
+
+  <section
+    class="main-section"
+    [ngClass]="{
+      'main-section-full-screen': !mainSectionIsVisible,
+      'full-screen': !mainSectionIsVisible}">
+    <div class="main-section-content" [ngClass]="{'full-screen': !mainSectionIsVisible}">
+      <div class="general-information">
+        <div class="general-information_wrapper">
+          <div class="general-information_section text">
+            <div class="section-title">
+              <i class="fas fa-users"></i>
+              <span>Total Users</span>
+            </div>
+
+            <div class="section-counter">
+              <span>{{ (usersData.generalInformation) ? usersData.generalInformation.totalQuantityOfUsers : 0 }}</span>
+            </div>
+
+            <div class="section-changes text">
+              <i
+                class="fas fa-caret-up increase"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difTotalQuantityOfUsers >= 0)"></i>
+              <i
+                class="fas fa-caret-down decrease"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difTotalQuantityOfUsers < 0)"></i>
+              <span
+                [ngClass]="{
+                'increase': (usersData.generalInformation && usersData.generalInformation.difTotalQuantityOfUsers >= 0),
+                'decrease': (usersData.generalInformation && usersData.generalInformation.difTotalQuantityOfUsers < 0)
+                }">
+                {{ (usersData.generalInformation) ? usersData.generalInformation.difTotalQuantityOfUsers : 0 }}%
+              </span>
+              <span>Since last week</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="general-information_wrapper">
+          <div class="general-information_section">
+            <div class="section-title">
+              <i class="far fa-clock"></i>
+              <span>Average Time</span>
+            </div>
+
+            <div class="section-counter">
+              <span>{{ (usersData.generalInformation) ? usersData.generalInformation.averageTimeSpent : 0 }} years</span>
+            </div>
+
+            <div class="section-changes text">
+              <i
+                class="fas fa-caret-up increase"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difAverageTimeSpent >= 0)"></i>
+              <i
+                class="fas fa-caret-down decrease"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difAverageTimeSpent < 0)"></i>
+              <span
+                [ngClass]="{
+                'increase': (usersData.generalInformation && usersData.generalInformation.difAverageTimeSpent >= 0),
+                'decrease': (usersData.generalInformation && usersData.generalInformation.difAverageTimeSpent < 0)
+                }">
+                {{ (usersData.generalInformation) ? usersData.generalInformation.difAverageTimeSpent : 0 }}%
+              </span>
+              <span>Since last week</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="general-information_wrapper">
+          <div class="general-information_section">
+            <div class="section-title">
+              <i class="fas fa-female"></i>
+              <span>Total Females</span>
+            </div>
+
+            <div class="section-counter">
+              <span>{{ (usersData.generalInformation) ? usersData.generalInformation.quantityOfFemales : 0 }}</span>
+            </div>
+
+            <div class="section-changes text">
+              <i
+                class="fas fa-caret-up increase"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difQuantityOfFemales >= 0)"></i>
+              <i
+                class="fas fa-caret-down decrease"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difQuantityOfFemales < 0)"></i>
+              <span
+                [ngClass]="{
+                'increase': (usersData.generalInformation && usersData.generalInformation.difQuantityOfFemales >= 0),
+                'decrease': (usersData.generalInformation && usersData.generalInformation.difQuantityOfFemales < 0)
+                }">
+                {{ (usersData.generalInformation) ? usersData.generalInformation.difQuantityOfFemales : 0 }}%
+              </span>
+              <span>Since last week</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="general-information_wrapper">
+          <div class="general-information_section">
+            <div class="section-title">
+              <i class="fas fa-male"></i>
+              <span>Total Males</span>
+            </div>
+
+            <div class="section-counter">
+              {{ (usersData.generalInformation) ? usersData.generalInformation.quantityOfMales : 0 }}
+            </div>
+
+            <div class="section-changes text">
+              <i
+                class="fas fa-caret-up increase"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difQuantityOfMales >= 0)"></i>
+              <i
+                class="fas fa-caret-down decrease"
+                *ngIf="(usersData.generalInformation && usersData.generalInformation.difQuantityOfMales < 0)"></i>
+              <span
+                [ngClass]="{
+                'increase': (usersData.generalInformation && usersData.generalInformation.difQuantityOfMales >= 0),
+                'decrease': (usersData.generalInformation && usersData.generalInformation.difQuantityOfMales < 0)
+                }">
+                {{ (usersData.generalInformation) ? usersData.generalInformation.difQuantityOfMales : 0 }}%
+              </span>
+              <span>Since last week</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-section text">
+        <div class="chart-container">
+          <div class="chart-header">
+            <i class="fas fa-venus-mars"></i>
+            <span>By gender</span>
+          </div>
+
+          <div class="chart">
+            <canvas baseChart
+                    [data]="genderPieChartData"
+                    [labels]="genderPieChartLabels"
+                    [chartType]="pieChartType"
+                    [colors]="genderPieChartColors">
+            </canvas>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <i class="fas fa-users"></i>
+            <span>By age</span>
+          </div>
+
+          <div class="chart">
+            <canvas baseChart
+                    [data]="agePieChartData"
+                    [labels]="agePieChartLabels"
+                    [chartType]="doughnutChartType"
+                    [colors]="agePieChartColors">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-section text">
+        <div class="chart-container">
+          <div class="chart-header">
+            <i class="fas fa-stopwatch"></i>
+            <span>Site traffic</span>
+          </div>
+
+          <div class="chart">
+            <canvas baseChart
+              [datasets]="usersActivitiesChartData"
+              [labels]="usersActivitiesChartLabels"
+              [chartType]="lineChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- For testing purposes only. TODO: move to user profile component -->
+      <app-notifications></app-notifications>
+      <!--<app-interests></app-interests>-->
+
+    </div>
+  </section>
+
+  <app-administrator-footer class="footer">
+  </app-administrator-footer>
+</main>

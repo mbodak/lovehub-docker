@@ -1,0 +1,37 @@
+<footer #footer *ngIf="router.url != '/admin'">
+  <div class="info">
+    <div class="row text-center text-sm-left">
+      <div class="col-md-4 col-sm-4">
+        <h3>Support our work</h3>
+        <input type="button" value="Donate us" class="lh-btn donate">
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <p class="text-sm-center">
+            Lorem ipsum dolor sit
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+      <div class="col-md-4 col-sm-4 text-sm-right">
+        <h3>Technical support:</h3>
+        <ul>
+          <li *ngFor="let tel of contacts.phones">
+            {{tel}}
+          </li>
+          <li>{{contacts.mail}}</li>
+          <li>{{contacts.address}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="authors">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-sm-5">
+        <p class="copyright"> © 2018, SoftServe Inc</p>
+      </div>
+      <div class="col-md-6 col-sm-7">
+        <p class="developers">Developed with love by WebUI Team</p>
+      </div>
+    </div>
+  </div>
+</footer>

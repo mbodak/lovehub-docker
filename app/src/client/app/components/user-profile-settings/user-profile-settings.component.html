@@ -1,0 +1,51 @@
+<div class="profile-setting">
+  <form (ngSubmit)="updateUser()" #updateForm="ngForm">
+    <app-inline-edit name="firstName" type="text" [(ngModel)]="userProfile.firstName"
+                     label="First Name" [required]="true"
+                     (showButton)="triggerButton($event)">
+    </app-inline-edit>
+
+    <app-inline-edit name="lastName" type="text" [(ngModel)]="userProfile.lastName"
+                     label="Last Name" [required]="true"
+                     (showButton)="triggerButton($event)">
+    </app-inline-edit>
+
+    <app-inline-edit name="phoneNumber" type="tel" [(ngModel)]="userProfile.phoneNumber"
+                     label="Phone Number" [required]="true" pattern="^((?!(0))[0-9]{9})$"
+                     (showButton)="triggerButton($event)"
+                     placeholder="Please, enter phone number without first zero.">
+    </app-inline-edit>
+
+    <app-inline-edit name="age" type="number" [(ngModel)]="userProfile.age"
+                     label="Age" [required]="true" pattern="^[^-0]\d*"
+                     (showButton)="triggerButton($event)">
+    </app-inline-edit>
+
+    <app-inline-edit list="sex" name="sex" type="text" [(ngModel)]="userProfile.sex"
+                     label="Sex" [required]="true" pattern="MALE|FEMALE"
+                     (showButton)="triggerButton($event)"
+                     placeholder="You can enter MALE or FEMALE and only in uppercase.">
+    </app-inline-edit>
+
+    <app-inline-edit list="orientation" name="orientation" type="text" [(ngModel)]="userProfile.orientation"
+                     label="Orientation" [required]="true" pattern="MAN|WOMAN|ALL"
+                     (showButton)="triggerButton($event)"
+                     placeholder="You can enter MAN or WOMAN or ALL and only in uppercase.">
+    </app-inline-edit>
+
+    <app-inline-edit list="preference" name="preference" type="text" [(ngModel)]="userProfile.preference"
+                     label="Preference" [required]="true" pattern="DATE|FRIENDS|PARTY"
+                     (showButton)="triggerButton($event)"
+                     placeholder="You can enter DATE or FRIENDS or PARTY and only in uppercase.">
+    </app-inline-edit>
+
+    <div class="button-update" *ngIf="canUpdate">
+      <input type="submit" value="Update" />
+    </div>
+  </form>
+
+  <div *ngIf="isSuccess" class="modal-success">
+    <span class="message">Information have been updated successfully!!!</span>
+  </div>
+
+</div>

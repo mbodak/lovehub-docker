@@ -1,0 +1,26 @@
+<div>
+
+  <div *ngIf="editing" class="form-group row">
+    <label class="bold col-sm-3 col-form-label">{{ label }}:</label>
+
+    <div class="col-sm-9">
+      <input list="list" [name]="value" [type]="type" [(ngModel)]="value" class="form-control"
+             [placeholder]="placeholder" [required]="required" [pattern]="pattern"
+             (blur)="onBlur($event, inlineEditControl.errors)" #inlineEditControl="ngModel" />
+
+      <datalist id="list">
+        <option *ngFor="let value of dataList[list]" [value]="value"></option>
+      </datalist>
+
+      <div class="error" *ngIf="inlineEditControl.errors">Please, fill the form in according the placeholder.</div>
+    </div>
+  </div>
+
+  <div *ngIf="!editing" class="form-group row">
+    <label class="bold col-sm-3 align-self-center">{{ label }}:</label>
+    <div class="col-sm-9 inline-edit" title="Click to edit" (click)="edit(value)" (focus)="edit(value)" tabindex="0">
+      {{ value }}&nbsp;
+    </div>
+  </div>
+
+</div>
