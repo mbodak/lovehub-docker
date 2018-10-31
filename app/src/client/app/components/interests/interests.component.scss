@@ -49,7 +49,7 @@ $color_10: #ef233c;
 
 $color_11: #ccc9c9;
 
-$color_12: #f1f1f1;
+$color_12: rgba(233, 236, 239, 0.9);
 
 $color_13: #555b6e;
 
@@ -67,14 +67,16 @@ $box-shadow_5: 0 0 10px $color_13;
 
 $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
+$box-shadow_7: 0px 3px 5px rgba(0, 0, 0, 0.3);
+
 .main {
   background-color: $color_12;
-  border-radius: 4px;
-  border: 1px solid $color_11;
-  box-shadow: $box-shadow_1;
-  margin: 30px;
-  max-width: 400px;
-  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-shadow: $box-shadow_7;
+  margin: 20px 0;
+  position: relative;
+  width: 105%;
 }
 
 @media screen and (max-width: 640px) {
@@ -82,7 +84,7 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .text {
-  font: 1.0rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font: 1.0rem "Times New Roman", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
 .button {
@@ -92,7 +94,19 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
 .header {
   @include apply-flex(space-between, center, center);
-  margin: 10px 15px;
+  @include forbidTextSelection;
+  margin: 15px;
+  position: relative;
+}
+
+.header-heading {
+  @include apply-flex(flex-start, center, center);
+  color: $color_13;
+  font: 1.3rem 'Alegreya', serif;
+}
+
+.header-title {
+  margin-left: 10px;
 }
 
 .icon-container {
@@ -136,25 +150,20 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   color: $color_6;
 }
 
-.header-heading {
-  color: $color_13;
-  font: 1.3rem 'Alegreya', serif;
-}
-
 .interests-section {
   margin: 10px;
 }
 
 .new-interest-section {
   @include apply-flex(flex-start, center, center);
-  height: 50px;
-  margin: 5px;
-  max-height: 50px;
-  min-height: 50px;
-  position: relative;
-  transition: min-height ease-in-out 0.2s, max-height ease-in-out 0.2s;
   border-bottom: 1px solid $color_5;
   border-top: 1px solid $color_5;
+  height: 60px;
+  margin: 5px;
+  max-height: 60px;
+  min-height: 60px;
+  position: relative;
+  transition: min-height ease-in-out 0.2s, max-height ease-in-out 0.2s;
 }
 
 .input {
@@ -167,26 +176,25 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   padding: 0 0 0 8px;
   text-align: left;
   width: 200px;
-}
-
-.input:invalid {
-  background-color: $color_2;
-  box-shadow: $box-shadow_4;
-}
-
-.input::placeholder {
-  color: $color_13;
-  font: 1.1rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  line-height: 1.6;
-  text-align: left;
-}
-
-.input:focus {
-  border-color: $color_13;
-  box-shadow: $box-shadow_5;
+  &:focus {
+    border-color: $color_13;
+    box-shadow: $box-shadow_5;
+  }
+  &:invalid {
+    background-color: $color_2;
+    box-shadow: $box-shadow_4;
+  }
+  &::placeholder {
+    color: $color_13;
+    font: 1.1rem "Times New Roman", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    line-height: 1.6;
+    text-align: left;
+  }
 }
 
 .submit-button {
+  @include forbidTextSelection;
+  @include remove-default-element-display;
   background-color: $color_3;
   border-radius: 5px;
   border: 1px solid $color_7;
@@ -211,7 +219,19 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   }
 }
 
+.validation-message {
+  font: 0.7rem "Times New Roman", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  top: calc(100% - 15px);
+  width: 200px;
+}
+
 .hints {
+  @include forbidTextSelection;
   background-color: $color_8;
   border-radius: 2px;
   border: 1px solid $color_11;
@@ -220,27 +240,21 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   min-width: 200px;
   overflow: hidden;
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% - 1px);
   z-index: 100;
 }
 
 .hints_option {
-  @include apply-flex(space-between, center, center);
-  color: $color_13;
-  font: 1.1rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  height: 30px;
-  margin: 3px;
-}
-
-.hints_option:hover {
-  background-color: $color_11;
-  color: $color_6;
-  cursor: pointer;
-}
-
-.hints_option {
   @include apply-flex(flex-start, center, center);
-  margin: 0 5px;
+  color: $color_13;
+  font: 1.1rem "Times New Roman", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  height: 30px;
+  margin: 5px;
+  &:hover {
+    background-color: $color_11;
+    color: $color_6;
+    cursor: pointer;
+  }
 }
 
 .hints_option-description {
@@ -249,19 +263,43 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .interest-list {
-  @include apply-flex(space-between, center, center);
+  @include apply-flex(flex-start, center, center);
+  @include forbidTextSelection;
 }
 
 .interest {
+  @include apply-flex(flex-start, center, center);
+  background-color: $color_3;
+  border-radius: 2px;
+  margin: 5px;
+  min-height: 25px;
+  position: relative;
+  transition: 0.2s all ease-in-out;
+  &:hover {
+    box-shadow: $box-shadow_2;
+    cursor: pointer;
+  }
+  &:hover .interest_description {
+    cursor: pointer;
+    margin: 5px 10px 5px 10px;
+  }
+}
+
+.interest-inactive {
   @include apply-flex(center, center, center);
   background-color: $color_3;
   border-radius: 2px;
   margin: 5px;
   min-height: 25px;
   position: relative;
+  transition: 0.2s all ease-in-out;
   &:hover {
-    box-shadow: $box-shadow_2;
-    cursor: pointer;
+    box-shadow: none;
+    cursor: default;
+  }
+  &:hover .interest_description {
+    cursor: default;
+    margin: 5px 15px 5px 5px;
   }
 }
 
@@ -273,8 +311,10 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 .interest_description {
   color: $color_6;
   margin: 5px 15px 5px 5px;
+  transition: 0.2s all ease-in-out;
   &:hover {
     cursor: pointer;
+    margin: 5px 10px 5px 10px;
   }
 }
 
@@ -321,6 +361,7 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
 .footer {
   @include apply-flex(flex-end, center, center);
+  @include forbidTextSelection;
   height: 30px;
   margin: 15px 5px 15px 0;
   max-height: 30px;
@@ -334,7 +375,8 @@ $box-shadow_6: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   box-shadow: none;
   color: transparent;
   height: 0;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   max-height: 0;
   min-height: 0;
   overflow: hidden;

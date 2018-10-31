@@ -13,4 +13,8 @@ export class UserProfileDto {
   readonly preference?: PREFERENCE;
   readonly orientation?: ORIENTATION;
   readonly userId?: number;
+  readonly isBaned?: boolean;
+  readonly isActive?: boolean;
+  readonly registrationDate?: number;
+  readonly lastActiveDate?: number;
 }

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {PhotosService} from '../../services/photos.service';
+import { Component, OnInit } from '@angular/core';
+import { PhotosService } from '../../services/photos.service';
 import * as jwt_decode from 'jwt-decode';
-import {Photo} from '../../models/photo';
+import { Photo } from '../../models/photo';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,28 +15,26 @@ export class PhotoSliderComponent implements OnInit {
 
   filesToUpload: FileList;
   userId: number;
+  userIdUrl: number;
   photos: Photo[] = [ {userId: 0, _id: '', base64: '', avatar: false, name: ''} ];
 
-  constructor(private photosService: PhotosService) {}
+  constructor(private photosService: PhotosService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.userId = parseInt(jwt_decode(localStorage.getItem('jwt_token')).id, 10);
-    this.photosService.getPhotos(this.userId)
+    this.route.params.subscribe(params => {
+      this.userIdUrl = parseInt(params['id'], 10);
+    });
+
+    this.photosService.getPhotos(this.userIdUrl)
       .subscribe(items => {
         this.photos = items;
       });
   }
 
-  // displayButton() {
-  //   document.getElementById('button').style.visibility = 'visible';
-  // }
-  //
-  // hideButton() {
-  //   document.getElementById('button').style.visibility = 'hidden';
-  // }
-
   deletePhoto(photoId: string) {
-    if (confirm('Delete photo?')){
+    if (confirm('Delete photo?')) {
       this.photosService.deletePhoto(photoId).subscribe(() => {
         this.photosService.getPhotos(this.userId)
           .subscribe(items => {
@@ -80,5 +79,7 @@ export class PhotoSliderComponent implements OnInit {
       reader.readAsDataURL(file);
     });
   }
+
+
 
 }

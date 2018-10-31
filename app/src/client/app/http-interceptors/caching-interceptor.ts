@@ -30,7 +30,7 @@ export class CachingInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    if (req.url === 'api/chats') {
+    if (req.url === 'api/chats/:id' || req.url === 'api/messages/:id' || req.url === 'api/photos') {
       return next.handle(req);
     }
 

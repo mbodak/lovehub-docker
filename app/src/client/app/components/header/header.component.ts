@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NavigationService } from '../../services/navigation.service';
 import { WindowService } from '../../services/window.service';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { UsersProfileService } from '../../services/users-profile.service';
 import { LoggedInUser } from '../login/logged-in-user';
 import { Observable } from 'rxjs/Observable';
 
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
   logo = '/assets/img/logo3.png';
   public isLoggedIn: boolean;
   public loggedInUser: LoggedInUser;
-  router: any;
+  public loggedInUserRole: any;
+  public router: any;
 
   @ViewChild('header') elementView: ElementRef;
 
@@ -25,7 +27,8 @@ export class HeaderComponent implements OnInit {
     private navService: NavigationService,
     private windowService: WindowService,
     private authService: AuthService,
-    _router: Router
+    private usersProfileService: UsersProfileService,
+    private _router: Router
   ) {
     this.router = _router;
   }
@@ -37,8 +40,9 @@ export class HeaderComponent implements OnInit {
     this.setHeaderHeight(headerHeight);
     this.isLoggedInUser().subscribe(result => {
       this.isLoggedIn = result;
-      if(this.isLoggedIn) {
+      if (this.isLoggedIn) {
         this.getLoggedInUser();
+        this.getLoggedInUserRole();
       }
     });
   }
@@ -56,11 +60,19 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedInUser(): Observable<boolean> {
-    return this.authService.isLoggedInUser();
+    return this.authService.isLoggedInUser$();
   }
 
   logoutUser(): void {
     this.authService.logout();
     this.router.navigate([ this.authService.getLoginUrl() ]);
+  }
+
+  getLoggedInUserRole() {
+    this.usersProfileService.findByUserId(this.loggedInUser.userId).subscribe(result => {
+      if (result) {
+        this.loggedInUserRole = result['role'];
+      }
+    });
   }
 }

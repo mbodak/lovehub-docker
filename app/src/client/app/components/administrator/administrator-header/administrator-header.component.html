@@ -15,23 +15,24 @@
 
         <div class="mail-counter text white-text mail-counter-text">
           <p class="mail-counter-text">
-            12                                                   <!--TODO: add binding here-->
+            -                                                   <!--TODO: add binding here-->
           </p>
         </div>
       </div>
 
       <div class="admin-badge">
-        <div class="photo-container">
-          <!--
-          <img src="" alt="User Photo" class="user-photo">       TODO: add binding here and remove icon
-          -->
-
-          <i class="fas fa-user"></i>
+        <div
+          class="photo-container"
+          [ngStyle]="currentUserAvatar && {'background-image': currentUserAvatar}">
+          <i
+            class="fas fa-user"
+            *ngIf="!currentUserAvatar">
+          </i>
         </div>
 
         <div class="user-name-container">
           <h6 class="user-name">
-            {{ currentUser.firstName + ' ' + currentUser.lastName }}
+            {{ (currentUser) ? (currentUser.firstName + ' ' + currentUser.lastName) : "undefined" }}
           </h6>
         </div>
 
@@ -40,7 +41,7 @@
         </div>
 
         <div class="dropdown-list">
-          <a class="link" routerLink="">
+          <a class="link" [routerLink]="['/profile', loggedInUser.userId]">
             <div class="dropdown-list_option">
               <p class="dropdown-list_option-description text dropdown-list-text">
                 Profile
@@ -48,7 +49,7 @@
             </div>
           </a>
 
-          <a class="link" routerLink="/home">
+          <a class="link" (click)="logOut()" routerLink="/home">
             <div class="dropdown-list_option">
               <p class="dropdown-list_option-description text dropdown-list-text">
                 Log Out
@@ -61,11 +62,19 @@
 
     <div class="header-search">
       <form class="header_search-form">
-        <div class="button">
+        <button
+          class="button"
+          (click)="searchUsers(); false">
           <span class="magnifying-glass">🔍</span>
-        </div>
+        </button>
 
-        <input class="input" type="text" placeholder="Search ...">
+        <input
+          class="input"
+          type="text"
+          placeholder="Search ..."
+          name="Search"
+          #search="ngModel"
+          [(ngModel)]="searchInput">
       </form>
     </div>
   </div>

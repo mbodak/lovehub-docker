@@ -4,21 +4,10 @@
   </div>
   <div class="video-block" [ngStyle]="{'max-height.px': videoHeight}">
       <video autoplay loop class="d-none d-lg-block" id="video-background" muted plays-inline>
-          <source src="../../../assets/videos/typing.mp4" type="video/mp4">
+          <source src="../../../assets/videos/3.mov" type="video/mp4">
           Your browser does not support HTML5 video.
-        </video>
+      </video>
   </div>
-</section>
-<section>
-  <home-slider iden='demo'>
-    <div *ngFor="let slider of slider; let i = index" class="carousel-item" [class.active]="i === 0">
-      <img src={{slider.image}} alt={{slider.title}} class='main-slide'>
-      <div class="carousel-caption">
-        <h3>{{slider.title}}</h3>
-        <p>{{slider.text}}</p>
-      </div>
-    </div>
-  </home-slider>
 </section>
 <section id='find'>
   <div>
@@ -33,7 +22,7 @@
         </div>
         <div class='find-info text-center text-md-left'>
           <h3 class="find-info-title">{{item.title}}</h3>
-          <p class="find-info-text">
+          <p class="find-info-text multiline">
             {{item.text}}
           </p>
         </div>
@@ -41,33 +30,22 @@
     </div>
   </div>
 </section>
-<section id='questions'>
-  <div class="row text-center text-sm-left">
-    <div class="col-md-8 col-sm-8 col-xs-10">
-      <p class="questions-text">
-        Any questions left? Text us right back right now!<br/>
-        We're live 24/7! 
-      </p>
+<section>
+  <home-slider iden='demo'>
+    <div *ngFor="let slider of slider; let i = index" class="carousel-item" [class.active]="i === 0">
+      <img src={{slider.image}} alt={{slider.title}} class='main-slide'>
+      <div class="carousel-caption">
+        <h3 class="slider-title">{{slider.title}}</h3>
+        <p class="multiline">{{slider.text}}</p>
+      </div>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-2 text-sm-right">
-      <input type="button" value="Chat now" class='chat-btn lh-btn'>
-    </div>
-  </div>
+  </home-slider>
 </section>
 <section id='feedbacks'>
   <h2 class="title">Some positive feedbacks from our users</h2>
   <h3 class="subtitle">It's kinda surprising that feedbacks are always positive, isn`t it?</h3>
-  <div class="row">
-    <home-slider iden='feeds' class="col-sm-12" breads>
-      <div *ngFor="let feed of feedbacks; let i = index" class="carousel-item" [class.active]="i === 0">
-        <img src={{feed.image}} alt={{feed.title}} class='main-slide'>
-        <div class="carousel-caption">
-          <h3>{{feed.title}}</h3>
-          <p>{{feed.text}}</p>
-        </div>
-      </div>
-
-      <div *ngFor="let feed of feedbacks; let i = index" class="feed-block breads" [attr.data-target]="'#feeds'" [attr.data-slide-to]="i">
+  <div class="row feedbacks">
+    <div *ngFor="let feed of feedbacks;" class="feed-block">
         <img
           class="feed-block-image"
           src="https://cdn.onlinewebfonts.com/svg/img_152532.png"
@@ -79,7 +57,6 @@
           </p>
         </div>
       </div>
-    </home-slider>
   </div>
 </section>
 

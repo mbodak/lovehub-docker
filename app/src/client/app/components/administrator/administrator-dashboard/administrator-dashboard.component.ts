@@ -6,7 +6,7 @@ interface GeneralInformation {
   totalQuantityOfUsers: number;
   quantityOfFemales: number;
   quantityOfMales: number;
-  averageTimeSpent: number;
+  averageTimeSpent: any;
   difTotalQuantityOfUsers: number;
   difQuantityOfFemales: number;
   difQuantityOfMales: number;
@@ -22,16 +22,16 @@ interface UsersByAge {
   'greater than 60': number;
 }
 
-interface UsersAttendance {
-  femaleAttendanceByMonth: number[];
-  maleAttendanceByMonth: number[];
-  measurementPeriod: string[];
+interface UsersNumberDynamics {
+  femaleNumberByMonth: number[];
+  maleNumberByMonth: number[];
+  measurementPeriod: any[];
 }
 
 interface SiteStatistics {
   generalInformation: GeneralInformation;
   usersByAge: UsersByAge;
-  usersAttendance: UsersAttendance;
+  usersNumberDynamics: UsersNumberDynamics;
 }
 
 @Component({
@@ -46,7 +46,6 @@ interface SiteStatistics {
 })
 export class AdministratorDashboardComponent implements OnInit {
   public mainSectionIsVisible: boolean;
-
   public usersData: SiteStatistics = {
     generalInformation: <GeneralInformation>{
       totalQuantityOfUsers: 0,
@@ -66,19 +65,18 @@ export class AdministratorDashboardComponent implements OnInit {
       'from 50 to 60': 0,
       'greater than 60': 0,
     },
-    usersAttendance: <UsersAttendance>{
-      femaleAttendanceByMonth: [],
-      maleAttendanceByMonth: [],
+    usersNumberDynamics: <UsersNumberDynamics>{
+      femaleNumberByMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      maleNumberByMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       measurementPeriod: []
     }
   };
-
   public pieChartType = 'pie';
   public doughnutChartType = 'doughnut';
   public lineChartType = 'line';
   public genderPieChartData: number[] = [];
   public agePieChartData: number[] = [];
-  public usersActivitiesChartData = [
+  public usersNumberDynamicsChartData = [
     {data: [], label: 'Females'},
     {data: [], label: 'Males'}
   ];
@@ -94,7 +92,7 @@ export class AdministratorDashboardComponent implements OnInit {
     'from 50 to 60',
     'greater than 60'
   ];
-  public usersActivitiesChartLabels = [];
+  public usersNumberDynamicsChartLabels = [];
   public genderPieChartColors: any[] = [
     {
       backgroundColor: [
@@ -115,6 +113,24 @@ export class AdministratorDashboardComponent implements OnInit {
       ]
     }
   ];
+  public usersNumberDynamicsChartColors: any[] = [
+    {
+      backgroundColor: 'rgba(191, 113, 206, 0.2)',
+      borderColor: 'rgba(191, 113, 206, 1.0)',
+      pointBackgroundColor: 'rgba(191, 113, 206, 1.0)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(191, 113, 206, 0.8)'
+    },
+    {
+      backgroundColor: 'rgba(63, 147, 211, 0.2)',
+      borderColor: 'rgba(63, 147, 211, 1.0)',
+      pointBackgroundColor: 'rgba(63, 147, 211, 1.0)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(63, 147, 211, 1.0)'
+    }
+  ];
 
   constructor(private administratorService: AdministratorService) {
   }
@@ -126,10 +142,35 @@ export class AdministratorDashboardComponent implements OnInit {
 
     this.administratorService.receivedData.subscribe(data => {
       this.usersData = data;
+      this.handleAverageTimeSpentView();
       this.drawCharts();
     });
 
     this.administratorService.getStatistics();
+  }
+
+  handleAverageTimeSpentView(): void {
+    const usersData = this.usersData;
+
+    let averageTimeSpent;
+    let fullYears;
+    let days;
+
+    if (usersData.generalInformation) {
+      averageTimeSpent = this.usersData.generalInformation.averageTimeSpent;
+      fullYears = Math.floor(averageTimeSpent);
+      days = Math.round((averageTimeSpent - fullYears) * 365);
+    }
+
+    switch (averageTimeSpent) {
+      case (averageTimeSpent < 1):
+        averageTimeSpent = `${Math.round(averageTimeSpent * 365)} days`;
+        break;
+
+      case (averageTimeSpent >= 1):
+        averageTimeSpent = `${fullYears} ${(fullYears === 1) ? 'year' : 'years'} ${days} ${(days === 1) ? 'day' : 'days'}`;
+        break;
+    }
   }
 
   drawCharts(): void {
@@ -149,10 +190,10 @@ export class AdministratorDashboardComponent implements OnInit {
       }
     }
 
-    if (usersData.usersAttendance) {
-      this.usersActivitiesChartData[0].data = usersData.usersAttendance.femaleAttendanceByMonth;
-      this.usersActivitiesChartData[1].data = usersData.usersAttendance.maleAttendanceByMonth;
-      this.usersActivitiesChartLabels = usersData.usersAttendance.measurementPeriod;
+    if (usersData.usersNumberDynamics) {
+      this.usersNumberDynamicsChartData[0].data = usersData.usersNumberDynamics.femaleNumberByMonth;
+      this.usersNumberDynamicsChartData[1].data = usersData.usersNumberDynamics.maleNumberByMonth;
+      this.usersNumberDynamicsChartLabels = usersData.usersNumberDynamics.measurementPeriod;
     }
   }
 

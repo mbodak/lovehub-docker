@@ -55,11 +55,11 @@ export class UserProfile extends Model<UserProfile> {
   @Column
   isActive: boolean;
 
-  @Column
-  registrationDate: Date;
+  @Column(DataType.BIGINT)
+  registrationDate: number;
 
-  @Column
-  lastActiveDate: Date;
+  @Column(DataType.BIGINT)
+  lastActiveDate: number;
 
   @ForeignKey(() => User)
   @Column

@@ -4,5 +4,4 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
-
-VOLUME [ "/usr/src/app" ]
+EXPOSE 4200 5400

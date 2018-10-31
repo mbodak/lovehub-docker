@@ -25,26 +25,20 @@
   user-select: none;
 }
 
-$color_1: #193952;
+$color_1: #000;
 
-$color_2: #3d90cc;
+$color_2: rgba(255, 255, 255, 0.05);
 
-$color_3: #ef233c;
+$color_3: #fff;
 
-$color_4: #1581d3;
+$color_4: #555b6e;
 
-$color_5: #000;
-
-$color_6: rgba(255, 255, 255, 0.05);
-
-$color_7: #fff;
-
-$color_8: #555b6e;
+$color_5: #343a40;     // Home page dark theme header background color
 
 .main {
   @include apply-flex(space-around, center, center);
-  background-color: $color_1;
-  border-top: 1px solid $color_8;
+  background-color: $color_5;
+  border-top: 1px solid $color_4;
   height: 55px;
   min-width: 220px;
   transition: 0.1s ease-in-out;
@@ -68,18 +62,18 @@ $color_8: #555b6e;
   transition: 0.1s ease-in-out;
   width: 45px;
   &:hover {
-    background-color: $color_6;
-    border-color: $color_4;
+    background-color: $color_2;
+    border-color: $color_3;
     cursor: pointer;
     & .icon {
-      color: $color_4;
+      color: $color_3;
     }
   }
   &:active {
-    border-color: $color_2;
-    box-shadow: 0 0 15px $color_2;
+    border-color: $color_3;
+    box-shadow: 0 0 10px $color_3;
     & .icon {
-      color: $color_2;
+      color: $color_3;
     }
   }
 }
@@ -91,7 +85,7 @@ $color_8: #555b6e;
 }
 
 .icon {
-  color: $color_5;
+  color: $color_1;
   font-size: 1.8rem;
   transition: 0.1s ease-in-out;
 }

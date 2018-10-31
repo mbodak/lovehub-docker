@@ -1,0 +1,30 @@
+<div
+  class="container scrollbar d-flex flex-row"
+  [ngClass]="setClasses()"
+  (click)="checkChat()"
+>
+  <div class="avatar-container d-inline-flex mr-3">
+    <a class="avatar-container" [routerLink]="!!chat.user ? ['/profile', chat.user.userId]: ''">
+        <img
+        [src]="!!chat.user.avatar ? chat.user.avatar.base64: 'https://d30y9cdsu7xlg0.cloudfront.net/png/404950-200.png'"
+        [alt]="chat.user.firstName"
+        class="avatar"
+      />
+    </a>
+    
+  </div>
+  <div class="info-container d-inline-flex">
+    <div class="text d-flex flex-column justify-content-around">
+        <p class="name">{{chat.user.firstName+" "+ chat.user.lastName}}</p>
+        <p
+          [ngClass]="setLastMessStatus()">
+          <span
+            *ngIf="!!chat.lastMessage"
+            class="lastMsg"
+          >
+            {{chat.lastMessage.text}}
+        </span>
+        </p>
+    </div>
+  </div>
+</div>

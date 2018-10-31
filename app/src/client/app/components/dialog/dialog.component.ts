@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { EventEmitter } from 'events';
-import { ChatService } from '../../services/chat.service';
 
-import * as jwt_decode from 'jwt-decode';
+import Chat from '../../models/chat';
+
+import { ChatService } from '../../services/chat.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'chat-dialog',
@@ -12,30 +14,96 @@ import * as jwt_decode from 'jwt-decode';
 export class DialogComponent implements OnInit {
   userId: Number = null;
   text: String = '';
-  chatId: Number = null;
+  windowWidth: number = window.innerWidth;
+  messages: Array<any> = null;
+  selectedMessage = null;
 
-  @Input() messages: Array<object>;
+  @Input() chat: Chat;
 
-  constructor( private chat: ChatService) {}
+  @ViewChild('scrollChat') private scrollChat: ElementRef;
+
+  constructor(
+    private chatService: ChatService,
+    private authService: AuthService) {}
 
   ngOnInit() {
-    this.chat.currentChatIdChange.subscribe(id => {
-      this.chatId = id;
-    });
+    this.chatService.messagesUpdate.subscribe(data => this.messages = data);
+    this.userId = this.authService.getLoggedInUser().userId;
 
-    this.userId = jwt_decode(localStorage.getItem('jwt_token')).id;
+    this.scrollToBottom();
   }
 
-  sendMes(mes){
-    const message = {
-      chatId: this.chatId,
-      message: {
+  ngAfterViewInit() {
+    this.windowWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  resize(event) {
+      this.windowWidth = window.innerWidth;
+  }
+
+  goBack() {
+    this.chatService.closeMessages();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+        this.scrollChat.nativeElement.scrollTop = this.scrollChat.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
+
+  sendMes(mes) {
+    const text = this.text.trim();
+
+    if (!!text.length) {
+      const newMessage = {
         userId: this.userId,
-        text: this.text
-      }
+        text
     };
-    this.chat.sendMessage(message);
+
+    this.chatService.sendMessage(newMessage);
     this.text = '';
+    }
+  }
+
+  setClasses(mes) {
+    const ownMessage = mes.userId === this.userId;
+
+    return {
+      'align-items-end': ownMessage,
+      'align-items-start': !ownMessage
+    };
+  }
+
+  setMesClasses(mes) {
+    const ownMessage = mes.userId === this.userId;
+
+    return {
+      'right': mes.userId === this.userId,
+      'left': mes.userId !== this.userId,
+      'unread': ownMessage && !mes.read
+    };
+  }
+  onSelect(msg): void {
+    if (msg.userId !== this.userId) {
+      return;
+    }
+
+    if (this.selectedMessage === msg) {
+      this.selectedMessage = null;
+      return;
+    }
+
+    this.selectedMessage = msg;
+    console.log(this.selectedMessage === msg);
+  }
+
+  unSelect() {
+    this.selectedMessage = null;
   }
 
 }

@@ -1,13 +1,24 @@
-import {Controller, Get, Query} from '@nestjs/common';
-import {MatchingServiceComponent} from './matching.service';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { MatchingServiceComponent } from './matching.service';
+import { UserProfileDto } from '../api/users-profile/dto/user-profile.dto';
 
 @Controller('api/matching')
 export class MatchingController {
   constructor(private matchingService: MatchingServiceComponent) {}
-  @Get()
-  matching(@Query('preference') preference) {
+  @Post('/')
+  async matching(@Query('id') id: number, @Query('preference') preference) {
 
-    return this.matchingService.matchUsers(preference);
+    return await this.matchingService.matchUsers(id, preference);
+  }
+
+  @Post('/unlike/:id')
+  async matchUnlike(@Body() user: UserProfileDto, @Param('id') id) {
+    return await this.matchingService.unlikeUsers(user, id);
+  }
+
+  @Post('/like/:id')
+  async matchLike(@Body() user: UserProfileDto, @Param('id') id) {
+    return await this.matchingService.unlikeUsers(user, id);
   }
 }
 

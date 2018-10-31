@@ -1,5 +1,8 @@
 <div class="container">
   <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+  <div *ngIf="isNotAuth" class="alert alert-danger">
+    <span>Unable to found the user with the provided information.</span>
+  </div>
   <h2 class="title">Login</h2>
   <div class="col-md-4 offset-md-4">
     <form [formGroup]="loginForm" (submit)="onSubmit()">

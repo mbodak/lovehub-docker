@@ -12,13 +12,13 @@
         </div>
       </div>
       <div class="Profile__container">
-        <div class="profile" style="width:400px" *ngFor="let user of users$">
+        <div class="profile" style="width:400px" *ngFor="let userwithava of users$ | async">
           <img class="profile-img-top"
-               src={{user.age}}
+               [src]="userwithava.avatar"
                alt="profile image" style="width:100%">
           <div class="profile-body">
-            <h4 class="profile-title">{{user.firstName}}</h4>
-            <p class="profile-text">{{user.lastName}}</p>
+            <h4 class="profile-title">{{userwithava.userProfile.firstName}}</h4>
+            <p class="profile-text">{{userwithava.userProfile.lastName}}</p>
             <a href="#" class="btn btn-primary">See Profile</a>
           </div>
         </div>
@@ -26,9 +26,9 @@
     </div>
     <div class="col-sm-7">
       <div class="Map__container">
-        <agm-map [latitude]="lat" [longitude]="lng">
-          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-        </agm-map>
+        <!--<agm-map [latitude]="lat" [longtitute]="lng">-->
+          <!--<agm-marker [latitude]="lat" [longtitute]="lng"></agm-marker>-->
+        <!--</agm-map>-->
       </div>
     </div>
   </div>

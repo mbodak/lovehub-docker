@@ -6,6 +6,8 @@ import { UserProfile } from '../../models/user-profile';
 import {IUserStorage} from '../../services/IUserStorage';
 import { Router } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {ModalForbiddenService} from '../../services/modal-forbidden.service';
+import {ModalAuthService} from '../../services/modal-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +18,20 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   error = '';
+  isNotAuth = false;
 
   constructor(private fb: FormBuilder, private loginService: LoginService,
               @Inject('IUserStorage') private storage: IUserStorage,
               private authService: AuthService,
+              private modalService: ModalAuthService,
               private router: Router) { }
 
   ngOnInit() {
     this.initLoginForm();
+    this.modalService.getState().subscribe(state => {
+      this.isNotAuth = state;
+      setTimeout(() => this.isNotAuth = false, 5000);
+    })
   }
 
   initLoginForm(): void {
@@ -53,8 +61,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.sign(email, password).subscribe((response) => {
       if(response.isLoggedIn) {
-        // const url: string = this.authService.getRedirectUrl(),
-          const redirectUrl = `/profile/${this.authService.getLoggedInUser().userId}`;
+        const redirectUrl: string = this.authService.getRedirectUrl();
         this.onRedirect(redirectUrl);
       }
     });
@@ -78,7 +85,7 @@ export class LoginComponent implements OnInit {
   }
 
   public onRegisterRedirect() {
-    this.router.navigateByUrl('/register');
+    this.router.navigateByUrl('/register-full');
   }
 
   public onRedirect(redirectUrl: string) {

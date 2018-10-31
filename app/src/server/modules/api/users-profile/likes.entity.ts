@@ -1,5 +1,4 @@
-import { AutoIncrement, BelongsToMany, Column, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript';
-import { User } from '../users/user.entity';
+import {AutoIncrement, Column, Model, PrimaryKey, Table} from 'sequelize-typescript';
 
 
 @Table({tableName: 'Likes'})

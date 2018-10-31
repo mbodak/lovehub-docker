@@ -1,6 +1,5 @@
-<section class="search-page">
+<article class="search-page">
   <section class="filter__container">
-
     <div class="filter__component">
       <app-user-filter
         [label]="searchFilter.label" [type]="searchFilter.type" [name]="searchFilter.name"
@@ -29,30 +28,31 @@
         [placeholder]="sexFFilter.placeholder" [value]="sexFFilter.value" (onSearch)="search($event)">
       </app-user-filter>
     </div>
-
   </section>
 
-  <article>
-    <section class="user__gallery">
-      <div class="user__container" *ngFor="let user of users">
-        <figure class="user__img"><img src="https://images.pexels.com/photos/207962/pexels-photo-207962.jpeg?h=350&auto=compress&cs=tinysrgb"
-                                       alt="User_Photo">
+  <section>
+    <section class="user__gallery" *ngIf="usersWithAva.length > 0">
+      <div class="user__container" *ngFor="let userWithAva of usersWithAva">
+        <figure class="user__img">
+          <img [src]="userWithAva.avatar" alt="User_Photo">
         </figure>
         <div class="user__description">
           <div class="date">
-            <span>{{ user.age }}</span>
+            <span>{{ userWithAva.userProfile.age }}</span>
           </div>
-          <a class="button" routerLink="/user-profile">{{ user.firstName }} {{ user.lastName }}</a>
+          <a class="nav-link menu-item" [routerLink]="['/profile', userWithAva.userProfile.userId]">
+            {{ userWithAva.userProfile.firstName }} {{ userWithAva.userProfile.lastName }}
+          </a>
         </div>
       </div>
     </section>
-    <section class="pager">
-      <app-pager
-        [itemsPerPage]="itemsPerPage"
-        [countItems]="countItems"
-        [currentPage]="currentPage"
-        (pageChange)="onPageChange($event)">
-      </app-pager>
-    </section>
-  </article>
-</section>
+  </section>
+  <section class="pager" *ngIf="usersWithAva.length > 0">
+    <app-pager
+      [itemsPerPage]="itemsPerPage"
+      [countItems]="countItems"
+      [currentPage]="currentPage"
+      (pageChange)="onPageChange($event)">
+    </app-pager>
+  </section>
+</article>

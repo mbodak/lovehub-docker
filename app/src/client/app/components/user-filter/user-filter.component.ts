@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {SearchParam} from '../user-search/shared/search-param';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { SearchParam } from '../user-search/shared/search-param';
 
 @Component({
   moduleId: module.id,

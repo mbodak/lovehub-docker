@@ -25,33 +25,29 @@
   text-decoration: none;
 }
 
-$color_1: #193952;
+$color_1: #fff;
 
-$color_2: #bf71ce;
+$color_2: #000;
 
-$color_3: #ef233c;
+$color_3: rgba(255, 255, 255, 0.05);
 
-$color_4: #fff;
+$color_4: #555b6e;
 
-$color_5: #000;
+$color_5: #8d99ae;
 
-$color_6: rgba(255, 255, 255, 0.05);
+$color_6: #a9a9a9;
 
-$color_7: #6361e5;
+$color_7: #555b6e;
 
-$color_9: #7aaacc;
+$color_8: #9BA1B4;
 
-$color_10: #555b6e;
+$background-gradient_1: linear-gradient(to bottom, #73838c 0%,#878da0 100%);
 
-$color_11: #0275d8;
+$background-gradient_2: linear-gradient(to bottom, #555b6e 0%,#5f6578 100%);
 
-$background-gradient_1: linear-gradient(to bottom, #348ed3 0%, #5c9fce 100%);
+$background-gradient_3: linear-gradient(to bottom, #7d8d96 0%,#9197aa 100%);
 
-$background-gradient_2: linear-gradient(to bottom, #0275d8 0%, #2985d1 50%, #3f93d3 100%);
-
-$background-gradient_3: linear-gradient(to bottom, #529cce 0%, #7aaacc 100%);
-
-$background-gradient_4: linear-gradient(to bottom, #1581d3 0%, #3d90cc 100%);
+$background-gradient_4: linear-gradient(to bottom, #5f6578 0%,#737982 100%);
 
 $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
 
@@ -59,7 +55,7 @@ $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1p
   @include apply-flex(center, flex-start, flex-start);
   @include forbidTextSelection;
   background: $background-gradient_2;
-  border-right: 1px solid $color_10;
+  border-right: 1px solid $color_4;
   height: 100%;
   min-height: calc(100vh - 55px);
   min-width: 220px;
@@ -94,16 +90,21 @@ $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1p
 }
 
 .white-text {
-  color: $color_4;
+  color: $color_1;
+}
+
+.grey-text {
+  color: $color_5;
 }
 
 .logo-container {
   @include apply-flex(flex-start, center, center);
-  background-color: $color_1;
-  border-radius: 5px;
-  border: 1px solid $color_10;
-  margin: 20px 0;
-  padding: 20px;
+  margin: 13px 0 20px 16px;
+  width: 100%;
+}
+
+.logo-container-link {
+  @include apply-flex(flex-start, center, center);
 }
 
 .logo-img {
@@ -113,8 +114,8 @@ $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1p
 }
 
 .logo {
-  color: $color_4;
-  font: bold 2rem serif;
+  color: $color_1;
+  font: 20px serif;
   text-align: center;
 }
 
@@ -122,19 +123,20 @@ $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1p
 
 .admin-badge {
   @include apply-flex(space-between, center, center);
-  margin: 0 20px;
+  margin: 20px 20px 0 20px;
   width: calc(100% - 40px);
 }
 
 .photo-container {
   @include apply-flex(center, center, center);
-  background-color: $color_1;                                         //TODO: remove
+  background: no-repeat center $color_6;
+  background-size: cover;
   border-radius: 50%;
-  border: 4px solid $color_4;
+  border: 4px solid $color_1;
+  color: $color_7;
+  font-size: 2.5rem;
   height: 70px;
   width: 70px;
-  color: $color_2;
-  font-size: 2.5rem;
 }
 
 .user-status {
@@ -212,58 +214,60 @@ $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1p
 }
 
 .icon {
-  color: $color_5;
+  color: $color_2;
   font-size: 1.8rem;
   transition: 0.1s ease-in-out;
 }
 
 .open-list-arrow-container {
+  @include apply-flex(center, center, center);
   transition: ease-in-out 0.1s;
   margin: 0 10px;
+  height: 100%;
 }
 
 .open-list-arrow {
-  border: solid $color_1;
+  border: solid $color_2;
   border-width: 0 0.3em 0.3em 0;
   display: inline-block;
-  margin-left: -0.3em;
+  margin-left: -0.1em;
   padding: 0.3em;
   transform: rotate(-45deg);
   transition: ease-in-out 0.1s;
 }
 
 .admin-navbar_section-header:hover .icon-wrapper {
-  background-color: $color_6;
-  border-color: $color_4;
+  background-color: $color_3;
+  border-color: $color_1;
 }
 
 .admin-navbar_section-header:hover .icon {
-  color: $color_4;
+  color: $color_1;
 }
 
 .admin-navbar_section-header:active .icon-wrapper {
-  border-color: $color_4;
-  box-shadow: 0 0 10px $color_4;
+  border-color: $color_1;
+  box-shadow: 0 0 10px $color_1;
 }
 
 .admin-navbar_section-header:active .icon {
-  color: $color_4;
+  color: $color_1;
 }
 
 .admin-navbar_section-header:hover .open-list-arrow {
-  border: solid $color_4;
+  border: solid $color_1;
   border-width: 0 0.3em 0.3em 0;
   display: inline-block;
-  margin-left: -0.3em;
+  margin-left: -0.1em;
   padding: 0.3em;
   transform: rotate(-45deg);
 }
 
 .admin-navbar_section-header:active .open-list-arrow {
-  border: solid $color_3;
+  border: solid $color_1;
   border-width: 0 0.3em 0.3em 0;
   display: inline-block;
-  margin-left: -0.3em;
+  margin-left: -0.1em;
   padding: 0.3em;
   transform: rotate(-45deg);
 }
@@ -291,8 +295,20 @@ $box-shadow_1: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1p
   @include apply-flex(space-between, center, center);
   height: 40px;
   &:hover {
-    background-color: $color_9;
+    background-color: $color_8;
     box-shadow: $box-shadow_1;
+  }
+}
+
+.admin-navbar_option-inactive {
+  background-color: $color_8;
+  border-top: 1px solid $color_7;
+  &:hover {
+    background-color: $color_8;
+    box-shadow: none;
+  }
+  & .admin-navbar_option-description {
+    color: $color_4;
   }
 }
 

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {UsersService} from '../../services/users.service';
-import {UsersProfileService} from '../../services/users-profile.service';
-import {UserProfile} from '../../models/user-profile';
-import {User} from '../../models/user';
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../../services/users.service';
+import { UsersProfileService } from '../../services/users-profile.service';
+import { UserProfile } from '../../models/user-profile';
+import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-full',
@@ -16,7 +17,9 @@ export class RegistrationFullComponent implements OnInit {
   userProfile: UserProfile;
   enable = { step0: false, step1: false, step2: false, step3: false };
 
-  public constructor(private usersProfileService: UsersProfileService, private usersService: UsersService) {}
+  public constructor(private usersProfileService: UsersProfileService,
+                     private usersService: UsersService,
+                     private router: Router) {}
 
   ngOnInit() {
     this.userProfile = new UserProfile();
@@ -50,15 +53,16 @@ export class RegistrationFullComponent implements OnInit {
     this.usersService.registration(this.user as User).subscribe(user => {
       this.userProfile.firstName = $event.firstName;
       this.userProfile.lastName = $event.lastName;
-      this.userProfile.age = $event.age;
+      this.userProfile.age = parseInt($event.age, 10);
       this.userProfile.userId = user.id;
+      this.userProfile.isBaned = false;
+      this.userProfile.isActive = true;
+      this.userProfile.registrationDate = Date.now();
       this.usersProfileService.registration(this.userProfile as UserProfile).subscribe();
       console.log('Form Submitted!');
     });
     alert('Congratulation! You are registered!');
-    // console.log(this.userProfile);
-    // console.log(this.user);
-    // this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
 
   isNext() {

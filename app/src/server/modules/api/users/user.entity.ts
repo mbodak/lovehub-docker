@@ -1,10 +1,9 @@
-import * as crypto from 'crypto';
+const crypto = require('crypto');
 import {
   AutoIncrement, BeforeCreate, Column, DataType, HasOne, Model, PrimaryKey, Table, HasMany, BelongsTo,
   BelongsToMany, Length, Unique
 } from 'sequelize-typescript';
 import { UserProfile } from '../users-profile/user-profile.entity';
-import { ChatList } from '../chat-list/chat-list.entity';
 
 @Table({tableName: 'Users'})
 export class User extends Model<User> {
@@ -41,15 +40,10 @@ export class User extends Model<User> {
   @HasOne(() => UserProfile)
   userProfile: UserProfile;
 
-
-
-/*
   @BeforeCreate
   public static async hashPassword(user: User, options: any) {
-    if (!options.transaction) throw new Error('Missing transaction.');
-
     user.password = crypto.createHmac('sha256', user.password).digest('hex');
   }
-  */
+
 }
 

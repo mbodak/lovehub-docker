@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AdministratorService } from '../../../services/administrator.service';
 
@@ -12,12 +13,10 @@ import { AdministratorService } from '../../../services/administrator.service';
     './administrator-users-management.component.scss']
 })
 export class AdministratorUsersManagementComponent implements OnInit {
-  // Expand to full browser's width if Navbar is hidden
-  mainSectionIsVisible: boolean;
-
-  // Initial options to get usersList from DB
-  // Options change upon applying sorting/filtering actions in the view
-  getUsersOptions = {
+  public mainSectionIsVisible: boolean;
+  public allUsersSelected: boolean;
+  public pages = [];
+  public getUsersOptions = {
     userRole: 'any',
     userStatus: 'any',
     usersPerPage: 5,
@@ -27,15 +26,11 @@ export class AdministratorUsersManagementComponent implements OnInit {
       sortingOption: 'ascending'
     }
   };
-
-  // Options to update user(s) status in DB
-  updateUsersOptions = {
+  public updateUsersOptions = {
     usersList: [],
     appliedAction: 'ban'
   };
-
-  // UsersList table view parameters
-  usersList = {
+  public usersList = {
     users: [],
     currentUser: {},
     numberOfPages: 1,
@@ -43,41 +38,60 @@ export class AdministratorUsersManagementComponent implements OnInit {
     maxPagesToShow: 3
   };
 
-  // Pagination pages for view
-  pages = [];
-
-  constructor(private administratorService: AdministratorService) {
+  constructor(private administratorService: AdministratorService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    // Subscribe to Administrator Service changes in usersList, received from DB
+    this.administratorService.navBarState.subscribe(data => {
+      return this.mainSectionIsVisible = data;
+    });
+
     this.administratorService.receivedUsers.subscribe(data => {
       this.manageUsersListParameters(data);
       this.managePaginationPagesView();
     });
 
-    // Get usersList from DB with initial (default) options
     this.administratorService.getUsersEnquiryRequest(this.getUsersOptions);
-
-    // Expand to full browser's width if Navbar is hidden
-    this.administratorService.navBarState.subscribe(data => {
-      return this.mainSectionIsVisible = data;
-    });
   }
 
-  // Fill usersList with data, received from server
+  getUsers(): void {
+    this.administratorService.getUsersEnquiryRequest(this.getUsersOptions);
+  }
+
+  updateUsers(): void {
+    const checkedUsers = this.updateUsersOptions.usersList;
+    const usersList = this.usersList.users;
+
+    if (this.updateUsersOptions.appliedAction === 'send e-mail') {
+      this.router.navigate(['/admin/email'])
+          .then(() => {
+            checkedUsers.forEach(user => {
+              let userObject;
+
+              for (let i = 0; i < usersList.length; i += 1) {
+                if (usersList[i].id = user) {
+                  userObject = usersList[i];
+                  break;
+                }
+              }
+
+              this.administratorService.receivedSelectedUserData.next(userObject);
+            });
+          });
+    } else {
+      this.administratorService.updateUsersEnquiryRequest(this.updateUsersOptions);
+    }
+  }
+
   manageUsersListParameters(data): void {
     this.usersList.users = data.users;
-
-    console.log(this.usersList.users);
-
     this.usersList.currentUser = data.currentUser;
     this.usersList.numberOfPages = data.numberOfPages;
     this.usersList.currentPage = this.getUsersOptions.nextPage;
     this.pages = [];
   }
 
-  // Manage pagination view according to data, received from server
   managePaginationPagesView(): void {
     const pages = this.pages;
     const currentPage = this.usersList.currentPage;
@@ -128,7 +142,6 @@ export class AdministratorUsersManagementComponent implements OnInit {
     }
   }
 
-  // Push selected users to array to apply selected action
   pushSelectedUsersList(form, user): void {
     if (!form.value.selectUser) {
       this.updateUsersOptions.usersList.push(user.id);
@@ -139,12 +152,20 @@ export class AdministratorUsersManagementComponent implements OnInit {
     }
   }
 
-  // Reset selected users array upon applying an action
+  pushAllToSelectedUsersList(): void {
+    if (this.allUsersSelected) {
+      this.usersList.users.forEach(user => {
+        this.updateUsersOptions.usersList.push(user.id);
+      });
+    } else {
+      this.updateUsersOptions.usersList = [] as any;
+    }
+  }
+
   resetSelectedUsersList(): void {
     this.updateUsersOptions.usersList = [];
   }
 
-  // Save selected sorting options to acquire predefined userList from server
   applySort(column, direction): void {
     this.getUsersOptions.sortingOptions = {
       tableColumn: column,
@@ -152,7 +173,6 @@ export class AdministratorUsersManagementComponent implements OnInit {
     };
   }
 
-  // Reset sorting options to default upon acquiring userList from server
   resetSortingOptions(): void {
     this.getUsersOptions.sortingOptions = {
       tableColumn: 'none',
@@ -160,7 +180,6 @@ export class AdministratorUsersManagementComponent implements OnInit {
     };
   }
 
-  // Save next page option to acquire predefined userList from server
   goToPage(page): void {
     const pages = this.pages;
     const lastPage = pages[pages.length - 1].pageTitle;
@@ -210,19 +229,8 @@ export class AdministratorUsersManagementComponent implements OnInit {
     this.getUsersOptions.nextPage = nextPage;
   }
 
-  // Reset next page option to default upon acquiring userList from server
   resetNextPage(): void {
     this.getUsersOptions.nextPage = 1;
-  }
-
-  // Get usersList from DB according to defined options in the view
-  getUsers(): void {
-    this.administratorService.getUsersEnquiryRequest(this.getUsersOptions);
-  }
-
-  // Update selected users in DB according to defined options in the view
-  updateUsers(): void {
-    this.administratorService.updateUsersEnquiryRequest(this.updateUsersOptions);
   }
 
 }

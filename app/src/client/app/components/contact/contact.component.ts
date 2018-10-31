@@ -9,12 +9,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ContactComponent implements OnInit {
 
-  responseFromApi$: Observable<any>;
+  contacts = {
+    phones:['+38 012 345 67 8*','+38 012 345 67 8*', '+38 012 345 67 8*'],
+    address: 'Kyiv, Somestr str., 5',
+    mail: 'write@us.now'
+  };
 
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.responseFromApi$ = this.httpClient.get<any>('/api/hello');
-  }
-
+  ngOnInit() {}
 }

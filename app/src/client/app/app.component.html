@@ -1,8 +1,10 @@
 <div class="wrapper">
+  <app-notification></app-notification>
   <div class='content'>
     <app-header></app-header>
-    <app-forbidden [state]="isOpen"></app-forbidden>
     <router-outlet></router-outlet>
   </div>
   <app-footer></app-footer>
+  <app-notifications></app-notifications>
+  <app-forbidden [state]="isOpen"></app-forbidden>
 </div>

@@ -1,14 +1,20 @@
-<div class="container main" [ngStyle]="{'height.px': height}"> 
-  <div class="row h-100 chat-container">
-    <div class="col-md-4 col-sm-5 col-xs-12 chat-list scrollbar">
-      <chat-user
+<div class="container main" [ngStyle]="{'height.px': height}">
+  <div class="row chat-container">
+    <div
+      *ngIf="(windowWidth < 576) ? !showDialogs : true"
+      class="col-md-4 col-sm-5 col-xs-12 chat-list scrollbar">
+      <chat-list
         *ngFor="let chat of chats"
-        (onChatChecked)="onChatChecked($event)"
         [chat]="chat"
-      ></chat-user>
+      ></chat-list>
+      <div *ngIf="!chats.length" class="no-chat-container">
+          <span class="no-chat">No chats</span>
+      </div>
     </div>
-    <div class="col-md-8 col-sm-7 d-none d-sm-block message-list">
-      <chat-dialog [messages]="messages"></chat-dialog>
+    <div
+      *ngIf="(windowWidth < 576) ? showDialogs : true"
+      class="col-md-8 col-sm-7 d-sm-block message-list">
+      <chat-dialog [chat]="chat"></chat-dialog>
     </div>
   </div>
 </div>

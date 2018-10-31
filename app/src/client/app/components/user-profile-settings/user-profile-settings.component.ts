@@ -1,11 +1,12 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import { UsersService } from '../../services/users.service';
-import { AuthService } from '../../services/auth.service';
 import { UsersProfileService } from '../../services/users-profile.service';
 
-import { LoggedInUser } from '../login/logged-in-user';
 import { UserProfile } from '../../models/user-profile';
-import { User}  from '../../models/user';
+import { User }  from '../../models/user';
+
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   moduleId: module.id,
@@ -15,7 +16,7 @@ import { User}  from '../../models/user';
 })
 export class UserProfileSettingsComponent implements OnInit {
 
-  private loggedInUser: LoggedInUser;
+  private userId: number;
   public user: User;
   public userProfile: UserProfile = new UserProfile();
   public canUpdate = false;
@@ -25,13 +26,16 @@ export class UserProfileSettingsComponent implements OnInit {
 
   ngOnInit() {
     const usersService = this.injector.get(UsersService),
-      authService = this.injector.get(AuthService);
+      route = this.injector.get(ActivatedRoute);
 
-    this.loggedInUser = authService.getLoggedInUser();
-    usersService.findById(this.loggedInUser.userId).subscribe(user => {
-      this.user = <User>user;
-      this.userProfile = <UserProfile>user.userProfile;
-      console.log(this.userProfile.firstName);
+    route.paramMap
+      .switchMap((params: ParamMap) => {
+        this.userId = +params.get('id');
+        return usersService.findById(this.userId);
+      }).subscribe(user => {
+        this.user = <User>user;
+        this.userProfile = <UserProfile>user.userProfile;
+        console.log(this.userProfile.firstName);
     });
   }
 
@@ -43,6 +47,7 @@ export class UserProfileSettingsComponent implements OnInit {
         if(affected) {
           this.isSuccess = !this.isSuccess;
           setTimeout(() => this.isSuccess = !this.isSuccess, 3000);
+          this.canUpdate = false
         }
       });
   }

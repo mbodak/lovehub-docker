@@ -1,5 +1,5 @@
 <div class="profile-setting">
-  <form (ngSubmit)="updateUser()" #updateForm="ngForm">
+  <form #updateForm="ngForm">
     <app-inline-edit name="firstName" type="text" [(ngModel)]="userProfile.firstName"
                      label="First Name" [required]="true"
                      (showButton)="triggerButton($event)">
@@ -40,7 +40,7 @@
     </app-inline-edit>
 
     <div class="button-update" *ngIf="canUpdate">
-      <input type="submit" value="Update" />
+      <input type="button" (click)="updateUser()" value="Update" />
     </div>
   </form>
 

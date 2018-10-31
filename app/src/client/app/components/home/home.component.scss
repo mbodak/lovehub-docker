@@ -1,6 +1,10 @@
+@import '../../../../assets/scss/colors.scss';
+
 #registration {
     width: 100%;
     position: relative;
+    background-image: url("http://www.userlogos.org/files/backgrounds/Mafia_Penguin/bluepurple.jpg");
+    background-size: cover;
 }
 
 .reg-block {
@@ -28,11 +32,17 @@
 .subtitle {
     text-align: center;
     font-size: 20px;
-    margin: 0px 0 15px;
+    margin: 0px 0 30px;
 }
 
 #find, #questions, #feedbacks {
     padding: 15px 70px;
+    background-color: white;
+}
+
+#questions {
+    background-color: rgba(233, 236, 239, 0.9);
+    color: black;
 }
 
 .find-items {
@@ -41,13 +51,13 @@
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .find-block {
     display: flex;
-    width: 45%;
-    height: 130px;
+    width: 43%;
+    height: 110px;
     margin-bottom: 15px;
 }
 
@@ -59,7 +69,7 @@
 }
 
 .find-image {
-    width: 100px;
+    width: 80px;
     display: inline-flex;
     margin-right: 25px;
 }
@@ -71,16 +81,11 @@
 
 .find-info-title {
     font-size: 16px;
-    margin-bottom: 10px;
 }
 
 .find-info-text {
     font-size: 12px;
     margin: 0;
-}
-
-#questions {
-    background-color: darkgray;
 }
 
 .chat-btn {
@@ -96,6 +101,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+    width: 28%;
     cursor: pointer;
 }
 
@@ -124,11 +130,45 @@
 }
 
 .main-slide, .feed-slide {
-    height: 100%;
     width: 100%;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
+}
+.video-block {
+    overflow: hidden;
+}
+.slider-title{
+    font-size: 25px;
+    opacity: 0.8;
+    letter-spacing: 5px;
+    font-weight: bold;
+}
+
+.multiline{
+    white-space: pre-line;
+}
+
+.carousel-caption{
+    position: absolute;
+    top: 0px;
+    left: 4%;
+    right: auto;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.carousel-item{
+    max-height: 600px;
+    overflow: hidden;
+}
+
+.feedbacks{
+    justify-content: space-between;
+    align-items: center;
 }
 
 @media (max-width: 1200px) {
@@ -138,28 +178,29 @@
     .feed-block-image {
       width: 60px;
     }
+
+    .carousel-item{
+        height: 380px;
+    }
 }
+
 
 @media (max-width: 992px) {
     .find-block {
-      width: 48%;
-      height: 160px;
-    }
-    .find-image {
-      width: 80px;
+      width: 40%;
     }
     #registration {
       background-color: #e8e8e8;
+      padding: 10px 0;
     }
     .video-block {
       display: none;
     }
     .reg-block {
-      margin: 20px auto;
-      width: 80%;
+      margin: 0px auto;
       height: auto;
       position: relative;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: none;
       left: 0;
       top: 0;
       transform: translate(0, 0);
@@ -175,7 +216,7 @@
       flex-direction: column;
     }
     .find-block {
-      width: 75%;
+      width: 50%;
       flex-direction: column;
       align-items: center;
       margin-bottom: 40px;
@@ -185,9 +226,20 @@
       margin: 0;
       margin-bottom: 15px;
     }
+    .feedbacks{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .feed-block {
+        width: 60%;
+    }
 }
 
 @media (max-width: 576px) {
+    #registration{
+      padding: 0;
+    }
     .questions-text {
       margin-bottom: 10px;
     }
@@ -201,8 +253,13 @@
     .feed-block {
       margin: 15px 0;
     }
-  .reg-block {
-    width: 100%;
-    border-radius: 0;
-  }
+    .reg-block {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .slider-title{
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
 }

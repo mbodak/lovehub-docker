@@ -1,4 +1,4 @@
-import { AutoIncrement, BelongsToMany, Column, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { AutoIncrement, BelongsToMany, Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { UserProfile } from './user-profile.entity';
 import { UserProfileInterest } from './user-profile-interest.entity';
 
@@ -13,10 +13,7 @@ export class Interest extends Model<Interest> {
   @Column
   name: string;
 
-  @ForeignKey(() => UserProfile)
-  @Column
-  userProfileId: number;
-
   @BelongsToMany(() => UserProfile, () => UserProfileInterest)
   authors: UserProfile[];
+
 }

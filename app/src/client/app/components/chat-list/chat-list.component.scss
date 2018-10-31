@@ -1,0 +1,45 @@
+.container{
+    cursor: pointer;
+    padding: 5px 15px;
+}
+.avatar-container{
+    width: 50px;
+    height: 50px;
+    display: inherit;
+}
+.info-container{
+    width: 100%;
+}
+.text{
+    width: 100%;
+}
+.avatar{
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+.message{
+    color: grey;
+}
+.active{
+    background: #8d99ae;
+    color: white;
+}
+.lastMsg{
+    padding: 5px;
+    padding-left: 0;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-table;
+}
+.unread{
+    background-color: #555b6e;
+    color: white;
+
+}
+
+.friendUnread{
+    background-color: #8d99ae;
+    color: white;
+}
