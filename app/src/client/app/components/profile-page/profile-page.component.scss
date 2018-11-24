@@ -3,3 +3,41 @@
   margin: 0 auto;
   background-color: white;
 }
+
+.user-page {
+
+}
+
+@keyframes pound {
+  to { transform: scale(1.4); }
+}
+
+.heart {
+  margin-top: 40px;
+  display: inline-block;
+  font-size: 150px;
+  color: rgba(245, 55, 55, 0.9);
+  animation: pound .25s infinite alternate;
+  transform-origin: center;
+  cursor: pointer;
+}
+.heart2 {
+  margin-top: 40px;
+  display: inline-block;
+  font-size: 150px;
+  color: rgba(245, 55, 55, 0.7);
+  cursor: pointer;
+}
+
+.heart:hover {
+  color: rgba(245, 55, 55, 0.7);
+}
+
+.heart2:hover {
+  color: rgba(245, 55, 55, 0.9);
+  font-size: 180px;
+  transition: font-size .5s;
+}
+
+.user-page { text-align: center; }
+

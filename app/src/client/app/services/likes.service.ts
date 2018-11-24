@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Photo } from '../models/photo';
+import { Like } from '../models/like';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,15 +12,29 @@ export class LikesService {
 
   constructor(private http: HttpClient) { }
 
-  getLikedUsers(userId: number): Observable<Photo[]> {
-    const url = `api/likes/users/${userId}`;
-    return this.http.get<Photo[]>(url);
+  addLike(like: Like): Observable<Like> {
+    const url = `api/users-profile/likes`;
+    return this.http.post<Like>(url, like, httpOptions);
   }
-  //
-  // unlikePhoto(photoId: string): Observable<any> {
-  //   const url = `api/likes/${photoId}`;
-  //   console.log(photoId);
-  //   return this.http.delete<Photo>(url);
-  // }
+
+  getLikes(): Observable<Like[]> {
+    const url = `api/users-profile/likes`;
+    return this.http.get<Like[]>(url);
+  }
+
+  getWhoLikesUser(userId: number): Observable<number[]> {
+    const url = `api/users-profile/${userId}/likes/who`;
+    return this.http.get<number[]>(url);
+  }
+
+  getWhatLikeUser(userId: number): Observable<number[]> {
+    const url = `api/users-profile/${userId}/likes/what`;
+    return this.http.get<number[]>(url);
+  }
+
+  dislikeUser(userId: number, userIdUrl: number): Observable<any> {
+    const url = `api/users-profile/${userId}/likes/${userIdUrl}`;
+    return this.http.delete(url);
+  }
 
 }

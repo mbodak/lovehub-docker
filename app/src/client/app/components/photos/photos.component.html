@@ -3,7 +3,7 @@
     <div id="profile-photo" class="ch-item">
       <img class="rounded-circle mx-auto d-block img-fluid"/>
       <div class="ch-info">
-        <p>
+        <p *ngIf="userId == userIdUrl">
           <input type="file" (change)="fileChangeEvent($event)"/>
           <a>Upload photo</a>
         </p>

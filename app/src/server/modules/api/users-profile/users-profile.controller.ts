@@ -2,10 +2,13 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, Req, 
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UsersProfileService } from './users-profile.service';
 import { UserProfile } from './user-profile.entity';
+import { Likes } from './likes.entity';
+import { LikeDto } from './dto/like.dto';
+
 import { HttpExceptionFilter } from '../../common/filters/http-exception.filter';
 
 import * as jwt from 'jsonwebtoken';
-import {UsersService} from '../users/users.service';
+import { UsersService } from '../users/users.service';
 
 export interface FilteredUsersProfile {
   rows?: UserProfile[];
@@ -18,7 +21,7 @@ export class UsersProfileController {
 
   constructor(
     private readonly usersProfileService: UsersProfileService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
     ) {}
 
   @HttpCode(201)
@@ -32,7 +35,7 @@ export class UsersProfileController {
     const userId = req.id,
       user = await this.usersService.findById(req.id);
 
-    if(user.userProfile.id) {
+    if (user.userProfile.id) {
       return await this.usersProfileService.update(user.userProfile.id, userProfileDto);
     } else {
       return await this.usersProfileService.create({...userProfileDto, ...{ userId }});
@@ -62,13 +65,53 @@ export class UsersProfileController {
       console.log(`server controller: findByPreference(${queries.preference})`);
       return await this.usersProfileService.findByPreference(queries.preference, queries.limit);
     }
-    return await this.usersProfileService.findAll();
+    return await this.usersProfileService.findByAll();
   }
+
+  // @HttpCode(200)
+  // @Get(':id')
+  // async findShortInfo(@Param() params): Promise<UserProfile> {
+  //   return await this.usersProfileService.findShortInfo(params.id);
+  // }
 
   @HttpCode(204)
   @Delete(':id')
   async removeById(@Param() params): Promise<{statusCode: number}> {
     const affected = await this.usersProfileService.remove(params.id);
     return {statusCode: affected};
+  }
+
+
+  // operations with likes
+
+  @HttpCode(201)
+  @Post('/likes')
+  async addLike(@Body() likeDto: LikeDto): Promise<LikeDto> {
+    return await this.usersProfileService.createLike(likeDto);
+  }
+
+  @HttpCode(200)
+  @Get('/likes')
+  async findLikes(@Param() params): Promise<Likes[]> {
+    return await this.usersProfileService.findLikes();
+  }
+
+  @HttpCode(200)
+  @Get(':userId/likes/who')
+  async findWhoLikesUser(@Param() params): Promise<number[]> {
+    return await this.usersProfileService.findWhoLikesUser(params.userId);
+  }
+
+  @HttpCode(200)
+  @Get(':userId/likes/what')
+  async findWhatLikeUser(@Param() params): Promise<number[]> {
+    return await this.usersProfileService.findWhatLikeUser(params.userId);
+  }
+
+  @HttpCode(204)
+  @Delete(':userId/likes/:userIdUrl')
+  async dislike(@Param() params): Promise<{ statusCode: number }> {
+    const affected = await this.usersProfileService.deleteLike(params.userId, params.userIdUrl);
+    return { statusCode: affected };
   }
 }

@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import Message from '../../models/message';
 import { WindowService } from '../../services/window.service';
 import { ChatService } from '../../services/chat.service';
 import { HttpClient } from '@angular/common/http';
-
-import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-chat',
@@ -14,11 +12,13 @@ import * as jwt_decode from 'jwt-decode';
 export class ChatComponent implements OnInit {
   height = 100;
   chats = [];
-  messages = null;
+  chat: any;
+  showDialogs = false;
+  windowWidth: number = window.innerWidth;
 
   constructor(
     private windowService: WindowService,
-    private chat: ChatService,
+    private chatService: ChatService,
     private http: HttpClient
   ) {
     this.height = this.windowService.freeHeight;
@@ -26,21 +26,20 @@ export class ChatComponent implements OnInit {
 
 
   ngOnInit() {
-    const userId = jwt_decode(localStorage.getItem('jwt_token')).id;
-    
-    this.http.get<any[]>(`api/chats/${userId}`).subscribe((data) => {
-      this.chats = data;
-    });
+    this.chatService.currentChatChange.subscribe(chat => this.chat = chat);
 
-    this.chat.socket.subscribe(msg => {
-      this.messages = [...this.messages, msg];
-    });
+    this.chatService.userlistUpdate.subscribe(data => this.chats = data);
+
+    this.chatService.showDialogsUpdate.subscribe(show => this.showDialogs = show);
   }
 
-  onChatChecked(chat){
-    this.chat.setChat(chat);
-    this.http.get<Message[]>(`api/messages/${chat}`).subscribe((data) => {
-      this.messages = data;
-    });
+  ngAfterViewInit() {
+    this.windowWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  resize(event) {
+      this.windowWidth = window.innerWidth;
+      this.height = this.windowService.freeHeight;
   }
 }

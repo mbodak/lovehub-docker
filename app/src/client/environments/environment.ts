@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  CHAR_URL: 'ws://localhost:5400/chat?chat_id=1'
+  CHAR_URL: 'ws://localhost:5400'
 };

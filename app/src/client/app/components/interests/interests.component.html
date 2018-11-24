@@ -1,16 +1,23 @@
 <main class="main">
   <header class="header">
+    <div class="header-heading">
+      <i class="fas fa-gamepad"></i>
+
+      <span class="header-title">Interests</span>
+    </div>
+
     <div
       class="icon-container"
-      [ngClass]="{'icon-container-active': editMode}"
+      [ngClass]="{
+        'icon-container-active': editMode,
+        'hidden': editingIsForbidden
+      }"
       (click)="toggleEditMode(); false">
       <i
         class="fas fa-edit icon"
         [ngClass]="{'icon-active': editMode}">
       </i>
     </div>
-
-    <span class="header-heading">Interests</span>
   </header>
 
   <section class="interests-section">
@@ -26,7 +33,8 @@
           #interest="ngModel"
           [(ngModel)]="typedInterest"
           (focus)="onInputFocus()"
-          (blur)="onInputBlur()">
+          (blur)="onInputBlur()"
+          (ngModelChange)="inputChange($event)">
 
         <button
           class="button submit-button text"
@@ -36,13 +44,25 @@
         </button>
 
         <div
+          class="validation-message"
+          [ngClass]="{'hidden': !validationMessageIsVisible}"
+          [ngStyle]="isInputValid && {'color': 'green'} || {'color': 'red'}">
+          {{
+            (isInputValid)
+              ? "Interest must be a word or group of words"
+              : "Invalid input! Please try again"
+          }}
+        </div>
+
+        <div
           class="hints"
-          [ngClass]="{'hidden': !inputFieldFocus}">
+          [ngClass]="{'hidden': !inputFieldFocus || !hints || (hints.length === 0)}">
           <div
             class="hints_option"
-            *ngFor="let hint of hintsToShowList"
+            *ngFor="let hint of hints"
             (click)="addInterestFromHint(hint)">
-            <span class="hints_option-description">
+            <span
+              class="hints_option-description">
               {{ hint }}
             </span>
           </div>
@@ -54,9 +74,10 @@
       <div
         class="interest"
         [ngClass]="{
-        'interest-hidden': unsavedDeletedInterests.includes(interest),
-        'interest-active': editMode}"
-        *ngFor="let interest of interests.concat(unsavedAddedInterests)">
+          'interest-active': editMode,
+          'interest-inactive': editingIsForbidden
+        }"
+        *ngFor="let interest of interestsToShow">
         <span class="interest_description text">
           {{ interest }}
         </span>
@@ -75,7 +96,7 @@
     class="footer"
     [ngClass]="{'hidden': !editMode}">
     <button
-      class="button submit-button text"
+      class="button submit-button save-interests-button text"
       title="Save changes"
       (click)="saveChanges(); false">
       Save

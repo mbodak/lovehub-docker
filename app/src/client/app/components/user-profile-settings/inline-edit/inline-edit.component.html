@@ -1,9 +1,9 @@
 <div>
 
-  <div *ngIf="editing" class="form-group row">
-    <label class="bold col-sm-3 col-form-label">{{ label }}:</label>
+  <div *ngIf="editing" class="l-container">
+    <label class="bold label align-self-center">{{ label }}:</label>
 
-    <div class="col-sm-9">
+    <div class="value">
       <input list="list" [name]="value" [type]="type" [(ngModel)]="value" class="form-control"
              [placeholder]="placeholder" [required]="required" [pattern]="pattern"
              (blur)="onBlur($event, inlineEditControl.errors)" #inlineEditControl="ngModel" />
@@ -16,9 +16,9 @@
     </div>
   </div>
 
-  <div *ngIf="!editing" class="form-group row">
-    <label class="bold col-sm-3 align-self-center">{{ label }}:</label>
-    <div class="col-sm-9 inline-edit" title="Click to edit" (click)="edit(value)" (focus)="edit(value)" tabindex="0">
+  <div *ngIf="!editing" class="l-container">
+    <label class="bold label align-self-center">{{ label }}:</label>
+    <div class="value" title="Click to edit" (click)="edit(value)" (focus)="edit(value)" tabindex="0">
       {{ value }}&nbsp;
     </div>
   </div>

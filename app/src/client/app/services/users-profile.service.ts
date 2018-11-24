@@ -35,6 +35,13 @@ export class UsersProfileService {
     );
   }
 
+  findShortInfo(userId: number): Observable<FilteredUsersProfile> {
+    return this.http.get<FilteredUsersProfile>(`${this.usersProfileUrl}/${userId}`).pipe(
+      tap(_ => console.log(`found UsersProfile-profile by userId ${userId}`)),
+      catchError(this.handleError<FilteredUsersProfile>(`repository users-profile: findByUserId(${userId})` ))
+    );
+  }
+
   update(user: UserProfile): Observable<[number, UserProfile[]]> {
     console.log('UsersProfileService updateUser ', user.id, user.firstName);
     return this.http.put<[number, UserProfile[]]>(this.usersProfileUrl, user, httpOptions).pipe(
@@ -66,6 +73,13 @@ export class UsersProfileService {
       .pipe(
         tap(_ => console.log(`found users-profile by "${name}"`)),
         catchError(this.handleError<FilteredUsersProfile>(`repository users-profile: findByName(${name})` ))
+      );
+  }
+  findAll(): Observable <FilteredUsersProfile> {
+    return this.http.get<FilteredUsersProfile>(`${this.usersProfileUrl}`)
+      .pipe(
+        tap(_ => console.log(`found users-profile`)),
+        catchError(this.handleError<FilteredUsersProfile>(`repository users-profile` ))
       );
   }
 

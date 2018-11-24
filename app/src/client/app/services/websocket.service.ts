@@ -10,24 +10,29 @@ export class WebsocketService {
 
   constructor() { }
 
-  connect(): Rx.Subject<MessageEvent> {
-    this.socket = io(environment.CHAR_URL);
+  createSocket() {
+    this.socket = io(`${environment.CHAR_URL}/chat`);
+  }
 
-    let observable = new Observable(observer => {
-        this.socket.on('resFromServer', (data) => {
+  connect(event: string): Rx.Observable<any> {
+    if (!this.socket){
+      this.createSocket();
+    }
+
+    const observable = new Observable(observer => {
+        this.socket.on(event, (data) => {
           observer.next(data);
-        })
+        });
+
         return () => {
           this.socket.disconnect();
         };
     });
 
-    let observer = {
-        next: (data: any) => {
-            this.socket.emit(data.event, JSON.stringify(data));
-        },
-    };
+    return observable;
+  }
 
-    return Rx.Subject.create(observer, observable);
+  send(event: string, data: any) {
+    this.socket.emit(event, JSON.stringify(data));
   }
 }

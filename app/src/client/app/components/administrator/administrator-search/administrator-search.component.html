@@ -1,0 +1,84 @@
+<main class="main">
+  <app-administrator-navbar class="admin-navbar">
+  </app-administrator-navbar>
+
+  <app-administrator-header
+    class="header"
+    [ngClass]="{'header-full-screen': !mainSectionIsVisible}">
+  </app-administrator-header>
+
+  <section
+    class="main-section"
+    [ngClass]="{
+      'main-section-full-screen': !mainSectionIsVisible,
+      'full-screen': !mainSectionIsVisible}">
+    <div class="main-section-content" [ngClass]="{'full-screen': !mainSectionIsVisible}">
+      <div class="search-query">
+        <div>
+          <p class="heading">
+            Search results for "{{ searchResults.searchQuery }}"
+          </p>
+        </div>
+
+        <div *ngIf="isSearchUnsuccessful">
+          <p class="text">
+            Sorry, no results were found.
+            <br>
+            Please try again!
+          </p>
+        </div>
+      </div>
+
+      <div class="search-results">
+        <div
+          class="user-badge"
+          *ngFor="let user of searchResults.users">
+          <div>
+            <div class="photo-section">
+              <div
+                class="photo-container"
+                [ngStyle]="user.avatarUrl && {'background-image': user.avatarUrl}">
+                <i
+                  class="fas fa-user"
+                  *ngIf="!user.avatarUrl"></i>
+              </div>
+            </div>
+
+            <div class="button-container">
+              <button
+                class="button"
+                [routerLink]="['/profile', user.id]">
+                Profile
+              </button>
+            </div>
+
+            <div class="button-container">
+              <button
+                class="button"
+                (click)="sendEmail(user)">
+                E-mail
+              </button>
+            </div>
+          </div>
+
+          <div class="user-information">
+            <p class="heading">{{ user.firstName + ' ' + ((user.lastName) ? user.lastName : '') }}</p>
+
+            <p class="text">{{ 'Role: ' + user.role }}</p>
+
+            <p class="text">{{ 'Id: ' + user.id }}</p>
+
+            <p class="text">{{ 'Age: ' + ((user.age) ? (user.age+ ' years old') : '-') }}</p>
+
+            <p class="text">{{ 'Registered: ' + ((user.registrationDate) ? user.registrationDate : '-') }}</p>
+
+            <p class="text">{{ 'Last active: ' + ((user.lastActiveDate) ? user.lastActiveDate : '-') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-administrator-footer class="footer">
+  </app-administrator-footer>
+</main>

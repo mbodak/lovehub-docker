@@ -10,9 +10,10 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { AdministratorDashboardComponent } from './components/administrator/administrator-dashboard/administrator-dashboard.component';
 import { AdministratorUsersManagementComponent } from './components/administrator/administrator-users-management/administrator-users-management.component';
+import { AdministratorSearchComponent } from './components/administrator/administrator-search/administrator-search.component';
+import { AdministratorSendEmailComponent } from './components/administrator/administrator-send-email/administrator-send-email.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthProfileGuardService } from './services/auth-profile-guard.service';
 import { LikesComponent } from './components/likes/likes.component';
@@ -23,30 +24,21 @@ export const routes = [
   { path: 'search', component: UserSearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'register', component: RegistrationComponent},
-  { path: 'register-full', component: RegistrationFullComponent},
-  { path: 'profile/:userId', component: ProfilePageComponent},
   { path: 'likes', component: LikesComponent},
-  { path: 'admin', component: AdministratorDashboardComponent,
-    children: [
-      {path: '', component: AdministratorDashboardComponent
-      },
-      {
-      path: 'users-management' , component: AdministratorUsersManagementComponent
-    }]
-  },
   { path: 'register', component: RegistrationComponent },
   { path: 'register-full', component: RegistrationFullComponent },
   { path: 'photo', component: PhotosComponent},
-  { path: 'profile', canActivate: [AuthProfileGuardService], component: ProfilePageComponent},
+  { path: 'profile/:id', canActivate: [AuthProfileGuardService], component: ProfilePageComponent},
   { path: 'admin', canActivate: [ AuthGuard ],
     children: [
       { path: '', component: AdministratorDashboardComponent },
-      { path: 'users-management', component: AdministratorUsersManagementComponent }
+      { path: 'users-management', component: AdministratorUsersManagementComponent },
+      { path: 'search', component: AdministratorSearchComponent },
+      { path: 'email', component: AdministratorSendEmailComponent }
     ]
   },
   { path: 'chat', component: ChatComponent },
   { path: 'forgot', component:  RecoverPasswordComponent},
   { path: 'forgot/:token', component: ResetPasswordComponent},
-  { path: 'user-match', canActivate: [ AuthGuard ], component: UserMatchComponent },
+  { path: 'user-match', component: UserMatchComponent },
 ];

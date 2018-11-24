@@ -64,7 +64,14 @@
   font-weight: 600;
 }
 
-
+.nav .a {
+  width: 33%;
+  text-align: center;
+  border: 1px solid rgba(233, 236, 239, 0.9);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
 
 .user-img:hover {
 

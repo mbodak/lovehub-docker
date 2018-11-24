@@ -1,6 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import * as jwt_decode from 'jwt-decode';
 
 import { InterestsService } from '../../services/interests.service';
+
+interface Results {
+  interests: string[];
+  hints: string[];
+}
 
 @Component({
   selector: 'app-interests',
@@ -11,77 +21,164 @@ import { InterestsService } from '../../services/interests.service';
     './interests.component.scss'
   ]
 })
-export class InterestsComponent implements OnInit {
+export class InterestsComponent implements OnInit, OnDestroy {
+  public connection: any;
+  public currentUserId: number;
+  public profileOwnerId: number;
   public editMode = false;
+  public editingIsForbidden = false;
   public inputFieldFocus = false;
-  public interests: string[] = ['reading', 'football', 'tv watching', 'skiing', 'snowboarding', 'skydiving', 'skating', 'swimming', 'traveling', 'working', 'etc.'];
+  public validationMessageIsVisible = false;
+  public isInputValid = true;
+  public hints: string[] = [];
+  public interests: string[] = [];
+  public interestsToShow: string[] = [];
+  public interestsToSave: string[] = [];
+  public interestsToDelete: string[] = [];
   public typedInterest: string;
-  public unsavedAddedInterests: string[] = [];
-  public unsavedDeletedInterests: string[] = [];
-  public hintsList: string[] = [];
-  public hintsToShowList: string[] = ['reading', 'football', 'tv watching'];
+  public typedInterestChanged: Subject<string> = new Subject<string>();
+  public changesInInterests = {
+    interestsToSave: this.interestsToSave,
+    interestsToDelete: this.interestsToDelete
+  };
 
-  constructor(private interestsService: InterestsService) {
+  constructor(
+      private interestsService: InterestsService,
+      private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => {
+      this.profileOwnerId = parseInt(params.id, 10);
+      this.distinctProfileOwner();
+      this.getInterests();
+    });
+
+    this.typedInterestChanged
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe(input => this.typedInterest = input);
   }
 
   ngOnInit() {
+    this.connection = this.interestsService.getData().subscribe((results: Results) => {
+      this.hints = results.hints;
+      this.interests = results.interests;
+
+      if (this.interests && this.interests.length > 0) {
+        if (!this.editingIsForbidden) {
+          this.interestsToShow = [...new Set([...this.interests, ...this.interestsToShow])]
+            .filter(interest => !!interest);
+        } else {
+          this.interestsToShow = [...this.interests]
+            .filter(interest => !!interest);
+        }
+      }
+    });
+
+    this.route.url.subscribe(() => {
+      if (this.profileOwnerId) {
+        this.distinctProfileOwner();
+        this.getInterests();
+      }
+    });
+
+    if (this.profileOwnerId) {
+      this.distinctProfileOwner();
+      this.getInterests();
+    }
   }
 
-  // Add interest from input field
-  addInterest() {
-    this.unsavedAddedInterests.push(this.typedInterest);
-    this.typedInterest = '';
+  ngOnDestroy() {
+    this.connection.unsubscribe();
+    this.typedInterestChanged.unsubscribe();
   }
 
-  // Add interest from drop down hints
-  addInterestFromHint(hint) {
+  async inputChange(input: string) {
+    await this.typedInterestChanged.next(input);
+    this.getHints(this.typedInterest);
+  }
+
+  getInterests(): void {
+    if (this.profileOwnerId) {
+      this.interestsService.getInterests(this.profileOwnerId);
+    }
+  }
+
+  getHints(input): void {
+    if (input) {
+      this.interestsService.getHints(input.trim().toLowerCase());
+    } else {
+      this.interestsService.getHints('');
+    }
+  }
+
+  addInterest(): void {
+    const checkInputPattern = /^[a-zA-Z\s]+$/g;
+
+    if (this.typedInterest) {
+      if (checkInputPattern.test(this.typedInterest)) {
+        this.interestsToSave.push(this.typedInterest.trim().toLowerCase());
+        this.interestsToShow = [...new Set([...this.interestsToShow, ...this.interestsToSave])]
+          .sort((a, b) => a.localeCompare(b));
+        this.typedInterest = '';
+      } else {
+        this.isInputValid = false;
+      }
+    } else {
+      this.isInputValid = false;
+    }
+  }
+
+  addInterestFromHint(hint): void {
     this.typedInterest = hint;
   }
 
-  // Delete interest from interest list in user profile back at DB
-  deleteInterest(interest) {
-    this.unsavedDeletedInterests.push(interest);
+  deleteInterest(interest): void {
+    this.interestsToDelete.push(interest);
+    this.interestsToShow.splice(this.interestsToShow.indexOf(interest), 1);
+
+    if (this.interestsToSave.indexOf(interest)) {
+      this.interestsToSave.splice(this.interestsToSave.indexOf(interest), 1);
+    }
   }
 
-  // Save changes and exit editing mode
-  saveChanges() {
-    const interests = this.interests;
-    const addedInterests = this.unsavedAddedInterests;
-    const deletedInterests = this.unsavedDeletedInterests;
-    const addedInterestsLength = this.unsavedAddedInterests.length;
-    const deletedInterestsLength = this.unsavedDeletedInterests.length;
-
-    if (deletedInterestsLength) {
-      for (let i = 0; i < deletedInterestsLength; i += 1) {
-        if (interests.includes(deletedInterests[i])) {
-          interests.splice(interests.indexOf(deletedInterests[i]), 1);
-        }
-      }
-    }
-
-    if (addedInterestsLength) {
-      this.interests = [...interests, ...addedInterests];
-    }
-
+  saveChanges(): void {
+    this.interests = this.interestsToShow;
+    this.interestsService.saveChanges(this.changesInInterests);
     this.editMode = false;
-
-    console.log(this.interests);
+    this.validationMessageIsVisible = false;
   }
 
-  // Toggle editing mode and undo changes on exit
-  toggleEditMode() {
+  toggleEditMode(): void {
     this.editMode = !this.editMode;
-    this.unsavedAddedInterests = [];
-    this.unsavedDeletedInterests = [];
+    this.validationMessageIsVisible = false;
+
+    if (!this.editMode) {
+      this.interestsToShow = this.interests;
+      this.interestsToSave = [];
+      this.interestsToDelete = [];
+    }
   }
 
-  // Show hints on input filed in focus
-  onInputFocus() {
+  onInputFocus(): void {
     this.inputFieldFocus = true;
+    this.validationMessageIsVisible = true;
+    this.isInputValid = true;
+    this.getHints(this.typedInterest || '');
   }
 
-  onInputBlur() {
-    this.inputFieldFocus = false;
+  onInputBlur(): void {
+    setTimeout(() => {
+      this.inputFieldFocus = false;
+    }, 100);
+  }
+
+  distinctProfileOwner(): void {
+    if (localStorage.getItem('jwt_token')) {
+      this.currentUserId = parseInt(jwt_decode(localStorage.getItem('jwt_token')).id, 10);
+      this.interestsService.currentUserId = this.currentUserId;
+    }
+
+    (this.profileOwnerId === this.currentUserId) ? (this.editingIsForbidden = false) : (this.editingIsForbidden = true);
   }
 
 }

@@ -10,12 +10,6 @@ export class FooterComponent implements OnInit {
 
   @ViewChild('footer') elementView: ElementRef;
 
-  contacts = {
-    phones:['+38 012 345 67 8*','+38 012 345 67 8*', '+38 012 345 67 8*'],
-    address: 'Kyiv, Somestr str., 5',
-    mail: 'write@us.now'
-  };
-
   router: any;
 
   constructor(_router: Router, private windowService: WindowService) {

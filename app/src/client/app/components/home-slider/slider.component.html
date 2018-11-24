@@ -1,7 +1,7 @@
 <div class="row slider-block">
-  <div [ngClass]="_breads ? 'col-md-8 pr-2' : 'col-md-12'" class='d-none d-md-flex justify-content-center slider'>
+  <div [ngClass]="_breads ? 'col-md-8 pr-2' : 'col-md-12'" class='d-md-flex justify-content-center slider'>
     <div [id]="iden" class="carousel custom-carousel" data-ride="carousel">
-      <div class="carousel-inner">
+      <div class="carousel-inner height">
           <ng-content select=".carousel-item"></ng-content>
       </div>
       <a class="carousel-control-prev" [href]="'#'+iden" data-slide="prev">

@@ -22,7 +22,7 @@ export class WindowService {
     }
 
     get freeHeight(){
-        return  window.innerHeight - this._headerHeight - this._footerHeight;
+        return  window.innerHeight - this._headerHeight;
     }
 
     get videoHeight(): any{

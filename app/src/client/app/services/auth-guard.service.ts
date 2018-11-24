@@ -7,8 +7,10 @@ import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { UsersProfileService } from './users-profile.service';
 
-import { UserProfile } from '../models/user-profile'
-import {ModalForbiddenService} from './modal-forbidden.service';
+import { ModalForbiddenService } from './modal-forbidden.service';
+import {UserProfile} from '../models/user-profile';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -26,19 +28,17 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isLoggedInUser()) {
       let { userId } = this.authService.getLoggedInUser(),
         userRole;
-      this.usersProfileService.findByUserId(userId).subscribe(userProfile => {
-        userRole = (<UserProfile>userProfile).role;
-
-        console.log(userId, userRole);
-        this.usersService.verifyUserRole(userId, userRole).subscribe(isAuth => {
-          if (!isAuth) {
-            return true;
+      return this.usersProfileService.findByUserId(userId)
+        .map(userProfile => (<UserProfile>userProfile).role)
+        .switchMap(userRole => this.usersService.verifyUserRole(userId, userRole))
+        .switchMap(isAuth => {
+          if (isAuth) {
+            return Observable.of(true);
+          } else {
+            this.modalForbiddenService.sendState(true);
+            return Observable.of(false);
           }
-
-          this.modalForbiddenService.sendState(true);
-          return false;
         });
-      });
     } else {
       this.authService.setRedirectUrl(url);
       this.router.navigate([loginUrl]);

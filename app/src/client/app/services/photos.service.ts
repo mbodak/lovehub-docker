@@ -34,6 +34,7 @@ export class PhotosService {
 
   getAvatar(userId: number): Observable<Photo> {
     const url = `api/photos/users/${userId}/avatar`;
+    console.log(`accessing the ${url}`);
     return this.http.get<Photo>(url);
   }
 

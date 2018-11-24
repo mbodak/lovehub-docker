@@ -1,4 +1,4 @@
-# Angular NestJS Server Rendering
+# Angular NestJS - LoveHub
 
 - src/client <-- Angular 5+
 - src/server <-- NestJS
@@ -14,6 +14,25 @@
 
 ```bash
 npm install
+```
+### Requirements
+
+To run the application you need to have Postgres 9.6 and Mongodb 3.6.x.
+
+Create a config file `src/server/config/config.yml` with following content (change according to your ):
+
+```yaml
+mongo:
+  host: 'username:password@localhost'
+  port: 27017
+  db: 'lovehub'
+
+postgres:
+  host: 'localhost'
+  port: 5432
+  user: 'username'
+  pass: '1111'
+  db: 'lovehub'
 ```
 
 ### Development

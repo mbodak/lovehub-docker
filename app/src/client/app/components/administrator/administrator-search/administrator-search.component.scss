@@ -1,0 +1,198 @@
+/* Page layout styles */
+
+@mixin apply-flex($justify-content, $align-items, $align-content) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin remove-default-element-display {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin forbidTextSelection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+$color_1: #fff;
+
+$color_2: #ccc9c9;
+
+$color_3: #555b6e;
+
+$color_4: #282828;
+
+$color_5: #000;
+
+$color_6: #ccc;
+
+$color_7: #e6e6e6;
+
+$color_8: #adadad;
+
+$color_9: #193952;
+
+$color_10: #f1f1f1;
+
+$box-shadow_1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+$box-shadow_2: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
+
+/* Main section layout and styles */
+
+.main-section {
+  background-color: $color_10;
+  min-height: calc(100vh - 105px);
+  min-width: 920px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
+  z-index: 90;
+}
+
+.main-section-content {
+  background-color: $color_10;
+  position: absolute;
+  width: 100%;
+}
+
+@media screen and (max-width: 640px) {
+  .main-section {
+    height: auto;
+    max-width: 100%;
+    min-height: 100vh;
+    overflow: scroll;
+    position: relative;
+  }
+
+  .main-section-content {
+    height: auto;
+  }
+}
+
+.full-screen {
+  min-width: 0;
+  width: calc(100vw - (100vw - 100%));
+}
+
+.text {
+  font: 0.9rem "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 3px 0;
+}
+
+.heading {
+  color: $color_3;
+  font: bold 1.3rem 'Alegreya', serif;
+  margin: 5px 0;
+}
+
+/* Search section styles */
+
+.search-query {
+  margin: 30px 30px 0 30px;
+}
+
+.search-results {
+  @include apply-flex(space-between, flex-start, center);
+  background-color: $color_10;
+}
+
+.user-badge {
+  @include apply-flex(flex-start, flex-start, flex-start);
+  @include forbidTextSelection;
+  background-color: $color_1;
+  border-radius: 4px;
+  border: 1px solid $color_2;
+  box-shadow: $box-shadow_1;
+  height: 160px;
+  margin: 30px;
+  overflow: hidden;
+  position: relative;
+  width: 280px;
+}
+
+@media screen and (max-width: 640px) {
+  .user-badge {
+    marging: 10px;
+    width: 100%;
+  }
+}
+
+.photo-section {
+  @include apply-flex(center, flex-start, center);
+  width: 65px;
+}
+
+.photo-container {
+  @include apply-flex(center, center, center);
+  background: no-repeat center $color_1;
+  background-size: cover;
+  border-radius: 50%;
+  border: 1px solid $color_9;
+  color: $color_9;
+  cursor: pointer;
+  font-size: 1.7rem;
+  height: 50px;
+  margin: 10px 5px 5px 10px;
+  width: 50px;
+}
+
+@media screen and (max-width: 640px) {
+  .photo-container {
+    height: 35px;
+    width: 35px;
+  }
+}
+
+.user-information {
+  color: $color_5;
+  font-size: 0.8rem;
+  margin: 10px 10px 10px 15px;
+  width: 170px;
+}
+
+.button-container {
+  @include apply-flex(center, center, center);
+  width: 100%;
+}
+
+.button {
+  @include remove-default-element-display;
+  @include forbidTextSelection;
+  background-color: $color_1;
+  border-radius: 5px;
+  border: 1px solid $color_6;
+  color: $color_4;
+  font-size: 0.9rem;
+  height: 34px;
+  margin: 5px 5px 5px 10px;
+  width: 50px;
+  text-align: center;
+  transition: 0.05s ease-in-out;
+  vertical-align: middle;
+}
+
+.button:hover {
+  background-color: $color_7;
+  border-color: $color_8;
+  cursor: pointer;
+}
+
+.button:active {
+  background-color: $color_7;
+  border-color: $color_8;
+  box-shadow: $box-shadow_2;
+  padding: 0;
+}

@@ -11,7 +11,7 @@ export class ChatListService {
   async create(chatDto: ChatListDto): Promise<ChatList> {
     const chat = new ChatList();
     chat.userId1 = chatDto.userId1;
-    chat.userId1 = chatDto.userId1;
+    chat.userId2 = chatDto.userId2;
 
     return await chat.save();
   }

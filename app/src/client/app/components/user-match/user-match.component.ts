@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {MatchingService} from '../../services/matching.service';
-import {User} from '../../models/user';
+import {Component, OnInit} from '@angular/core';
+import {MatchingService, UsersAvatar} from '../../services/matching.service';
 import {Observable} from 'rxjs/Observable';
-import {UsersProfileService} from '../../services/users-profile.service';
-import {UserProfileDto} from "../../../../server/modules/api/users-profile/dto/user-profile.dto";
+import {Photo} from '../../models/photo';
+
 
 interface RadioParams {
   label: string;
@@ -15,31 +14,39 @@ interface RadioParams {
 })
 export class UserMatchComponent implements OnInit {
   title  = 'My first AGM project';
-  lat = 51.678418;
-  lng = 7.809007;
+  lat: number ;
+  lng: number ;
+
   radioParams: RadioParams[] = [
     {label: 'For  Date', value: 'DATE'},
     {label: 'For  Friend', value: 'FRIENDS'},
     {label: 'For  Party', value: 'PARTY'}
   ];
-  users$: any[];
-  // users$: Observable<User[]>;
+  photos: Photo[] = [ {userId: 0, _id: '', base64: '', avatar: false, name: ''} ];
+  users$: Observable<UsersAvatar[]>;
 
   constructor(private matchingService: MatchingService,
-              private usersProfileService: UsersProfileService) { }
-
-  ngOnInit() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => console.log(position));
-    }
+              ) {
+    this.findAll();
   }
 
-  filter(value) {
+
+  ngOnInit() {
+    //  if (navigator.geolocation) {
+    //  navigator.geolocation.getCurrentPosition(position => console.log(position));
+   // }
+  }
+  private getUserLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        });
+    }
+  }
+  findAll() {
     // this.users$ = this.matchingService.searchUsers(value);
     console.log('test');
-    this.matchingService.matchUsers(value).subscribe(users => {
-      this.users$ = users.rows;
-      console.log(users.rows);
-    });
+    this.users$ = this.matchingService.findAll();
   }
 }

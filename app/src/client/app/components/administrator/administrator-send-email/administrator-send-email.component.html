@@ -1,0 +1,149 @@
+<main class="main">
+  <app-administrator-navbar class="admin-navbar">
+  </app-administrator-navbar>
+
+  <app-administrator-header
+    class="header"
+    [ngClass]="{'header-full-screen': !mainSectionIsVisible}">
+  </app-administrator-header>
+
+  <section
+    class="main-section"
+    [ngClass]="{
+      'main-section-full-screen': !mainSectionIsVisible,
+      'full-screen': !mainSectionIsVisible
+    }">
+    <div
+      class="main-section-content"
+      [ngClass]="{'full-screen': !mainSectionIsVisible}">
+      <div class="send-mail-section">
+        <header class="email-header">
+          <i class="fas fa-at"></i>
+
+          <span class="header-title">Send E-mail</span>
+        </header>
+
+        <section class="compose-mail-section">
+          <form class="select-user-form" #selectUserForm="ngForm">
+            <div class="select-user-section form-group">
+              <input
+                class="input select-user form-control"
+                type="text"
+                name="Select user"
+                placeholder="Find and select user"
+                #interest="ngModel"
+                [(ngModel)]="typedUser"
+                (focus)="onInputFocus()"
+                (blur)="onInputBlur()"
+                (ngModelChange)="inputChange($event)">
+
+              <div>
+                <div>
+                  <button
+                    class="button submit-button text"
+                    title="Select user"
+                    (click)="selectUser(); false">
+                    Select
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    class="button submit-button text"
+                    title="Select all users"
+                    (click)="selectAllUsers(); false">
+                    Select all
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="hints"
+                [ngClass]="{'hidden': !inputFieldFocus || !hints || (hints.length === 0)}">
+                <div
+                  class="hints_option"
+                  *ngFor="let hint of hints"
+                  (click)="addUserFromHint(hint)">
+                  <span
+                    class="hints_option-description">
+                    {{
+                      (hint && hint.firstName)
+                        ? (hint.firstName + " (" + hint.concurrency[0] + ": " + hint.concurrency[1] + ")")
+                        : "-"
+                    }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="selected-users-list">
+            <div
+              class="selected-user"
+              *ngFor="let user of selectedUsers">
+              <span class="user_description text">
+                {{ (user && user.firstName) ? user.firstName : "-" }}
+              </span>
+
+              <button
+                class="button delete-user-button"
+                (click)="deleteUser(user)">
+                <i class="fas fa-times delete-icon"></i>
+              </button>
+            </div>
+
+            <div
+              class="selected-user"
+              *ngIf="allUsersSelected">
+              <span class="user_description text">
+                Send e-mail to all users
+              </span>
+
+              <button
+                class="button delete-user-button"
+                (click)="deselectAll()">
+                <i class="fas fa-times delete-icon"></i>
+              </button>
+            </div>
+          </div>
+
+          <form class="email-subject-form" #emailSubjectForm="ngForm">
+            <div>
+              <input
+                class="input email-subject form-control"
+                type="text"
+                name="Email subject"
+                placeholder="Write email subject"
+                #interest="ngModel"
+                [(ngModel)]="emailSubject">
+            </div>
+          </form>
+
+          <form class="email-text-form" #emailTextForm="ngForm">
+            <div class="email-text-section">
+              <textarea
+                class="textarea email-text form-control"
+                name="Email text"
+                placeholder="Write email body"
+                #interest="ngModel"
+                [(ngModel)]="emailBody">
+              </textarea>
+            </div>
+          </form>
+        </section>
+
+        <footer class="email-footer">
+          <button
+            class="button submit-button send-email-button text"
+            title="Send e-mail"
+            (click)="sendEmail(); false">
+            Send
+          </button>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <app-administrator-footer class="footer">
+  </app-administrator-footer>
+</main>

@@ -1,8 +1,23 @@
-<p>
-  contact works!
-</p>
+<div class="info">
+  <div class="container">
+    <div class="block project">
+        <p>This is a project developed by Kv-034.WebUI group in SoftServe Academy.</p>
+        <p>If you like it, feel free to leave some feedback or donate us.</p>
+        <div class="support">
+            <h3 class="subtitle">Support our work</h3>
+            <input type="button" value="Donate us" class="lh-btn donate butt">
+        </div>
+    </div>
+    <div class="block">
+      <h3 class="subtitle"> For technical support:</h3>
+      <ul class="contacts">
+        <li *ngFor="let tel of contacts.phones">
+          {{tel}}
+        </li>
+        <li>{{contacts.mail}}</li>
+        <li>{{contacts.address}}</li>
+      </ul>
+    </div>
 
-<small>REST API Pong from server:</small>
-<code>
-  {{ responseFromApi$ | async | json }}
-</code>
+  </div>
+</div>

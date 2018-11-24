@@ -41,32 +41,26 @@ $color_7: #20d6cd;
 
 $color_8: #d9e8f7;
 
-$color_9: #f6f6f6;
+$color_9: #ccc;
 
-$color_10: #ccc;
+$color_10: #e6e6e6;
 
-$color_11: #e6e6e6;
+$color_11: #adadad;
 
-$color_12: #adadad;
+$color_12: #ddd;
 
-$color_13: #ddd;
+$color_13: #0275d8;
 
-$color_14: #0275d8;
+$color_14: #193952;
 
-$color_15: #193952;
+$color_15: #f1f1f1;
 
-$color_16: #f1f1f1;
-
-$box-shadow_1: 3px 3px 7px 1px rgba(0, 0, 0, 0.2);
-
-$box-shadow_2: inset 5px 5px 9px rgba(0, 0, 0, 0.6);
-
-$box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
+$box-shadow_1: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
 /* Main section layout and styles */
 
 .main-section {
-  background-color: $color_16;
+  background-color: $color_15;
   min-height: calc(100vh - 105px);
   min-width: 920px;
   overflow-x: hidden;
@@ -77,7 +71,9 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .main-section-content {
+  background-color: $color_15;
   position: absolute;
+  width: 100%;
 }
 
 @media screen and (max-width: 640px) {
@@ -140,7 +136,7 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 /* Custom select form */
 
 .select-wrapper {
-  background-color: $color_11;
+  background-color: $color_10;
   border-radius: 5px;
   display: inline-block;
   position: relative;
@@ -207,7 +203,7 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   @include forbidTextSelection;
   background-color: $color_1;
   border-radius: 5px;
-  border: 1px solid $color_10;
+  border: 1px solid $color_9;
   color: $color_5;
   font-size: 1.2rem;
   height: 34px;
@@ -218,26 +214,33 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
   vertical-align: middle;
 }
 
+.profile-button {
+  font-size: 1.0rem;
+  height: 20px;
+  margin: 0;
+  min-width: 60px;
+}
+
 .button:hover {
-  background-color: $color_11;
-  border-color: $color_12;
+  background-color: $color_10;
+  border-color: $color_11;
   cursor: pointer;
 }
 
 .button:active {
-  background-color: $color_11;
-  border-color: $color_12;
-  box-shadow: $box-shadow_3;
+  background-color: $color_10;
+  border-color: $color_11;
+  box-shadow: $box-shadow_1;
   padding: 0;
 }
 
 .button-disabled,
 .button-disabled:hover,
 .button-disabled:active {
-  background-color: $color_11;
-  border-color: $color_12;
+  background-color: $color_10;
+  border-color: $color_11;
   box-shadow: none;
-  color: $color_12;
+  color: $color_11;
   cursor: default;
 }
 
@@ -278,7 +281,7 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .table-row:nth-of-type(2n) {
-  background-color: $color_11;
+  background-color: $color_10;
 }
 
 .table-row:hover {
@@ -321,7 +324,7 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .arrow-up {
-  border-bottom: 10px solid $color_12;
+  border-bottom: 10px solid $color_11;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   margin-bottom: 8px;
@@ -330,7 +333,7 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 .arrow-down {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 10px solid $color_12;
+  border-top: 10px solid $color_11;
 }
 
 .arrow-up:hover {
@@ -339,6 +342,10 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
 .arrow-down:hover {
   border-top: 10px solid $color_6;
+}
+
+.select-all-users-checkbox {
+  margin-left: 8px;
 }
 
 /* Users table pagination */
@@ -351,8 +358,8 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
 .pagination-element {
   @include apply-flex(center, center, center);
-  border: 1px solid $color_13;
-  color: $color_14;
+  border: 1px solid $color_12;
+  color: $color_13;
   height: 40px;
   margin: 0 0 0 -1px;
   transition: ease-in-out 0.05s;
@@ -360,13 +367,13 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .pagination-element:hover {
-  background-color: $color_13;
-  color: $color_15;
+  background-color: $color_12;
+  color: $color_14;
   cursor: pointer;
 }
 
 .pagination-element:hover .arrow {
-  border-color: $color_15;
+  border-color: $color_14;
 }
 
 .pagination-previous {
@@ -379,13 +386,13 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 
 .pagination-current {
   color: $color_1;
-  background-color: $color_14;
+  background-color: $color_13;
 
 }
 
 .pagination-current:hover {
   color: $color_1;
-  background-color: $color_14;
+  background-color: $color_13;
   cursor: default;
 }
 
@@ -400,7 +407,7 @@ $box-shadow_3: 0px 0px 0px 4px rgba(230, 230, 230, 1.0);
 }
 
 .arrow {
-  border: solid $color_14;
+  border: solid $color_13;
   border-width: 0 0.2rem 0.2rem 0;
   display: inline-block;
   padding: 0.25rem;

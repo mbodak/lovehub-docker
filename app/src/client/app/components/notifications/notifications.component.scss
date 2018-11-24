@@ -29,33 +29,29 @@
 
 $color_1: #193952;
 
-$color_2: #bf71ce;
+$color_2: #fff;
 
-$color_3: #fff;
+$color_3: #343a40;
 
-$color_4: #343a40;
+$color_4: #a9a9a9;
 
-$color_5: #a9a9a9;
+$color_5: #282828;
 
-$color_6: #282828;
+$color_6: #ccc;
 
-$color_7: #ccc;
+$color_7: #e6e6e6;
 
-$color_8: #e6e6e6;
+$color_8: #ef233c;
 
-$color_9: #adadad;
+$color_9: rgba(255, 255, 255, 0.65);
 
-$color_10: #ef233c;
-
-$color_11: rgba(255, 255, 255, 0.65);
-
-$color_12: rgba(169, 169, 169, 0.65);
+$color_10: rgba(169, 169, 169, 0.65);
 
 $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
 
 .main {
   @include forbidTextSelection;
-  background-color: $color_11;
+  background-color: $color_9;
   border-radius: 2px;
   bottom: 10px;
   box-shadow: $box-shadow_1;
@@ -88,16 +84,16 @@ $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
 
 .header {
   @include apply-flex(flex-end, center, center);
-  background-color: $color_12;
+  background-color: $color_10;
 }
 
 .button {
   @include forbidTextSelection;
   @include remove-default-element-display;
-  background-color: $color_11;
+  background-color: $color_9;
   border-radius: 50%;
-  border: 1px solid $color_7;
-  color: $color_4;
+  border: 1px solid $color_6;
+  color: $color_3;
   font-size: 1.0rem;
   height: 20px;
   margin: 3px;
@@ -107,16 +103,16 @@ $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
   vertical-align: middle;
   width: 20px;
   &:hover {
-    background-color: $color_8;
+    background-color: $color_7;
     box-shadow: $box-shadow_1;
-    color: $color_6;
+    color: $color_5;
     cursor: pointer;
   }
   &:active {
-    background-color: $color_8;
-    border-color: $color_5;
+    background-color: $color_7;
+    border-color: $color_4;
     box-shadow: $box-shadow_1;
-    color: $color_6;
+    color: $color_5;
     padding: 0;
   }
 }
@@ -127,7 +123,7 @@ $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
 
 .notification {
   @include apply-flex(space-between, center, center);
-  background-color: $color_7;
+  background-color: $color_6;
   border-radius: 2px;
   box-shadow: $box-shadow_1;
   flex-wrap: nowrap;
@@ -141,9 +137,9 @@ $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
 
 .photo-container {
   @include apply-flex(center, center, center);                    //TODO: remove
-  background-color: $color_3;                                     //TODO: remove
+  background-color: $color_2;                                     //TODO: remove
   border-radius: 50%;
-  border: 1px solid $color_3;
+  border: 1px solid $color_2;
   color: $color_1;                                                //TODO: remove
   font-size: 1.2rem;                                              //TODO: remove
   height: 35px;
@@ -186,12 +182,12 @@ $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
 .like {
   @include forbidTextSelection;
   @include apply-flex(center, center, center);
-  background-color: $color_5;
+  background-color: $color_4;
   border-radius: 50%;
   border: 1px solid transparent;
   bottom: 10px;
   box-shadow: $box-shadow_1;
-  color: $color_3;
+  color: $color_2;
   font-size: 1.5rem;
   height: 40px;
   overflow: hidden;
@@ -201,11 +197,11 @@ $box-shadow_1: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
   width: 40px;
   z-index: 1000;
   &:hover {
-    background-color: $color_3;
-    color: $color_10;
+    background-color: $color_2;
+    color: $color_8;
   }
   &:active {
-    background-color: $color_10;
-    color: $color_3;
+    background-color: $color_8;
+    color: $color_2;
   }
 }

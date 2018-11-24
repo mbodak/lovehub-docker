@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -13,14 +13,29 @@ import { LoggedInUser } from '../components/login/logged-in-user';
 
 @Injectable()
 export class AuthService {
+
   private token: string;
-  private redirectUrl: string = '/';
+  private redirectUrl: string;
   private loginUrl: string = '/login';
   private isLoggedIn: boolean = false;
   private isLoggedIn$ = new BehaviorSubject<boolean>(this.isLoggedIn);
   private loggedInUser: LoggedInUser;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.token = this.getSession();
+    if(this.token) {
+      if(!this.isTokenExpired()) {
+        this.loggedInUser = this.getLoggedInUserCredential();
+        this.setLoggedIn(true);
+      } else {
+        this.setLoggedIn(false);
+        this.logout();
+      }
+    } else {
+      this.setLoggedIn(false);
+    }
+  }
+  public isUserLoggedIn = this.isLoggedIn$.asObservable();
 
   sign(email: string, password: string): Observable<any> {
     return this.http.post<Response>('api/auth', { email: email, password: password })
@@ -30,9 +45,10 @@ export class AuthService {
         if(this.token) {
           this.setSession();
           this.loggedInUser = this.getLoggedInUserCredential();
+          this.redirectUrl = `/profile/${this.loggedInUser.userId}`;
           this.setLoggedIn(true);
         } else {
-          this.isLoggedIn = false;
+          this.setLoggedIn(false);
         }
 
         return {
@@ -59,8 +75,12 @@ export class AuthService {
     this.isLoggedIn = value;
   }
 
-  public isLoggedInUser(): Observable<boolean> {
+  public isLoggedInUser$(): Observable<boolean> {
     return this.isLoggedIn$;
+  }
+
+  public isLoggedInUser(): boolean {
+    return this.isLoggedIn;
   }
 
   public getRedirectUrl(): string {

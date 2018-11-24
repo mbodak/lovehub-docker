@@ -21,7 +21,7 @@
           <div class="general-information_section text">
             <div class="section-title">
               <i class="fas fa-users"></i>
-              <span>Total Users</span>
+              <span>Total Number of Users</span>
             </div>
 
             <div class="section-counter">
@@ -51,11 +51,11 @@
           <div class="general-information_section">
             <div class="section-title">
               <i class="far fa-clock"></i>
-              <span>Average Time</span>
+              <span>Average Time Registered</span>
             </div>
 
             <div class="section-counter">
-              <span>{{ (usersData.generalInformation) ? usersData.generalInformation.averageTimeSpent : 0 }} years</span>
+              <span>{{ (usersData.generalInformation) ? usersData.generalInformation.averageTimeSpent : 0 }}</span>
             </div>
 
             <div class="section-changes text">
@@ -81,7 +81,7 @@
           <div class="general-information_section">
             <div class="section-title">
               <i class="fas fa-female"></i>
-              <span>Total Females</span>
+              <span>Total Number of Females</span>
             </div>
 
             <div class="section-counter">
@@ -111,7 +111,7 @@
           <div class="general-information_section">
             <div class="section-title">
               <i class="fas fa-male"></i>
-              <span>Total Males</span>
+              <span>Total Number of Males</span>
             </div>
 
             <div class="section-counter">
@@ -142,7 +142,7 @@
         <div class="chart-container">
           <div class="chart-header">
             <i class="fas fa-venus-mars"></i>
-            <span>By gender</span>
+            <span>By Gender</span>
           </div>
 
           <div class="chart">
@@ -158,7 +158,7 @@
         <div class="chart-container">
           <div class="chart-header">
             <i class="fas fa-users"></i>
-            <span>By age</span>
+            <span>By Age</span>
           </div>
 
           <div class="chart">
@@ -176,23 +176,19 @@
         <div class="chart-container">
           <div class="chart-header">
             <i class="fas fa-stopwatch"></i>
-            <span>Site traffic</span>
+            <span>Registered Users per Month</span>
           </div>
 
           <div class="chart">
             <canvas baseChart
-              [datasets]="usersActivitiesChartData"
-              [labels]="usersActivitiesChartLabels"
-              [chartType]="lineChartType">
+                    [datasets]="usersNumberDynamicsChartData"
+                    [labels]="usersNumberDynamicsChartLabels"
+                    [colors]="usersNumberDynamicsChartColors"
+                    [chartType]="lineChartType">
             </canvas>
           </div>
         </div>
       </div>
-
-      <!-- For testing purposes only. TODO: move to user profile component -->
-      <app-notifications></app-notifications>
-      <!--<app-interests></app-interests>-->
-
     </div>
   </section>
 

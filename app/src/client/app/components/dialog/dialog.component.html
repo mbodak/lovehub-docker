@@ -1,37 +1,59 @@
-<div
-  class="d-flex flex-column h-100"
-  [ngClass]="!messages || !messages.length?'justify-content-between':'justify-content-end'"
-  >
-  <div *ngIf="!messages || !messages.length" class="d-flex justify-content-center">
-    <span class="default">
-      {{!messages
-        ? 'Choose user to start messaging'
-        : 'Type something to start messaging'}}
-    </span>
-  </div>
-  <div *ngIf="!!messages" class="message-list scrollbar">
-      <div 
-        *ngFor="let mess of messages" 
-        class="d-flex"
-        [ngClass]="mess.userId === userId?'justify-content-end':'justify-content-start'"
-      >
-        <span
-          class="message"
-          [ngClass]="mess.userId === userId?'right':'left'"
-          [innerHTML]="mess.text | multiline"
-        ></span>
+<div class="dialog-container">
+    <header *ngIf="(windowWidth < 576) && !!chat">
+        <input type="button" value="🡠 Back" class="back" (click)="goBack()"/>
+
+        <span class="name">{{chat.user.firstName+" "+ chat.user.lastName}}</span>
+        <a class="avatar-container" routerLink="../profile/{{chat.user.userId}}">
+          <img
+            [src]="!!chat && chat.user.avatar ? chat.user.avatar.base64: 'https://d30y9cdsu7xlg0.cloudfront.net/png/404950-200.png'"
+            [alt]="!!chat && chat.user.firstName"
+            class="avatar"
+          />
+        </a>
+      </header>
+      <div
+        class="d-flex flex-column h-100"
+        [ngClass]="!messages?'justify-content-center':'justify-content-end'"
+        >
+        <div *ngIf="!messages || !messages.length" class="d-flex justify-content-center">
+          <span class="default">
+            {{!messages
+              ? 'Choose user to start messaging'
+              : 'Type something to start messaging'}}
+          </span>
+        </div>
+        <div *ngIf="!!messages" class="message-list scrollbar" #scrollChat>
+          <div
+            *ngFor="let mess of messages"
+            class="d-flex message-container"
+            [ngClass]="setClasses(mess)"
+          >
+            <p
+              (click)="onSelect(mess)"
+              [class.selected] = "selectedMessage === mess"
+              class="message"
+              [ngClass]="setMesClasses(mess)"
+            >
+              <span class="message-text">{{mess.text}}</span>
+              <span class="date">{{mess.created | date:"HH:mm"}}</span>
+            </p>
+
+          </div>
+        </div>
+        <div *ngIf="!!messages && !selectedMessage">
+          <div class="input-group input-container">
+            <textarea
+              class="textarea"
+              rows="3"
+              placeholder="Type your message here..."
+              [(ngModel)]="text"
+              (keydown.enter)="sendMes()"
+            ></textarea>
+            <input type="button" value="Send" class="send" (click)="sendMes()" />
+          </div>
+        </div>
+        <div *ngIf="!!messages && selectedMessage">
+          <app-message-editor [message]="selectedMessage" (unSelect)="unSelect()"></app-message-editor>
+        </div>
       </div>
-  </div>
-  <div *ngIf="!!messages">
-      <div class="input-group input-container">
-        <textarea
-          class="textarea"
-          rows="3"
-          placeholder="Type your message here..."
-          [(ngModel)]="text"
-          (keydown.enter)="sendMes()"
-        ></textarea>
-        <input type="button" value="Send" class="send" (click)="sendMes()" />
-      </div>
-  </div>
 </div>

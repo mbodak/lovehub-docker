@@ -12,8 +12,12 @@
   width: 100%;
   border-radius: 25px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, .1);
-  background: #343a40;
+  background: rgba(52, 58, 64, 0.8);
   opacity: 2;
+}
+
+.carousel-control-next, .carousel-control-prev {
+  cursor: pointer;
 }
 
 .form-control {

@@ -7,34 +7,34 @@ export class HomepageController {
   getReasons() {
     return [
       {
-        image:'https://maxcdn.icons8.com/app/uploads/2017/05/Like-500.png',
-        title:'Lorem impum',
-        text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer '
+        image:'https://d30y9cdsu7xlg0.cloudfront.net/png/196302-200.png',
+        title:'Don’t leave anything blank.',
+        text:'A big mistake a lot of people make while putting their profile together, is not taking advantage of all the tools they have to show who they are.'
       },
       {
-        image:'https://maxcdn.icons8.com/app/uploads/2017/05/Like-500.png',
-        title:'Lorem impum',
-        text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+        image:'https://png.icons8.com/ios/1600/camera.png',
+        title:'Have a mix of photos',
+        text:'People with a full-body photos, sports outfit, an outdoors or vacation/travel photo get more incoming messages'
       },
       {
-        image:'https://maxcdn.icons8.com/app/uploads/2017/05/Like-500.png',
-        title:'Lorem impum',
-        text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+        image:'http://www.free-icons-download.net/images/talk-bubble-logo-icon-64647.png',
+        title:'Make it easy for people to talk to you.',
+        text:'Often after you’ve matched with someone, they’ll check out your profile to try and come up with something to say. '
       },
       {
-        image:'https://maxcdn.icons8.com/app/uploads/2017/05/Like-500.png',
-        title:'Lorem impum',
-        text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer '
+        image:'https://d30y9cdsu7xlg0.cloudfront.net/png/107561-200.png',
+        title:'Be honest. People LOVE it.',
+        text:'“Be open and honest about who are and what you want,”explained one dating site member. '
       },
       {
-        image:'https://maxcdn.icons8.com/app/uploads/2017/05/Like-500.png',
-        title:'Lorem impum',
-        text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+        image:'https://png.icons8.com/metro/1600/view-details.png',
+        title:'Add details',
+        text:'Instead of saying you love hiking, tell people your favorite hike. Instead of saying you like movies, tell them your favorite movie.'
       },
       {
-        image:'https://maxcdn.icons8.com/app/uploads/2017/05/Like-500.png',
-        title:'Lorem impum',
-        text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+        image:'http://cdn.onlinewebfonts.com/svg/img_297326.png',
+        title:'Be your wonderful, weird self',
+        text:'Whether you love grandma sweaters, tell corny dad jokes, or have read ever Harry Potter book over ten times, let people know. The oddball things about you, are what makes you who you are.'
       },
     ];
   }
@@ -44,22 +44,22 @@ export class HomepageController {
     return [
       {
         image:'https://www.w3schools.com/bootstrap4/la.jpg',
-        title:'Los Angeles',
-        text:'We had such a great time in LA!',
-        info: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        title:'Matching',
+        text:'Really like it!',
+        info: 'Well-designed and fun matchmaking service. The most important features like messaging and viewing other profiles are free.'
       },
       {
         image:'https://www.w3schools.com/bootstrap4/chicago.jpg',
-        title:'Chicago',
-        text:'Thank you, Chicago!',
-        info: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-      
+        title:'Friends',
+        text:'Friends',
+        info: 'I`m happy! Here I found so much interesting people who are my friends now'
+
       },
       {
         image:'https://www.w3schools.com/bootstrap4/ny.jpg',
-        title:'New York',
-        text:'We love the Big Apple!',
-        info: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        title:'Matching',
+        text:'Matching',
+        info: 'Nice features: likes and matching allows me to communicate with other only in twoside way'
       },
     ];
   }
@@ -68,20 +68,20 @@ export class HomepageController {
   getSlider(){
     return [
       {
-        image:'https://www.w3schools.com/bootstrap4/la.jpg',
-        title:'Los Angeles',
-        text:'We had such a great time in LA!'
+        image:'http://www.nextmashup.com/wp-content/uploads/2016/05/Discos-In-Delhi.jpg',
+        title:'Party',
+        text:''
       },
       {
-        image:'https://www.w3schools.com/bootstrap4/chicago.jpg',
-        title:'Chicago',
-        text:'Thank you, Chicago!'
+        image:'https://image.gala.de/21565476/uncropped-0-0/2c8e59e15b2fb78331464f76fbc003ef/eP/date.jpg',
+        title:'Relationship',
+        text:''
       },
       {
-        image:'https://www.w3schools.com/bootstrap4/ny.jpg',
-        title:'New York',
-        text:'We love the Big Apple!'
-      },
+        image:'https://statusmaza.com/wp-content/uploads/2018/01/Love-And-Friendship.jpg',
+        title:'Friendship',
+        text:''
+      }
     ];
   }
 }

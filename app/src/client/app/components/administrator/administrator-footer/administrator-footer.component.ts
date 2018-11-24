@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AdministratorService } from '../../../services/administrator.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-administrator-footer',
@@ -15,13 +16,18 @@ export class AdministratorFooterComponent implements OnInit {
 
   mainSectionIsVisible: boolean;
 
-  constructor(private administratorService: AdministratorService) {
+  constructor(private administratorService: AdministratorService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
     this.administratorService.navBarState.subscribe(data => {
       return this.mainSectionIsVisible = data;
     });
+  }
+
+  logOut(): void {
+    this.authService.logout();
   }
 
 }

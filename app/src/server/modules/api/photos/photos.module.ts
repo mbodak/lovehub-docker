@@ -10,5 +10,8 @@ import { MongodbModule } from '../mongodb/mongodb.module';
   components: [
     PhotosService, ...photosProviders,
   ],
+  exports: [
+    PhotosService
+  ]
 })
 export class PhotosModule {}
