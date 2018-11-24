@@ -1,0 +1,11 @@
+mongo:
+  host: 'localhost'
+  port: 27017
+  db: 'lovehub'
+
+postgres:
+  host: 'localhost'
+  port: 5432
+  user: 'lovehub'
+  pass: '123456'
+  db: 'lovehub'

@@ -39,4 +39,4 @@ testem.log
 Thumbs.db
 
 # config
-/src/server/config/config.yml
+# /src/server/config/config.yml
