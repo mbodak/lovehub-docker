@@ -11,21 +11,21 @@ export class WindowService {
     private _footerHeight = 0;
     private _freeHeight = 0;
 
-    constructor(){}
+    constructor() {}
 
-    set headerHeight(height){
+    set headerHeight(height) {
         this._headerHeight = height;
     }
 
-    set footerHeight(height){
+    set footerHeight(height) {
         this._footerHeight = height;
     }
 
-    get freeHeight(){
+    get freeHeight() {
         return  window.innerHeight - this._headerHeight;
     }
 
-    get videoHeight(): any{
+    get videoHeight(): any {
         return window.innerHeight - this._headerHeight;
     }
 }
