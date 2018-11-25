@@ -4,11 +4,14 @@
 
   <nav style="width: 98%">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active a" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mutual Fans
+      <a class="nav-item nav-link active a" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+        Mutual Fans
       </a>
-      <a class="nav-item nav-link a" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Favourites
+      <a class="nav-item nav-link a" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+        Favourites
       </a>
-      <a class="nav-item nav-link a" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Fans
+      <a class="nav-item nav-link a" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+        Fans
       </a>
     </div>
   </nav>
@@ -21,13 +24,13 @@
               justify-content-center justify-content-md-between
               align-items-start">
         <div class="p-2 mr-auto user-img" *ngFor="let avatar of avatars_1">
-          <img class="" [src]="avatar.base64" alt="Image">
+          <img class="" *ngIf="avatar && avatar.base64" [src]="avatar.base64" alt="Image">
           <div class="hidden-block">
             <i class="material-icons heart" title="unlike" (click)="dislike(avatar.userId)">thumb_down</i>
             <i class="material-icons chat" title="go to chat" [routerLink]="['/chat']">mode_comment</i>
           </div>
-          <div class="user-cred" *ngFor="let user of users">
-            <span>{{user.firstName}}</span>
+          <div class="user-cred" *ngFor="let user of users_1">
+            <span *ngIf="user && user.firstName">{{user.firstName}}</span>
           </div>
         </div>
       </div>
@@ -40,12 +43,12 @@
               justify-content-center justify-content-md-between
               align-items-start">
         <div class="p-2 mr-auto user-img" *ngFor="let avatar of avatars_2">
-          <img class="" [src]="avatar.base64" alt="Image">
+          <img class="" *ngIf="avatar && avatar.base64" [src]="avatar.base64" alt="Image">
           <div class="hidden-block">
             <i class="material-icons heart" title="unlike" (click)="dislike(avatar.userId)">thumb_down</i>
           </div>
           <div class="user-cred" *ngFor="let user of users_2">
-            <span>{{user.firstName}}</span>
+            <span *ngIf="user && user.firstName">{{user.firstName}}</span>
           </div>
         </div>
       </div>
@@ -58,12 +61,12 @@
               justify-content-center justify-content-md-between
               align-items-start">
         <div class="p-2 mr-auto user-img" *ngFor="let avatar of avatars_3">
-          <img class="" [src]="avatar.base64" alt="Image">
+          <img class="" *ngIf="avatar && avatar.base64" [src]="avatar.base64" alt="Image">
           <div class="hidden-block">
             <i class="material-icons heart" title="like" (click)="addLike(avatar.userId)">favorite_border</i>
           </div>
           <div class="user-cred" *ngFor="let user of users_3">
-            <span>{{vas}}</span>
+            <span *ngIf="user && user.firstName">{{user.firstName}}</span>
           </div>
         </div>
       </div>

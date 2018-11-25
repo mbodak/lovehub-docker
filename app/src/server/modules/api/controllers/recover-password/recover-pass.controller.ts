@@ -34,8 +34,8 @@ export class RecoverPassController {
     try {
       const { password } = body;
       const result = await this.recPassService.updateUserPassword(params.token, password);
-      const message = result ? {message: 'Password successfully changed'} :
-        {error: 'Something went wrong, password no changed'};
+      const message = result ? {message: 'Password successfully changed!'} :
+        {error: 'Something went wrong, password was not changed.'};
 
       res.status(HttpStatus.OK).send(message);
     } catch (error) {

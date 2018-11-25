@@ -1,13 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
-import { User } from '../../models/user';
-import { UserProfile } from '../../models/user-profile';
-import {IUserStorage} from '../../services/IUserStorage';
+import { IUserStorage } from '../../services/IUserStorage';
 import { Router } from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {ModalForbiddenService} from '../../services/modal-forbidden.service';
-import {ModalAuthService} from '../../services/modal-auth.service';
+import { AuthService } from '../../services/auth.service';
+import { ModalAuthService } from '../../services/modal-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +17,8 @@ export class LoginComponent implements OnInit {
   error = '';
   isNotAuth = false;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService,
+  constructor(private fb: FormBuilder,
+              private loginService: LoginService,
               @Inject('IUserStorage') private storage: IUserStorage,
               private authService: AuthService,
               private modalService: ModalAuthService,
@@ -31,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.modalService.getState().subscribe(state => {
       this.isNotAuth = state;
       setTimeout(() => this.isNotAuth = false, 5000);
-    })
+    });
   }
 
   initLoginForm(): void {
@@ -49,18 +47,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     if (!this.checkForm()) {
       return;
     }
-
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    console.log(this.loginForm.value);
-
     this.authService.sign(email, password).subscribe((response) => {
-      if(response.isLoggedIn) {
+      if (response.isLoggedIn) {
         const redirectUrl: string = this.authService.getRedirectUrl();
         this.onRedirect(redirectUrl);
       }
@@ -68,19 +62,14 @@ export class LoginComponent implements OnInit {
   }
 
   private checkForm(): boolean {
-
     if (this.loginForm.controls['email'].invalid) {
       this.error = 'That is not a valid email';
-
       return false;
     }
-
     if (this.loginForm.controls['password'].invalid) {
       this.error = 'The password field can not be empty ';
-
       return false;
     }
-
     return true;
   }
 

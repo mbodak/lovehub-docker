@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Chat from '../../models/chat';
 
 import { ChatService } from '../../services/chat.service';
@@ -45,7 +45,7 @@ export class ChatListComponent implements OnInit {
     };
   }
 
-  setLastMessStatus(){
+  setLastMessStatus() {
     const ownMessage = !!this.chat.lastMessage
       ? this.chat.lastMessage.userId === this.userId
       : false;

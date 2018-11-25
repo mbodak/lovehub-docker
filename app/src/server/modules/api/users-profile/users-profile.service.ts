@@ -3,11 +3,8 @@ import { UserProfile } from './user-profile.entity';
 import { Likes } from './likes.entity';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { LikeDto } from './dto/like.dto';
-import { PREFERENCE } from './preference';
-import { ORIENTATION } from './orientation';
-import {where} from 'sequelize';
 import { Model } from 'mongoose';
-import {UserProfileInterface} from "./user-profile.interface";
+import { UserProfileInterface } from './user-profile.interface';
 
 export interface FilteredUsersProfile {
   rows?: UserProfile[];

@@ -40,12 +40,13 @@
     </app-inline-edit>
 
     <div class="button-update" *ngIf="canUpdate">
-      <input type="button" (click)="updateUser()" value="Update" />
+      <button style="cursor: pointer; background: red" type="submit" (click)="updateUser()" class="btn btn-danger btn-block">U P D A T E</button>
     </div>
+
   </form>
 
   <div *ngIf="isSuccess" class="modal-success">
-    <span class="message">Information have been updated successfully!!!</span>
+    <span class="message">Information has been updated successfully!!!</span>
   </div>
 
 </div>

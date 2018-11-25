@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 import {
   AutoIncrement, BeforeCreate, Column, DataType, HasOne, Model, PrimaryKey, Table, HasMany, BelongsTo,
-  BelongsToMany, Length, Unique
+  BelongsToMany, Length, Unique, BeforeUpdate
 } from 'sequelize-typescript';
 import { UserProfile } from '../users-profile/user-profile.entity';
 
@@ -44,6 +44,5 @@ export class User extends Model<User> {
   public static async hashPassword(user: User, options: any) {
     user.password = crypto.createHmac('sha256', user.password).digest('hex');
   }
-
 }
 

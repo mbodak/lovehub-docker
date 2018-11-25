@@ -37,7 +37,8 @@ export class ResetPasswordComponent implements OnInit {
   initForm(): void {
     this.resetPassForm = this.fb.group({
       password: [null, [
-        Validators.required
+        Validators.required,
+        Validators.minLength(8)
         ]
       ],
       verify_password: [null, [
@@ -69,7 +70,7 @@ export class ResetPasswordComponent implements OnInit {
 
   checkForm(): boolean {
     if ( this.resetPassForm.controls['password'].invalid || this.resetPassForm.controls['verify_password'].invalid) {
-      this.error = 'All fields cannot be empty!';
+      this.error = 'Fields cannot be empty!';
 
       return false;
     }

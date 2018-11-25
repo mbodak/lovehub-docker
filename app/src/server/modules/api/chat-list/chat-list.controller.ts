@@ -25,7 +25,7 @@ export class ChatListController {
   @HttpCode(200)
   @Get(':id')
   async findById(@Param() params): Promise<any[]> {
-    const id = parseInt(params.id);
+    const id = parseInt(params.id, 10);
     const chats = await this.chatsService.findByUser(id);
 
     const fullChats = chats.map(async (chat) => {
