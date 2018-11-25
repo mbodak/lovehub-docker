@@ -90,7 +90,7 @@ import { AuthProfileGuardService } from './services/auth-profile-guard.service';
 import { ModalForbiddenService } from './services/modal-forbidden.service';
 import { MessageEditorComponent } from './message-editor/message-editor.component';
 import { ModalAuthService } from './services/modal-auth.service';
-
+import { NguiMapModule } from '@ngui/map';
 
 @NgModule({
   declarations: [
@@ -146,6 +146,11 @@ import { ModalAuthService } from './services/modal-auth.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAiekoph6xCh46f7RbPRoUNV3gtXWkPcUk'}),
+    RouterModule.forRoot(routes, {
+      useHash: false,
+      preloadingStrategy: PreloadAllModules,
+    }),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_KEY'
     }),

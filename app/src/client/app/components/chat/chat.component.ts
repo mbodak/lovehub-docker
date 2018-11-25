@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import Message from '../../models/message';
 import { WindowService } from '../../services/window.service';
 import { ChatService } from '../../services/chat.service';
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   height = 100;
   chats = [];
   chat: any;
@@ -26,11 +26,20 @@ export class ChatComponent implements OnInit {
 
 
   ngOnInit() {
-    this.chatService.currentChatChange.subscribe(chat => this.chat = chat);
+    this.chatService.currentChatChange.subscribe(chat => {
+      console.log('chat', chat);
+      this.chat = chat;
+    });
 
-    this.chatService.userlistUpdate.subscribe(data => this.chats = data);
+    this.chatService.userlistUpdate.subscribe(data => {
+      console.log('data', data);
+      this.chats = data;
+    });
 
-    this.chatService.showDialogsUpdate.subscribe(show => this.showDialogs = show);
+    this.chatService.showDialogsUpdate.subscribe(show => {
+      console.log('show', show);
+      this.showDialogs = show;
+    });
   }
 
   ngAfterViewInit() {

@@ -62,7 +62,6 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     if (this.myform.valid) {
-      console.log('Form Submitted!');
       this.user.name = this.name.value;
       this.user.email = this.email.value;
       this.user.password = this.password.value;
@@ -77,6 +76,7 @@ export class RegistrationComponent implements OnInit {
         this.userProfile.isActive = true;
         this.userProfile.registrationDate = Date.now();
         this.usersProfileService.registration(this.userProfile as UserProfile).subscribe();
+        console.log('Form Submitted!');
       });
       alert('Congratulation! You are registered!');
       this.myform.reset();

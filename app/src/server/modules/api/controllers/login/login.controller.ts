@@ -1,6 +1,6 @@
-import {Controller, Get, Post, Request, Response, Body, Query, HttpCode, UseFilters, Param} from '@nestjs/common';
+import { Controller, Get, Post, Request, Response, Body, Query, HttpCode, UseFilters, Param } from '@nestjs/common';
 import { User } from '../../users/user.entity';
-import {UsersService} from '../../users/users.service';
+import { UsersService } from '../../users/users.service';
 import { HttpExceptionFilter} from '../../../common/filters/http-exception.filter';
 
 @UseFilters(new HttpExceptionFilter())

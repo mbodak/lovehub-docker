@@ -1,8 +1,8 @@
-import {Module, NestModule, RequestMethod} from '@nestjs/common';
+import { Module, NestModule, RequestMethod } from '@nestjs/common';
 import { LoginController} from './login.controller';
 import { LoginService} from './login.service';
 import { LoginValidateService } from './login-validate.service';
-import {MiddlewaresConsumer} from '@nestjs/common/interfaces/middlewares';
+import { MiddlewaresConsumer } from '@nestjs/common/interfaces/middlewares';
 import { LoginMiddleware } from '../../../common/middlewares/login.middleware';
 import { usersProviders} from '../../users/users.providers';
 import { UsersService} from '../../users/users.service';

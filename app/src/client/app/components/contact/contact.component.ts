@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-contact',
@@ -10,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 export class ContactComponent implements OnInit {
 
   contacts = {
-    phones:['+38 012 345 67 8*','+38 012 345 67 8*', '+38 012 345 67 8*'],
-    address: 'Kyiv, Somestr str., 5',
-    mail: 'write@us.now'
+    phones: ['+38 095 447 48 12', '+38 067 236 45 54'],
+    address: 'Kyiv, Somestr Str., 228',
+    mail: 'feedback@gmail.com'
   };
 
   constructor() { }

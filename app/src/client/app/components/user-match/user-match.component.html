@@ -7,28 +7,27 @@
       </div>
       <div class="Matching__buttons">
         <div *ngFor="let radioParam of radioParams; let idx = index">
-          <input type="radio" class="radio-inline" id=idx name="matchingChoice" (change)="filter(radioParam.value)">
+          <input type="radio" class="radio-inline" id=idx name="matchingChoice" >
           <label for="idx">{{ radioParam.label }}</label>
         </div>
       </div>
       <div class="Profile__container">
-        <div class="profile" style="width:400px" *ngFor="let userwithava of users$ | async">
-          <img class="profile-img-top"
-               [src]="userwithava.avatar"
-               alt="profile image" style="width:100%">
-          <div class="profile-body">
-            <h4 class="profile-title">{{userwithava.userProfile.firstName}}</h4>
-            <p class="profile-text">{{userwithava.userProfile.lastName}}</p>
-            <a href="#" class="btn btn-primary">See Profile</a>
+        <div class="card" style="width: 18rem;" *ngFor="let userwithava of users$ | async">
+          <img class="card-img-top" [src]="userwithava.avatar" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{userwithava.userProfile.firstName}}</h5>
+            <p class="card-text">{{userwithava.userProfile.lastName}}</p>
+            <a href="#" class="btn btn-primary" [routerLink] = "['/chat']">Chat</a>
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-7">
       <div class="Map__container">
-        <!--<agm-map [latitude]="lat" [longtitute]="lng">-->
-          <!--<agm-marker [latitude]="lat" [longtitute]="lng"></agm-marker>-->
-        <!--</agm-map>-->
+        <ngui-map zoom="13" center="Brampton, Canada">
+          <img scr="http://croftylandv.tumblr.com/image/172892127101">
+          <marker *ngFor="let pos of positions" [position]="pos"></marker>
+        </ngui-map>
       </div>
     </div>
   </div>

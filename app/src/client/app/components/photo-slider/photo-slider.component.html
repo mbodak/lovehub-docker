@@ -25,7 +25,7 @@
 <div class="photo-carousel">
   <div class="cont-fluid">
     <div id="carouselExample" class="carousel" data-ride="carousel" data-interval="9000">
-      <div class="carousel-inner row w-100" role="listbox">
+      <div *ngIf="photos.length > 0" class="carousel-inner row w-100" role="listbox">
 
         <div class="carousel-item col-md-4 active">
           <img class="image rounded img-fluid d-block" [src]="(photos[0] && photos[0].base64) ? photos[0].base64 : ''">
@@ -41,11 +41,11 @@
         </div>
 
       </div>
-      <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+      <a *ngIf="photos.length > 3" class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
+      <a *ngIf="photos.length > 3" class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
         <span class="carousel-control-next-icon text-muted" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>

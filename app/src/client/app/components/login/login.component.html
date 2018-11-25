@@ -3,24 +3,24 @@
   <div *ngIf="isNotAuth" class="alert alert-danger">
     <span>Unable to found the user with the provided information.</span>
   </div>
-  <h2 class="title">Login</h2>
+  <h2 class="title mb-4">Login</h2>
   <div class="col-md-4 offset-md-4">
     <form [formGroup]="loginForm" (submit)="onSubmit()">
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
         <input type="email" class="form-control" id="email" formControlName="email" required
-        placeholder="Enter email: ">
+        placeholder="Enter your email">
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <a class="text-danger recover" routerLink="/forgot">Recover your Password</a>
+        <label for="password">Password:</label>
+        <a class="text-danger recover" routerLink="/forgot">Forgot Password?</a>
         <input type="password" class="form-control" id="password" formControlName="password" required
-        placeholder="Enter password: ">
+        placeholder="Enter your password">
       </div>
-      <button type="submit" class="btn btn-danger btn-block">Login</button>
+      <button type="submit" class="btn btn-danger btn-block mt-4">L O G I N</button>
       <h5 class="line-heading">
         <span>
-          Don`t have an account
+          Don`t have an account yet?
         </span>
       </h5>
       <button type="button" class="btn btn-outline-secondary btn-block" (click)="onRegisterRedirect()">

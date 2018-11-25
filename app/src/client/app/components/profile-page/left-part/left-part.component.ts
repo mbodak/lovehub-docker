@@ -26,7 +26,7 @@ interface UserRating {
 })
 export class LeftPartComponent implements OnInit {
 
-  profileMenu: object[];
+  profileMenu;
   userId: number;
   userIdUrl: number;
   isTrue = false;

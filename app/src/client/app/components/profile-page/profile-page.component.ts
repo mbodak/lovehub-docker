@@ -26,11 +26,8 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit() {
     this.condition = this.route.params.map(params => {
-      console.log(params);
       this.userIdUrl = parseInt(params['id'], 10);
       this.userId = parseInt(jwt_decode(localStorage.getItem('jwt_token')).id, 10);
-      console.log('userID', this.userId);
-      console.log('URLID', params['id']);
       return this.userIdUrl === this.userId;
     });
   }
@@ -38,18 +35,22 @@ export class ProfilePageComponent implements OnInit {
   addLike() {
     this.like.whoLike = this.userId;
     this.like.whatLike = this.userIdUrl;
-    this.likesService.addLike(this.like as Like).subscribe();
-    console.log('Like wrote');
-    this.likeMode = false;
+    this.likesService.addLike(this.like as Like).subscribe(res => {
+      this.likeMode = false;
+      console.log('Like wrote');
+    });
   }
 
   dislike() {
-    this.likesService.dislikeUser(this.userId, this.userIdUrl).subscribe();
-    this.likeMode = true;
+    this.likesService.dislikeUser(this.userId, this.userIdUrl).subscribe(res => {
+      this.likeMode = true;
+    });
   }
 
   getLikes() {
-    this.likesService.getLikes().subscribe(likes =>
-    this.likes = likes);
+    this.likesService.getLikes().subscribe(likes => {
+      this.likes = likes;
+      console.log('LLL', likes);
+    });
   }
 }

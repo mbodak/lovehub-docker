@@ -79,7 +79,7 @@ export class ChatService {
       }
 
       const updateChat = this.chats.find(chat => chat.chatId === chatId);
-      if (!!updateChat.lastMessage && updateChat.lastMessage.userId === this.userId){
+      if (!!updateChat.lastMessage && updateChat.lastMessage.userId === this.userId) {
         updateChat.lastMessage.read = true;
         this.userlistUpdate.next(this.chats);
       }

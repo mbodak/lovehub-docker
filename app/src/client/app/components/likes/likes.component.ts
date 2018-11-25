@@ -107,7 +107,7 @@ export class LikesComponent implements OnInit {
       result => {
         result[0].forEach(like1 => {
           result[1].forEach(like2 => {
-            if (like1 == like2) {
+            if (like1 === like2) {
               this.mutualLikes.push(like1);
             }
           });
@@ -127,7 +127,6 @@ export class LikesComponent implements OnInit {
   }
 
   getUsersName(arr: number[], users: any[]) {
-    users = [];
     arr.forEach(userid => {
       this.usersProfileService.findByUserId(userid).subscribe(user => {
         users.push(user);

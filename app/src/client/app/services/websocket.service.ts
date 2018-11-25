@@ -15,7 +15,7 @@ export class WebsocketService {
   }
 
   connect(event: string): Rx.Observable<any> {
-    if (!this.socket){
+    if (!this.socket) {
       this.createSocket();
     }
 

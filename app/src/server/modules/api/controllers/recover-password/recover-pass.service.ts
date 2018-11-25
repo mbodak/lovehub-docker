@@ -4,6 +4,7 @@ import {MailService} from '../../services/mail.service';
 import {User} from '../../users/user.entity';
 import {UsersService} from '../../users/users.service';
 import {TokenService} from '../../services/token.service';
+const crypto = require('crypto');
 
 @Component()
 export class RecoverPassService {
@@ -20,7 +21,7 @@ export class RecoverPassService {
       const token = await this.tokenService.generateToken();
       await this.tokenService.create(user.id, token);
       await this.mailService.sendRecoverPassEmail(email, token);
-      return {message: 'Mail was send.'};
+      return {message: 'Mail was sent.'};
     } else {
       return {error: 'User not found.'};
     }
@@ -31,13 +32,17 @@ export class RecoverPassService {
 
     if (isTokenValid) {
       const userToken = await this.tokenService.findTokenByValue(token);
-
-      await this.userService.updatePass(newPass, userToken.userId);
+      const password = await this.hashPassword(newPass);
+      await this.userService.updatePass(password, userToken.userId);
 
       return await this.tokenService.updateTokenStatus(token);
     } else {
       return null;
     }
+  }
+
+  async hashPassword(password: string) {
+    return crypto.createHmac('sha256', password).digest('hex');
   }
 
   async validate(token: string) {
